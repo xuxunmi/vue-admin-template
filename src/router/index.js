@@ -24,6 +24,7 @@ const routes = [
             {
                 path: '/user',
                 name: 'User',
+                component: { render: e => e('router-view') },
                 meta: {
                     title: '用户信息',
                     icon: 'el-icon-user-solid'
@@ -43,6 +44,7 @@ const routes = [
             {
                 path: '/system',
                 name: 'System',
+                component: { render: e => e('router-view') },
                 meta: {
                     title: '系统管理',
                     icon: 'el-icon-s-tools'
