@@ -107,18 +107,18 @@ export default {
                 });
         });
     },
-    post(url, data, config) {
+    post(url, data, contentType) {
         let setting = {};
-        if (config) {
+        if (contentType) {
             setting = {
-                'Content-Type': config
+                'Content-Type': contentType
             };
         }
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
                 url,
-                data: config ? data : qs.stringify(data),
+                data: contentType ? data : qs.stringify(data),
                 headers: setting
             })
                 .then(response => {
