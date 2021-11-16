@@ -71,6 +71,15 @@ const routes = [
         meta: {
             title: '登录'
         }
+    },
+    {
+        path: '/forget',
+        name: 'Forget',
+        component: () => import('@/views/Forget/index.vue'),
+        hidden: true,
+        meta: {
+            title: '忘记密码'
+        }
     }
 ];
 
