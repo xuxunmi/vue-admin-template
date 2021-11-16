@@ -13,7 +13,6 @@
                         style="position: relative"
                         v-model="forgerForm.code"
                         @blur="codeBlur"
-                        :autofocus="true"
                     ></el-input>
                     <el-button
                         style="position: absolute; top: 40px; right: 15px"
