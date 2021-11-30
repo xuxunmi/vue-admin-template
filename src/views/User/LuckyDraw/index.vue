@@ -121,7 +121,11 @@ export default {
                 if (this.times <= 0 && this.activeId === this.zhong) {
                     this.isStart = false;
                     clearInterval(this.timer);
-                    this.$message.success(`恭喜中了${this.zhong}`);
+                    this.$message({
+                        type: 'success',
+                        message: `恭喜中了${this.zhong}`,
+                        center: true
+                    });
                 }
             }, this.speed);
         }
