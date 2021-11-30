@@ -45,3 +45,6 @@ export function remove(key, isSession) {
         return false;
     }
 }
+
+// 使用
+// import { get as getStorage, set as setStrorage, remove as removeStorage } from '@/utils/storage.js';

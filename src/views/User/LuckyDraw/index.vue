@@ -197,7 +197,7 @@ export default {
         border: none;
         width: 100px;
         height: 100px;
-        left: 45%;
+        left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
         background: yellowgreen;

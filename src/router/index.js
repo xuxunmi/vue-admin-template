@@ -60,6 +60,27 @@ const routes = [
                         }
                     }
                 ]
+            },
+            {
+                path: '/echarts',
+                name: 'Echarts',
+                component: { render: e => e('router-view') },
+                meta: {
+                    title: 'Echarts图表',
+                    icon: 'el-icon-s-tools'
+                },
+                children: [
+                    {
+                        path: '/echarts/linepiechart',
+                        name: 'Linepiechart',
+                        component: () =>import('@/views/ECharts/LinePieChart/index.vue'),
+                        meta: {
+                            title: '折线饼图',
+                            icon: 'el-icon-s-custom'
+                        }
+                    }
+                ]
+
             }
         ]
     },

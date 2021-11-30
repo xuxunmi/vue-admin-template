@@ -1,3 +1,4 @@
+/* 样式初始化 */
 html,
 body {
     width: 100vw;
@@ -8,7 +9,29 @@ body {
     color: #2c3e50;
 }
 
-body {
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+p {
     margin:  0;
     padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* 解决级联选择器超出屏幕现象 */
+.el-cascader-panel{
+    height: 600px;
 }

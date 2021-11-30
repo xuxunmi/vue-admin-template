@@ -11,6 +11,15 @@ export function globalDesensitized(str) {
 }
 
 /**
+ * 处理手机号码脱敏 (中间四位换*)
+ * @param {String} mobile 手机号
+ */
+export function hideMobile(mobile) {
+    if (!mobile) return '';
+    return `${mobile.substr(0, 3)}****${mobile.substr(-4)}`;
+}
+
+/**
  * @time 时间单位转化
  * @param {String} transformType 转化类型 date：转成日期格式 其他转换成时间戳格式
  * @param {Number｜String} value 需被转化的时间戳/日期

@@ -9,11 +9,7 @@
                     <el-input v-model="forgerForm.phone"></el-input>
                 </el-form-item>
                 <el-form-item label="请输入验证码：" prop="code">
-                    <el-input
-                        style="position: relative"
-                        v-model="forgerForm.code"
-                        @blur="codeBlur"
-                    ></el-input>
+                    <el-input style="position: relative" v-model="forgerForm.code" @blur="codeBlur"></el-input>
                     <el-button
                         style="position: absolute; top: 40px; right: 15px"
                         type="text"
@@ -79,9 +75,23 @@ export default {
                 password: ''
             },
             rules: {
-                phone: [{ validator: validatePhone, trigger: 'blur' }],
+                phone: [
+                    { validator: validatePhone, trigger: 'blur' },
+                    {
+                        pattern: /^1[3456789][0-9]{9}$/,
+                        message: '手机号格式不正确',
+                        trigger: 'blur'
+                    }
+                ],
                 code: [{ validator: validateCode, trigger: 'blur' }],
-                password: [{ validator: validatePassword, trigger: 'blur' }]
+                password: [
+                    { validator: validatePassword, trigger: 'blur' },
+                    {
+                        pattern: /^[A-Za-z0-9]+$/,
+                        message: '密码只能是英文和数字组成',
+                        trigger: 'blur'
+                    }
+                ]
             },
             timeWaitLeft: 0,
             timer: 0,

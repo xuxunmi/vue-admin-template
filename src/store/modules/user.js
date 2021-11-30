@@ -5,18 +5,26 @@ const user = {
     namespaced: true,
     state: {
         // 保存token
-        token: getStorage('token', false) || null
+        token: getStorage('token', false) || null,
+        // 用户信息
+        userInfo: getStorage('userInfo', false) || {}
     },
     mutations: {
         SET_TOKEN(state, token) {
             state.token = token;
             setStrorage('token', token, false);
+        },
+        SET_USER_INFO(state, data) {
+            setStrorage('userInfo', data, false);
+            state.userInfo = data;
         }
     },
     actions: {
         setToken(content, payload) {
-            console.log(content);
             content.commit('SET_TOKEN', payload);
+        },
+        setUserInfo(content, payload) {
+            content.commit('SET_USER_INFO', payload);
         }
     }
 };
