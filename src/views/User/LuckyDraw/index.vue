@@ -1,48 +1,50 @@
 <template>
-    <div class="lucky-draw-page">
-        <ul class="box">
-            <li
-                v-for="item in data"
-                :key="item.id"
-                class="box-item"
-                :class="['item' + item.id, activeId === item.id ? 'active' : '']"
-            >
-                {{ item.id }}
-            </li>
-            <button class="btn" :disabled="isStart" @click="handleClick">GO</button>
-            <div class="left-point point-wrapper">
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-            </div>
-            <div class="right-point point-wrapper">
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-            </div>
-            <div class="top-point point-wrapper">
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-            </div>
-            <div class="bottom-point point-wrapper">
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-                <span class="point"></span>
-            </div>
-        </ul>
+    <div>
+        <div class="container">
+            <ul class="box">
+                <li
+                    v-for="item in data"
+                    :key="item.id"
+                    class="box-item"
+                    :class="['item' + item.id, activeId === item.id ? 'active' : '']"
+                >
+                    {{ item.id }}
+                </li>
+                <button class="btn" :disabled="isStart" @click="handleClick">GO</button>
+                <div class="left-point point-wrapper">
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                </div>
+                <div class="right-point point-wrapper">
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                </div>
+                <div class="top-point point-wrapper">
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                </div>
+                <div class="bottom-point point-wrapper">
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                    <span class="point"></span>
+                </div>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -134,7 +136,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lucky-draw-page {
+.container {
     margin: 100px auto;
     text-align: center;
     width: 360px;
@@ -146,8 +148,8 @@ export default {
     .box {
         border-radius: 10px;
         position: relative;
-        width: 320px;
-        height: 320px;
+        width: 360px;
+        height: 360px;
         background: rgb(250, 249, 246);
     }
     .left-point {
@@ -161,7 +163,7 @@ export default {
         position: absolute;
         top: 0;
         width: 20px;
-        height: 320px;
+        height: 360px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -230,38 +232,38 @@ export default {
         }
 
         &:nth-child(2) {
-            left: 110px;
+            left: 128px;
             top: 5px;
         }
 
         &:nth-child(3) {
-            left: 215px;
+            left: 252px;
             top: 5px;
         }
 
         &:nth-child(4) {
-            left: 215px;
-            top: 110px;
+            left: 252px;
+            top: 129px;
         }
 
         &:nth-child(5) {
-            left: 215px;
-            top: 215px;
+            left: 252px;
+            top: 252px;
         }
 
         &:nth-child(6) {
-            left: 110px;
-            top: 215px;
+            left: 128px;
+            top: 252px;
         }
 
         &:nth-child(7) {
             left: 5px;
-            top: 215px;
+            top: 252px;
         }
 
         &:nth-child(8) {
             left: 5px;
-            top: 110px;
+            top: 129px;
         }
     }
 }

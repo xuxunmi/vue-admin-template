@@ -48,7 +48,7 @@ function piechartOption(pieChartData, legendData) {
                     lineHeight: 18,
                     formatter: function (data) {
                         // console.log('data: ', data);
-                        return data.percent.toFixed(1) + '%';
+                        return data.percent.toFixed(2) + '%';
                     }
                 },
                 // 是否开启高亮后扇区的放大效果
