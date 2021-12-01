@@ -107,7 +107,7 @@ export default {
             axios({
                 method: 'get',
                 url,
-                params: data
+                data: data
             })
                 .then(response => {
                     resolve(response);
