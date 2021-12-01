@@ -28,55 +28,66 @@ axios.interceptors.request.use(
 // 响应拦截器器
 axios.interceptors.response.use(
     response => {
+        console.log('响应成功结果response: ', response);
         if (response.status == 200) {
             return Promise.resolve(response.data);
         } else {
-            return Promise.reject(response.data);
+            Message({
+                message: response.statusText,
+                type: 'error',
+                duration: 3 * 1000,
+                showClose: true
+            });
+            return Promise.reject(new Error(response.data || 'Error'));
+
         }
     },
     error => {
-        // if (error && error.response) {
-        //     switch (error.response.status) {
-        //         case 400:
-        //             error.message = '错误请求';
-        //             break;
-        //         case 401:
-        //             error.message = '未授权，请重新登录';
-        //             break;
-        //         case 403:
-        //             error.message = '拒绝访问';
-        //             break;
-        //         case 404:
-        //             error.message = '请求错误,未找到该资源';
-        //             break;
-        //         case 405:
-        //             error.message = '请求方法未允许';
-        //             break;
-        //         case 408:
-        //             error.message = '请求超时';
-        //             break;
-        //         case 500:
-        //             error.message = '服务器端出错';
-        //             break;
-        //         case 501:
-        //             error.message = '网络未实现';
-        //             break;
-        //         case 502:
-        //             error.message = '网络错误';
-        //             break;
-        //         case 503:
-        //             error.message = '服务不可用';
-        //             break;
-        //         case 504:
-        //             error.message = '网络超时';
-        //             break;
-        //         case 505:
-        //             error.message = 'http版本不支持该请求';
-        //             break;
-        //         default:
-        //             error.message = `连接错误${error.response.status}`;
-        //     }
-        // }
+        console.log('响应成功结果error: ', error);
+        if (error && error.response) {
+            switch (error.response.status) {
+                case 400:
+                    error.message = 'Bad Request 错误请求';
+                    break;
+                case 401:
+                    error.message = '未授权，请重新登录';
+                    break;
+                case 403:
+                    error.message = 'Forbidden 禁止访问';
+                    break;
+                case 404:
+                    error.message = 'Not Found 请求错误,未找到该资源';
+                    break;
+                case 405:
+                    error.message = 'Method Not Allowed 请求方法未允许';
+                    break;
+                case 408:
+                    error.message = 'Request Timeout 请求超时';
+                    break;
+                case 500:
+                    error.message = 'Internal Server Error 服务器端出错';
+                    break;
+                case 501:
+                    error.message = 'Not Implemented 网络未实现';
+                    break;
+                case 502:
+                    error.message = 'Bad Gateway 网关故障';
+                    break;
+                case 503:
+                    error.message = 'Service Temporarily Unavailable 服务不可用';
+                    break;
+                case 504:
+                    error.message = 'Gateway Time-out 网络超时';
+                    break;
+                case 505:
+                    error.message = 'HTTP Version Not Supported(不支持的HTTP版本)';
+                    break;
+                default:
+                    error.message = `连接错误${error.response.status}`;
+            }
+        } else {
+            error.message = '连接到服务器失败';
+        }
         if (error.response.data.code !== 200) {
             Message.error(error.response.msg);
             return false;
@@ -130,26 +141,31 @@ export default {
                 });
         });
     },
-    export(url, data, name) {
+    download(url, data) {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'get',
                 url: url,
-                params: data,
+                data: data,
                 responseType: 'blob'
             })
                 .then(res => {
-                    const blob = new Blob([res]);
-                    const filename = name;
-                    const a = document.createElement('a');
-                    const url = window.URL.createObjectURL(blob);
-                    a.href = url;
-                    a.download = filename;
-                    const body = document.getElementsByTagName('body')[0];
-                    body.appendChild(a);
-                    a.click();
-                    body.removeChild(a);
-                    window.URL.revokeObjectURL(url);
+                    const blob = new Blob([res.data]);
+                    const fileName = res.headers['content-disposition'].split('=')[1];
+                    if ('download' in document.createElement('a')) {
+                        // 非IE下载
+                        const elink = document.createElement('a');
+                        elink.download = fileName;
+                        elink.href = URL.createObjectURL(blob);
+                        const body = document.getElementsByTagName('body')[0];
+                        body.appendChild(elink);
+                        elink.click();
+                        URL.revokeObjectURL(url);
+                        body.removeChild(elink);
+                    } else {
+                        // IE10+下载
+                        navigator.msSaveBlob(blob, fileName);
+                    }
                     resolve(res);
                 })
                 .catch(err => {
