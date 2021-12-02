@@ -14,7 +14,7 @@ module.exports = {
   devServer: {
     https: false,
     open: false, // 是否自动启动浏览器
-    host: '127.0.0.1',
+    host: '0.0.0.0', // 允许任意电脑ip访问
     port: 8080,
     proxy: {
       '/api': {
