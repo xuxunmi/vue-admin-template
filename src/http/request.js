@@ -29,17 +29,16 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         console.log('响应成功结果response: ', response);
-        if (response.status == 200) {
+        if (response.data.code == 200) {
             return Promise.resolve(response.data);
         } else {
             Message({
-                message: response.statusText,
+                message: response.data.msg,
                 type: 'error',
                 duration: 3 * 1000,
                 showClose: true
             });
             return Promise.reject(new Error(response.data || 'Error'));
-
         }
     },
     error => {
@@ -107,7 +106,7 @@ export default {
             axios({
                 method: 'get',
                 url,
-                data: data
+                params: data
             })
                 .then(response => {
                     resolve(response);
