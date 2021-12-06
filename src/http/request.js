@@ -93,7 +93,7 @@ axios.interceptors.response.use(
         } else {
             error.message = HTTP_STATUS_CODE.default;
         }
-        Message({ message: `${error.message}`, type: 'error', duration: 3000 });
+        Message({ message: `${error.message}`, type: 'error', duration: 3000, center: true });
         return Promise.reject(error.response || error);
     }
 );
@@ -110,7 +110,6 @@ export default {
                     resolve(response);
                 })
                 .catch(err => {
-                    Message.error(JSON.stringify(err.message));
                     reject(err);
                 });
         });
@@ -133,7 +132,6 @@ export default {
                     resolve(response);
                 })
                 .catch(err => {
-                    Message.error(JSON.stringify(err.message));
                     reject(err);
                 });
         });
@@ -166,7 +164,6 @@ export default {
                     resolve(res);
                 })
                 .catch(err => {
-                    Message.error(JSON.stringify(err.message));
                     reject(err);
                 });
         });
