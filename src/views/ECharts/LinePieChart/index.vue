@@ -50,6 +50,10 @@ export default {
             // console.log('pieChartData: ', pieChartData);
             // console.log('legendData: ', legendData);
             chartsElement.setOption(piechartOption(pieChartData, legendData));
+            // 执行echarts自带的resize方法，即可做到让echarts图表自适应
+            window.addEventListener('resize', () => {
+                chartsElement.resize();
+            });
         },
 
         //折线图
@@ -59,7 +63,19 @@ export default {
             // console.log('今日曝光量yesterdayData: ', yesterdayData);
             // console.log('时间周期timeCycle: ', timeCycle);
             chartsElement.setOption(lineChartOption(todayData, yesterdayData, timeCycle, timeType));
+            // 执行echarts自带的resize方法，即可做到让echarts图表自适应
+            window.addEventListener('resize', () => {
+                chartsElement.resize();
+            });
         }
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', () => {
+            let lineChart = this.initEchart('lineChart');
+            let pieChart = this.initEchart('pieChart');
+            lineChart.resize();
+            pieChart.resize();
+        });
     }
 };
 </script>
