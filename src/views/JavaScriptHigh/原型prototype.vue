@@ -74,6 +74,8 @@ eg：
 5. instanceof是如何判断的？
     * 表达式：A instanceof B
     * 如果B函数的显示原型对象在A对象的原型链上，返回true，否则返回false
+
+   Function是通过new自己产生的实例
 eg：
 案例1：
     function Foo(){};
@@ -81,4 +83,33 @@ eg：
     console.log(f1 instanceof Foo); // true
     console.log(f1 instanceof Object); // true
 
-6. Function是通过new自己产生的实例
+案例2：
+    console.log(Object instanceof Function); // true
+    console.log(Object instanceof Object); // true
+    console.log(Function instanceof Function); // true
+    console.log(Function instanceof Object); // true
+
+    function Foo() {};
+    console.log(Function instanceof Foo); // false
+
+6. 变量和函数声明提升
+    * 变量声明提升： 通过var声明的变量，在定义语句之前就可以访问到值，值为undefined
+eg: 
+    var a = 1;
+    function fn(){
+        console.log(a);
+        var a = 2
+    }
+    fn(); // undefined
+
+    console.log(b); // undefined 变量提升
+    var b = 3;
+
+    f(); // 函数提升
+    function f() {
+        console.log('f()');
+    }
+
+    * 函数声明提升：通过function声明的函数，在之前就可以直接调用，值为函数定义
+eg: 
+
