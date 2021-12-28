@@ -37,7 +37,7 @@ axios.interceptors.response.use(
                 message: response.data.msg,
                 type: 'error',
                 duration: 3 * 1000,
-                showClose: true
+                center: true
             });
             return Promise.reject(new Error(response.data || 'Error'));
         }
@@ -93,7 +93,12 @@ axios.interceptors.response.use(
         } else {
             error.message = HTTP_STATUS_CODE.default;
         }
-        Message({ message: `${error.message}`, type: 'error', duration: 3000, center: true });
+        Message({
+            message: `${error.message}`,
+            type: 'error',
+            duration: 3000,
+            center: true
+        });
         return Promise.reject(error.response || error);
     }
 );

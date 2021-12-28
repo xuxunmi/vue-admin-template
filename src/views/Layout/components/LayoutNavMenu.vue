@@ -50,14 +50,16 @@ export default {
     data() {
         return {};
     },
-    mounted() {
-        console.log('this.$router.options.routes[0].children: ', this.$router.options.routes[0].children);
+    watch: {
+        // 监听路由，打开相对应的侧边导航
+        $route(to) {
+            this.setActivePathIndex(to.path);
+        }
     },
     computed: {
         // 当前激活路由
         activePathIndex() {
             const path = this.$route.path;
-            console.log('path: ', path);
             return path;
         },
         // 静态路由
@@ -68,7 +70,14 @@ export default {
             return this.$store.state.isCollapse;
         }
     },
+    mounted() {
+        console.log('this.$router.options.routes[0].children: ', this.$router.options.routes[0].children);
+    },
     methods: {
+        // 设置当前激活的导航栏
+        setActivePathIndex(path) {
+            this.activePathIndex = path;
+        },
         handleOpen(key, keyPath) {
             console.log(key, keyPath);
         },
