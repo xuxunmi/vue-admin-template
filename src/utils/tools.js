@@ -34,16 +34,29 @@ export function formatTime(value, transformType) {
 }
 
 /**
- * 数组去重
+ * 数组去重方法1
  * @param {Array} arr
  * @returns {Array}
  */
 export function uniqueArr(arr) {
     if (!Array.isArray(arr)) {
-        console.log('type error!');
-        return;
+        throw new Error('type error!');
     }
     return Array.from(new Set(arr));
+}
+
+/**
+ * 数组去重方法2
+ * @param {arr} Array
+ */
+export function uniqueArray(arr) {
+    if (!Array.isArray(arr)) {
+        throw new Error('type error!');
+    }
+    if (arr.length == 1) {
+        return arr;
+    }
+    return [...new Set(arr)];
 }
 
 /**
@@ -161,4 +174,65 @@ export function idNumCheck(str) {
         return true;
     }
     return false;
+}
+
+// 保留到小数点以后n位
+// 保留小数点以后几位，默认2位
+export function cutNumber(number, digit = 2) {
+    if (typeof number != 'number') {
+        number = Number(number);
+    }
+    return Number(number.toFixed(digit));
+}
+
+/**
+ * 复制内容到剪贴板
+ * @param {value} 复制内容
+ */
+export function copyToBoard(value) {
+    const element = document.createElement('textarea');
+    document.body.appendChild(element);
+    element.value = value;
+    element.select();
+    if (document.execCommand('copy')) {
+        document.execCommand('copy');
+        document.body.removeChild(element);
+        return true;
+    }
+    document.body.removeChild(element);
+    return false;
+}
+// 使用：copyToBoard('复制内容...');
+// 原理：
+//     创建一个textare元素并调用select()方法选中
+//     document.execCommand('copy')方法，拷贝当前选中内容到剪贴板。
+
+/**
+ *深拷贝
+ * @export
+ * @param {obj} Object
+ * @returns
+ */
+export function deepCopy(obj) {
+    if (typeof obj != 'object') {
+        return obj;
+    }
+    if (obj == null) {
+        return obj;
+    }
+    return JSON.parse(JSON.stringify(obj));
+}
+
+/**
+ * 生成随机id/随机字符串
+ * @param {*} length
+ * @param {*} chars
+ * //第一个参数指定位数，第二个字符串指定字符，都是可选参数，如果都不传，默认生成8位
+ */
+export function randomString(length, chars) {
+    chars = chars || '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    length = length || 8;
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
 }
