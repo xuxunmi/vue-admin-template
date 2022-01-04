@@ -14,6 +14,7 @@
                         v-model="loginForm.password"
                         placeholder="密码"
                         autocomplete="new-password"
+                        show-password
                     ></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -35,6 +36,7 @@
 export default {
     name: 'Login',
     data() {
+        // 自定义校验
         const validateUsername = (rule, value, callback) => {
             if (!value) {
                 callback(new Error('请输入用户名'));
@@ -65,7 +67,6 @@ export default {
     },
     methods: {
         handleLoginBtn() {
-            console.log('登录按钮...');
             this.$refs.loginForm.validate(valid => {
                 if (valid) {
                     this.loading = true;

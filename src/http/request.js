@@ -30,7 +30,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         console.log('响应成功结果response: ', response);
-        if (response.data.code == 200) {
+        if (response.data.code === 200) {
             return Promise.resolve(response.data);
         } else {
             Message({
