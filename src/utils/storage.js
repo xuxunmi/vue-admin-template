@@ -46,5 +46,37 @@ export function remove(key, isSession) {
     }
 }
 
+/**
+ * 遍历所有localStorage or sessionStorage
+ * @param {Function} callback 回调函数
+ * @param {Boolean} isSession 为true，获取sessionStorage；否则获取localStorage
+ */
+export function forEach(callback, isSession) {
+    try {
+        Object.keys(isSession ? window.sessionStorage : window.localStorage).forEach(function (key, index) {
+            var value = get(key, isSession);
+            callback(key, value, index);
+        });
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
+/**
+ * 获取localStorage or sessionStorage中所有key的数组
+ * @param {Boolean} isSession 为true，获取sessionStorage；否则获取localStorage
+ * @returns {Array}
+ */
+export function keys(isSession) {
+    try {
+        return Object.keys(isSession ? window.sessionStorage : window.localStorage).map(function (key) {
+            return key;
+        });
+    } catch (error) {
+        return [];
+    }
+}
+
 // 使用
 // import { get as getStorage, set as setStrorage, remove as removeStorage } from '@/utils/storage.js';

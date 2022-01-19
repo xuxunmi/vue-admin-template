@@ -1,4 +1,4 @@
-/* 样式初始化 */
+/* css样式初始化 */
 html,
 body {
     width: 100vw;
@@ -16,19 +16,48 @@ h3,
 h4,
 h5,
 h6,
+ol,
 ul,
 li,
+dl,
+dt,
+dd,
+th,
+td,
+form,
+input,
+button,
+textarea,
 p {
     margin:  0;
     padding: 0;
+    outline: none;
 }
 
-ul {
+textarea { 
+    resize:none;
+}
+
+i, 
+em, 
+strong { 
+    font-style:normal;
+}
+
+ol,
+ul,
+li {
     list-style: none;
 }
 
 a {
     text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+
+a:hover { 
+    transition: .1s;
 }
 
 /* 解决级联选择器超出屏幕现象 */

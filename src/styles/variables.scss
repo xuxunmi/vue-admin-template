@@ -21,3 +21,12 @@ $border-color-lighter: #f3f3f3;
 $background-color-base: #f5f6fa;
 $background-color-light: #f7f8fa;
 $background-color-lighter: #fbfbfc;
+
+//minxi
+@mixin background($url, $position: center, $size: auto) {
+    background-image: url($url);
+    background-origin: 0 0;
+    background-size: $size;
+    background-position: $position;
+    background-repeat: no-repeat;
+}
