@@ -208,19 +208,36 @@ export function copyToBoard(value) {
 //     document.execCommand('copy')方法，拷贝当前选中内容到剪贴板。
 
 /**
+ *浅拷贝
+ * @export
+ * @param {obj} Object
+ * @returns
+ */
+export function clone(obj) {
+    let newObj = {};
+    //遍历oldObj中每个属性
+    for (let key in obj) {
+        //每遍历一个属性，都给newObj强行赋值一个相同的属性名，相同属性值的新属性
+        newObj[key] = obj[key];
+    }
+    //返回新对象
+    return newObj;
+}
+
+/**
  *深拷贝
  * @export
  * @param {obj} Object
  * @returns
  */
 export function deepCopy(obj) {
-    if (typeof obj != 'object') {
-        return obj;
+    let newObj = Array.isArray(obj) ? [] : {};
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            newObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key];
+        }
     }
-    if (obj == null) {
-        return obj;
-    }
-    return JSON.parse(JSON.stringify(obj));
+    return newObj;
 }
 
 /**
