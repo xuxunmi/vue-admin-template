@@ -214,6 +214,7 @@ export function copyToBoard(value) {
  * @returns
  */
 export function shallowCopy(obj) {
+    if (!obj || typeof obj !== 'object') return;
     let newObj = {};
     //遍历oldObj中每个属性
     for (let key in obj) {
@@ -231,6 +232,7 @@ export function shallowCopy(obj) {
  * @returns
  */
 export function deepCopy(obj) {
+    if (!obj || typeof obj !== 'object') return;
     let newObj = Array.isArray(obj) ? [] : {};
     for (let key in obj) {
         if (obj.hasOwnProperty(key)) {
