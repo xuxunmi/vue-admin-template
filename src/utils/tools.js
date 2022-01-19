@@ -213,7 +213,7 @@ export function copyToBoard(value) {
  * @param {obj} Object
  * @returns
  */
-export function clone(obj) {
+export function shallowCopy(obj) {
     let newObj = {};
     //遍历oldObj中每个属性
     for (let key in obj) {
