@@ -14,16 +14,17 @@ const routes = [
         children: [
             {
                 path: '/home',
-                name: 'Home',
+                name: '首页',
                 component: () => import('@/views/Home/index.vue'),
                 meta: {
                     title: '首页',
-                    icon: 'el-icon-s-home'
+                    icon: 'el-icon-s-home',
+                    requireAuth: true
                 }
             },
             {
                 path: '/user',
-                name: 'User',
+                name: '用户信息',
                 component: { render: e => e('router-view') },
                 meta: {
                     title: '用户信息',
@@ -36,14 +37,15 @@ const routes = [
                         component: () => import('@/views/User/LuckyDraw/index.vue'),
                         meta: {
                             title: '抽奖功能',
-                            icon: 'el-icon-present'
+                            icon: 'el-icon-present',
+                            requireAuth: true
                         }
                     }
                 ]
             },
             {
                 path: '/system',
-                name: 'System',
+                name: '系统管理',
                 component: { render: e => e('router-view') },
                 meta: {
                     title: '系统管理',
@@ -56,14 +58,15 @@ const routes = [
                         component: () => import('@/views/SystemManage/UserManage/index.vue'),
                         meta: {
                             title: '用户管理',
-                            icon: 'el-icon-s-custom'
+                            icon: 'el-icon-s-custom',
+                            requireAuth: true
                         }
                     }
                 ]
             },
             {
                 path: '/echarts',
-                name: 'Echarts',
+                name: 'Echarts图表',
                 component: { render: e => e('router-view') },
                 meta: {
                     title: 'Echarts图表',
@@ -76,7 +79,8 @@ const routes = [
                         component: () =>import('@/views/ECharts/LinePieChart/index.vue'),
                         meta: {
                             title: '折线饼图',
-                            icon: 'el-icon-s-custom'
+                            icon: 'el-icon-s-custom',
+                            requireAuth: true
                         }
                     }
                 ]
@@ -109,17 +113,23 @@ const router = new VueRouter({
 });
 
 // router.beforeEach((to, from, next) => {
-//     const isLogin = store.getters.token; // 是否登录
-//     if (isLogin) {
-//         if (to.path === '/login') {
-//             next({ path: '/home' });
+//     // 判断该路由是否需要登录权限
+//     if (to.meta.requireAuth) {
+//         // 是否有token
+//         let isLogin = store.getters.token || '';
+//         if (isLogin) {
+//             next();
+//         } else {
+//             if (to.path !== '/login' && to.path !== '/forgot') {
+//                 next({
+//                     path: '/login',
+//                     query: { redirect: to.fullPath }
+//                 });
+//             }
 //         }
 //     } else {
-//         if (to.path !== '/login' && to.path !== '/forget') {
-//             next({ path: '/login' });
-//         }
+//         next();
 //     }
-//     next();
 // });
 
 export default router;
