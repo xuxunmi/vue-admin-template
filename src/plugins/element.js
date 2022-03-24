@@ -3,6 +3,7 @@ import Vue from 'vue';
 import {
     Dialog,
     Button,
+    ButtonGroup,
     Pagination,
     Menu,
     Submenu,
@@ -36,7 +37,8 @@ import {
     Radio,
     RadioGroup,
     RadioButton,
-    Cascader
+    Cascader,
+    Tooltip
 } from 'element-ui';
 
 Vue.use(Dialog);
@@ -60,6 +62,7 @@ Vue.use(Avatar);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(Button);
+Vue.use(ButtonGroup);
 Vue.use(Select);
 Vue.use(Option);
 Vue.use(Upload);
@@ -73,6 +76,7 @@ Vue.use(Radio);
 Vue.use(RadioGroup);
 Vue.use(RadioButton);
 Vue.use(Cascader);
+Vue.use(Tooltip);
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;

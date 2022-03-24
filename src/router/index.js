@@ -49,7 +49,7 @@ const routes = [
                 component: { render: e => e('router-view') },
                 meta: {
                     title: '系统管理',
-                    icon: 'el-icon-s-tools'
+                    icon: 'el-icon-s-management'
                 },
                 children: [
                     {
@@ -58,7 +58,7 @@ const routes = [
                         component: () => import('@/views/SystemManage/UserManage/index.vue'),
                         meta: {
                             title: '用户管理',
-                            icon: 'el-icon-s-custom',
+                            icon: 'el-icon-set-up',
                             requireAuth: true
                         }
                     }
@@ -79,12 +79,32 @@ const routes = [
                         component: () =>import('@/views/ECharts/LinePieChart/index.vue'),
                         meta: {
                             title: '折线饼图',
-                            icon: 'el-icon-s-custom',
+                            icon: 'el-icon-set-up',
                             requireAuth: true
                         }
                     }
                 ]
-
+            },
+            {
+                path: '/process',
+                name: '流程设计',
+                component: { render: e => e('router-view') },
+                meta: {
+                    title: '流程管理',
+                    icon: 'el-icon-s-operation'
+                },
+                children: [
+                    {
+                        path: '/process/design',
+                        name: 'Design',
+                        component: () =>import('@/views/Process/Design/index.vue'),
+                        meta: {
+                            title: '流程设计',
+                            icon: 'el-icon-set-up',
+                            requireAuth: true
+                        }
+                    }
+                ]
             }
         ]
     },

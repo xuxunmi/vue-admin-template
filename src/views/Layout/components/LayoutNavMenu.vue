@@ -58,9 +58,12 @@ export default {
     },
     computed: {
         // 当前激活路由
-        activePathIndex() {
-            const path = this.$route.path;
-            return path;
+        activePathIndex: {
+            get() {
+                const path = this.$route.path;
+                return path;
+            },
+            set() {}
         },
         // 静态路由
         routers() {
