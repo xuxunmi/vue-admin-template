@@ -12,9 +12,7 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 
-// // 流程设计器全局样式
-// import '@/components/Bpmn/css/vue-bmpn.css';
-
+// 阻止启动生产消息
 Vue.config.productionTip = false;
 
 // vue-devtools 浏览器开发调试
