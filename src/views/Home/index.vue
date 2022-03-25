@@ -1,6 +1,6 @@
 <template>
     <div class="home-page">
-        <canvas id="myClock" width="300" height="300"></canvas>
+        <canvas id="myClock" ref="myClock" width="300" height="300"></canvas>
         <div class="time">北京时间：{{ nowTime }}</div>
     </div>
 </template>
@@ -41,7 +41,10 @@ export default {
     methods: {
         // 时钟
         clock() {
-            const clk = document.getElementById('myClock');
+            // 获取canvas元素
+            // const clk = document.getElementById('myClock');
+            // 使用refs引用指向DOM元素
+            const clk = this.$refs.myClock;
             if (clk.getContext) {
                 const width = (clk.width = 300);
                 const ctx = clk.getContext('2d');
