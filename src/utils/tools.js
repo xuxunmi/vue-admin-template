@@ -235,8 +235,12 @@ export function deepCopy(obj) {
     if (!obj || typeof obj !== 'object') return;
     let newObj = Array.isArray(obj) ? [] : {};
     for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            newObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key];
+        // 新版本的ESLint使用了禁止直接调用 Object.prototypes 的内置属性开关
+        // if (obj.hasOwnProperty(key)) {
+        //     newObj[key] = typeof obj[key] === 'object' ? deepCopy(obj[key]) : obj[key];
+        // }
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+            newObj[key] = typeof obj[key] === 'object' ? deepCopy(obj[key]) : obj[key];
         }
     }
     return newObj;
@@ -255,3 +259,16 @@ export function randomString(length, chars) {
     for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
     return result;
 }
+
+/**
+ * 动态插入css
+ */
+
+export const dynamicCSS = url => {
+    const link = document.createElement("link");
+    link.type = "text/css";
+    link.rel = "stylesheet";
+    link.href = url;
+    const head = document.getElementsByTagName("head")[0];
+    head.appendChild(link);
+};
