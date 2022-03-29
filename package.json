@@ -17,7 +17,9 @@
     "qrcode": "^1.5.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "vxe-table": "^3.5.2",
+    "xe-utils": "^3.5.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -29,6 +31,7 @@
     "autoprefixer": "^9.8.6",
     "babel-eslint": "^10.1.0",
     "babel-plugin-component": "^1.1.1",
+    "babel-plugin-import": "^1.13.3",
     "compression-webpack-plugin": "^9.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",

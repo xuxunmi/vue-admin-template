@@ -13,8 +13,15 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 
 import { dynamicCSS } from '@/utils/tools.js';
-import * as urls from "@/config/env";
+// import * as urls from "@/config/env";
 import { iconfontUrl, iconfontVersion } from "@/config/env";
+
+// 全局引入 vxe-table 表格
+import 'xe-utils';
+import VXETable from 'vxe-table';
+import 'vxe-table/lib/style.css';
+
+Vue.use(VXETable)
 
 // 阻止启动生产消息
 Vue.config.productionTip = false;
@@ -28,9 +35,9 @@ Vue.config.devtools = true;
 //     Vue.prototype[key] = urls[key];
 // });
 
-// 动态加载阿里云字体库
+// 动态加载阿里云矢量图库
 iconfontVersion.forEach(ele => {
-    console.log(iconfontUrl.replace("$key", ele));
+    // console.log(iconfontUrl.replace("$key", ele));
     dynamicCSS(iconfontUrl.replace("$key", ele));
 });
 
