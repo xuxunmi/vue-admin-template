@@ -64,18 +64,18 @@ export default {
             return element.id === '__implicitroot';
         },
         handleModeler() {
-            // const _this = this;
             this.modeler.on('root.added', e => {
                 let element = e.element;
                 if (this.isImplicitRoot(element)) return;
                 this.element = element;
                 // console.log('this.element: ', this.element);
             });
-            // this.modeler.on('commandStack.changed', () => {
-            //     _this.modeler.saveXML({ format: true }, function (err, xml) {
-            //         _this.$emit('updateXml', xml);
-            //     });
-            // });
+            this.modeler.on('commandStack.changed', () => {
+                this.modeler.saveXML({ format: true }, (err, xml) => {
+                    if (err) return console.error(err);
+                    this.$emit('updateXml', xml);
+                });
+            });
             // 流程元素选中事件
             this.modeler.on('selection.changed', e => {
                 const element = e.newSelection[0];

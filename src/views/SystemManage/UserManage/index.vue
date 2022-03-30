@@ -125,7 +125,7 @@ export default {
             const $table = this.$refs.vxeTableRef;
             const newRow = {
                 name: '新数据',
-                date: XEUtils.toDateString(new Date(), 'yyyy-MM-dd')
+                date: XEUtils.toDateString(new Date(), 'yyyy-MM-dd HH:ss:mm')
             };
             $table.insert(newRow).then(({ row }) => $table.setActiveRow(row));
         },
