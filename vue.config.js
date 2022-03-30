@@ -1,7 +1,11 @@
 // const webpack = require('webpack')
-// const path = require('path')
+const path = require('path')
 // 压缩插件
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
+
+const resolve = dir => {
+    return path.join(__dirname, dir)
+};
 
 module.exports = {
     // 静态文件基本路径
@@ -40,6 +44,21 @@ module.exports = {
                 }
             }
         }
+    },
+    css: {
+        loaderOptions: {
+            sass: {
+                // 配置全局样式变量
+            }
+        }
+    },
+    chainWebpack: config => {
+        // 路径重命名
+        config.resolve.alias
+          .set('components', resolve('src/components'))
+          .set('views', resolve('src/views'))
+          .set('assets', resolve('src/assets'))
+          .set('api', resolve('src/api'))
     },
     configureWebpack: config => {
         if (process.env.NODE_ENV === 'production') {
