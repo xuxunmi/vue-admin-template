@@ -76,7 +76,7 @@ const routes = [
                     {
                         path: '/echarts/linepiechart',
                         name: 'Linepiechart',
-                        component: () =>import('@/views/ECharts/LinePieChart/index.vue'),
+                        component: () => import('@/views/ECharts/LinePieChart/index.vue'),
                         meta: {
                             title: '折线饼图',
                             icon: 'el-icon-set-up',
@@ -97,7 +97,7 @@ const routes = [
                     {
                         path: '/process/design',
                         name: 'Design',
-                        component: () =>import('@/views/Process/Design/index.vue'),
+                        component: () => import('@/views/Process/Design/index.vue'),
                         meta: {
                             title: '流程设计',
                             icon: 'el-icon-set-up',

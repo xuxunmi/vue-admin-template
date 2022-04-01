@@ -1,14 +1,14 @@
 <template>
     <div class="process-panel-page">
         <el-form ref="localProcessFormData" :model="localProcessFormData" label-width="90px">
-            <el-form-item label="流程ID">
-                <el-input v-model="localProcessFormData.key" @input="updateId"></el-input>
+            <el-form-item label="流程ID：">
+                <el-input size="mini" v-model="localProcessFormData.key" @input="updateId"></el-input>
             </el-form-item>
-            <el-form-item label="流程名称">
-                <el-input v-model="localProcessFormData.name" @input="updateName"></el-input>
+            <el-form-item label="流程名称：">
+                <el-input size="mini" v-model="localProcessFormData.name" @input="updateName"></el-input>
             </el-form-item>
-            <el-form-item label="流程描述">
-                <el-input v-model="localProcessFormData.description" @input="updateDesc"></el-input>
+            <el-form-item label="流程描述：">
+                <el-input size="mini" v-model="localProcessFormData.descriptor" @input="updateDescriptor"></el-input>
             </el-form-item>
         </el-form>
     </div>
@@ -20,18 +20,15 @@ export default {
     props: {
         processData: {
             type: Object,
-            default: () => {},
-            required: true
+            default: () => {}
         },
         modeler: {
             type: Object,
-            default: () => {},
-            required: true
+            default: () => {}
         },
         element: {
             type: Object,
-            default: () => {},
-            required: true
+            default: () => {}
         }
     },
     data() {
@@ -43,14 +40,14 @@ export default {
         }
     },
     methods: {
-        updateId(name) {
-            this.modeler.get('modeling').updateProperties(this.element, { id: name });
+        updateId(id) {
+            this.modeler.get('modeling').updateProperties(this.element, { id });
         },
         updateName(name) {
-            this.modeler.get('modeling').updateProperties(this.element, { name: name });
+            this.modeler.get('modeling').updateProperties(this.element, { name });
         },
-        updateDesc(name) {
-            let doc = this.modeler.get('bpmnFactory').create('bpmn:Documentation', { text: name });
+        updateDescriptor(desc) {
+            let doc = this.modeler.get('bpmnFactory').create('bpmn:Documentation', { text: desc });
             this.modeler.get('modeling').updateProperties(this.element, { documentation: [doc] });
         }
     }

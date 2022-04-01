@@ -1,5 +1,5 @@
 <template>
-    <div class="bpmn-panel">
+    <div class="bpmn-panel-page">
         <el-tabs v-model="activeName" @tab-click="handleClick" :stretch="true">
             <el-tab-pane label="节点属性" name="node">
                 <node-property-panel
@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import nodePropertyPanel from './NodePropertyPanel.vue';
-import processPropertyPanel from './ProcessPropertyPanel.vue';
+import nodePropertyPanel from './NodePropertyPanel';
+import processPropertyPanel from './ProcessPropertyPanel';
 
 export default {
     name: 'bpmnPanel',
@@ -64,78 +64,63 @@ export default {
             return element.id === '__implicitroot';
         },
         handleModeler() {
+            // const _this = this;
             this.modeler.on('root.added', e => {
                 let element = e.element;
                 if (this.isImplicitRoot(element)) return;
                 this.element = element;
                 // console.log('this.element: ', this.element);
             });
+            // 发生任意可撤销/恢复操作时触发，可用来实时更新xml
             this.modeler.on('commandStack.changed', () => {
-                this.modeler.saveXML({ format: true }, (err, xml) => {
-                    if (err) return console.error(err);
-                    this.$emit('updateXml', xml);
-                });
+                try {
+                    const result = this.modeler.saveXML();
+                    const { xml } = result;
+                    if (xml) {
+                        this.$emit('updateXml', xml);
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
             });
-            // 流程元素选中事件
+            // 监听选中元素变化时，返回新选中的元素对象
             this.modeler.on('selection.changed', e => {
                 const element = e.newSelection[0];
                 if (!element) return;
-                this.modifyActiveName(element);
                 this.handleFormData(element);
             });
-            // 流程元素改变事件
+            // 监听元素发生改变并更改完成
             this.modeler.on('element.changed', e => {
                 const { element } = e;
-                if (!element) {
-                    return;
-                }
+                if (!element) return;
                 this.handleFormData(element);
             });
-            // 流程元素点击事件
+            // 监听元素单击事件
             this.modeler.on('element.click', e => {
                 const { element } = e;
-                if (element.type == this.modeler._definitions.rootElements[0].$type) {
-                    this.modifyActiveName(0);
-                } else {
-                    this.modifyActiveName(1);
-                    if (element.type == 'bpmn:UserTask') {
-                        let _businessObject = element.businessObject;
-                        if (_businessObject.assignee) {
-                            this.formData.userType = 'assignee';
-                            this.formData.assignee = _businessObject.assignee;
-                        }
-                    }
-                }
+                this.handleFormData(element);
             });
-        },
-        modifyActiveName(element) {
-            let activeName = 'node';
-            if (!element) {
-                activeName = 'process';
-            }
-            this.activeName = activeName;
         },
         handleFormData(element) {
             // console.log('element: ', element);
             if (!element.id) return;
-            let { businessObject } = element;
+            let businessObject = element.businessObject;
             this.formData = {
-                nodeType: element.type,
-                nodeId: businessObject.id,
-                nodeName: businessObject.name,
-                candidateGroups: businessObject.$attrs.candidateGroups,
-                sequenceFlow: businessObject.conditionExpression ? businessObject.conditionExpression.body : '',
+                type: element.type,
+                ...element.businessObject,
+                ...element.businessObject.$attrs,
                 userType: businessObject.$attrs.userType,
-                assignee: businessObject.$attrs.assignee,
                 candidateUsers: businessObject.$attrs.candidateUsers
                     ? businessObject.$attrs.candidateUsers.split(',')
-                    : []
+                    : [],
+                sequenceFlow: businessObject.conditionExpression ? businessObject.conditionExpression.body : ''
             };
             // console.log('this.formData: ', this.formData);
             this.nodeElement = element;
             // console.log('this.nodeElement: ', this.nodeElement);
         },
         modifyFormData(data) {
+            console.log('data: ', data);
             this.formData.assignee = data.assignee;
             this.formData.userType = data.userType;
         }
@@ -144,7 +129,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bpmn-panel {
+.bpmn-panel-page {
     width: 275px;
     border: 1px solid #eeeeee;
     padding: 0 5px;

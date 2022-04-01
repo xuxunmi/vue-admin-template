@@ -32,6 +32,7 @@
                     size="mini"
                     icon="el-icon-refresh-right"
                     :class="!canRedo ? 'default-undo' : ''"
+                    :disabled="!canRedo"
                     @click="handleRedo"
                 ></el-button>
             </el-tooltip>
@@ -77,31 +78,34 @@ export default {
             this.$emit('handleExportSvg');
         },
         // 保存草稿
-        saveProcessDraft() {
-            let xmlData = new Promise(resovle => {
-                // console.log('_xml: ', _xml);
-                this.modeler.saveXML((err, xml) => {
-                    if (err) return console.error(err);
-                    resovle(xml);
-                });
+        async saveProcessDraft() {
+            let xmlData = await new Promise(resovle => {
+                try {
+                    const result = this.modeler.saveXML();
+                    resovle(result);
+                } catch (err) {
+                    console.log(err);
+                }
             }).catch(err => {
                 console.log(err);
             });
-            let svgData = new Promise(resovle => {
-                this.modeler.saveSVG((err, svg) => {
-                    // console.log('_svg: ', _svg);
-                    if (err) return console.error(err);
-                    resovle(svg);
-                });
+            let svgData = await new Promise(resovle => {
+                try {
+                    const result = this.modeler.saveSVG();
+                    resovle(result);
+                } catch (err) {
+                    console.log(err);
+                }
             }).catch(err => {
                 console.log(err);
             });
             Promise.all([xmlData, svgData]).then(result => {
-                let [_xml, _svg] = result;
+                let [_xmlData, _svgData] = result;
                 let data = {
-                    xmlStr: _xml,
-                    svgStr: _svg
+                    xmlStr: _xmlData.xml,
+                    svgStr: _svgData.svg
                 };
+                // console.log('data: ', data);
                 this.$emit('handleSaveProcessDraft', data);
             });
         },

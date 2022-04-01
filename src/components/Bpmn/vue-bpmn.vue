@@ -156,25 +156,31 @@ export default {
             filename = filename.substr(0, filename.indexOf('"'));
             return filename;
         },
-        // 处理保存BPMN
-        handleExportBpmn() {
-            this.bpmnModeler.saveXML({ format: true }, (err, xml) => {
-                if (err) return console.error(err);
-                // 获取文件名
-                const { filename, href, data } = this.setEncoded('BPMN', xml);
+        // 处理下载保存BPMN
+        async handleExportBpmn() {
+            try {
+                const result = await this.bpmnModeler.saveXML();
+                const { xml } = result;
+                let { filename, href, data } = this.setEncoded('BPMN', xml);
+                console.log('filename: ', filename);
+                console.log('href: ', href);
+                console.log('data: ', data);
                 this.download({ filename, href, data });
-            });
+            } catch (err) {
+                console.log(err);
+            }
         },
-        // 处理保存svg图片
-        handleExportSvg() {
-            this.bpmnModeler.saveSVG({ format: true }, (err, svg) => {
-                if (err) return console.error(err);
-                const { filename, href, data } = this.setEncoded('SVG', svg);
-                // console.log('filename: ', filename);
-                // console.log('href: ', href);
-                // console.log('data: ', data);
+        // 处理下载保存svg图片
+        async handleExportSvg() {
+            try {
+                const result = await this.bpmnModeler.saveSVG();
+                console.log('result: ', result);
+                const { svg } = result;
+                let { filename, href, data } = this.setEncoded('SVG', svg);
                 this.download({ filename, href, data });
-            });
+            } catch (err) {
+                console.log(err);
+            }
         },
         // 处理导入BPMN文件
         handleImportBpmn(data) {
@@ -188,7 +194,7 @@ export default {
             data.name = initData.name;
             this.$emit('processSave', data);
         },
-        // 处理创建新流程
+        // 处理创建新流程图
         handleCreateNewProcess() {
             let processId = new Date().getTime();
             this.initTemplate = templateXml.initTemplate(processId);
