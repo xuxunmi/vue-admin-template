@@ -222,6 +222,7 @@ export default {
 
 <style lang="scss" scoped>
 .home-page {
+    margin-top: 50px;
     text-align: center;
     .time {
         margin-top: 20px;

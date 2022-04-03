@@ -2,13 +2,8 @@
 const env = process.env;
 const baseUrl = '';
 // iconfont图标库
-// at.alicdn.com/t/font_3282173_hyq46e72ua.css
-const iconfontVersion = ['3282173_5tvbzdtoaee'];
+//at.alicdn.com/t/font_3282173_rjs6gopcwol.css
+const iconfontVersion = ['3282173_rjs6gopcwol'];
 const iconfontUrl = `//at.alicdn.com/t/font_$key.css`;
 
-export {
-    baseUrl,
-    iconfontUrl,
-    iconfontVersion,
-    env
-}
+export { baseUrl, iconfontUrl, iconfontVersion, env };

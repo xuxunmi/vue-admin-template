@@ -30,7 +30,10 @@ import flowableModdle from './data/flowable.json';
 export default {
     name: 'VueBpmn',
     props: {
-        product: String
+        product: {
+            typeof: String,
+            default: ''
+        }
     },
     components: {
         'bpmn-header': bpmnHeader,
@@ -106,6 +109,7 @@ export default {
             }
         },
         setEncoded(type, data) {
+            //encodeURIComponent解决中文乱码
             const encodedData = encodeURIComponent(data);
             if (data) {
                 if (type === 'XML') {
