@@ -77,6 +77,7 @@ export default {
             this.createNewDiagram(this.initTemplate);
         },
         async createNewDiagram(xml) {
+            // 这种方法已被废弃， 建议使用 try { } catch (e) { } 方式
             // this.bpmnModeler.importXML(xml, err => {
             //     if (err) {
             //         this.$message({

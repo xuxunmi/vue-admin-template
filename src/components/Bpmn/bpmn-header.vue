@@ -111,7 +111,7 @@ export default {
         downloadSvg() {
             this.$emit('handleExportSvg');
         },
-        // 保存草稿
+        // 保存流程草稿
         async saveProcessDraft() {
             let xmlData = await new Promise(resovle => {
                 try {
