@@ -1,10 +1,10 @@
 // const webpack = require('webpack')
-const path = require('path')
+const path = require('path');
 // 压缩插件
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 const resolve = dir => {
-    return path.join(__dirname, dir)
+    return path.join(__dirname, dir);
 };
 
 module.exports = {
@@ -31,10 +31,7 @@ module.exports = {
         proxy: {
             '/api': {
                 // 请求前添加的路径，会代替target网址请求
-                // target: 'http://192.168.0.119:8080/',
-                target: 'http://192.168.11.46:8085/', // w 代理服务器地址
-                // target: 'http://192.168.11.56:82/', //g 代理服务器地址
-                // target: 'http://192.168.11.236:39002/', // t 代理服务器地址
+                target: 'http://192.168.11.46:8085/', // 代理服务器地址
                 changeOrigin: true, // 是否跨域
                 ws: true, // 是否启用websockets
                 secure: false, // 使用的是http协议设为false，https协议设为true
@@ -55,10 +52,10 @@ module.exports = {
     chainWebpack: config => {
         // 路径重命名
         config.resolve.alias
-          .set('components', resolve('src/components'))
-          .set('views', resolve('src/views'))
-          .set('assets', resolve('src/assets'))
-          .set('api', resolve('src/api'))
+            .set('components', resolve('src/components'))
+            .set('views', resolve('src/views'))
+            .set('assets', resolve('src/assets'))
+            .set('api', resolve('src/api'));
     },
     configureWebpack: config => {
         if (process.env.NODE_ENV === 'production') {

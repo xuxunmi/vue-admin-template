@@ -1,23 +1,52 @@
 import axios from 'axios';
 import qs from 'qs';
+import Vue from 'vue';
+import http from 'http';
+import https from 'https';
 import { Message } from 'element-ui';
+Vue.prototype.$message = Message;
 // import { get as getStorage } from '@/utils/storage.js'
 // import router from '@/router/index.js';
 import store from '@/store/index.js';
 import { HTTP_STATUS_CODE } from './httpErrorCode.js';
 
-axios.defaults.baseURL = process.env.NODE_ENV == 'production' ? '/' : '/api';
+// axios.defaults.baseURL = process.env.NODE_ENV == 'production' ? '/' : '/api';
+// axios.defaults.headers = {
+//     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+// };
 
-axios.defaults.headers = {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-};
+// 创建axios实例
+const service = axios.create({
+    baseURL: process.env.NODE_ENV == 'production' ? '/' : '/api',
+    headers: {
+        get: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+        },
+        post: {
+            'Content-Type': 'application/json;charset=utf-8'
+        }
+    },
+    // 跨域是否带Token
+    withCredentials: true,
+    // 响应的数据格式 json / blob /document /arraybuffer / text / stream
+    responseType: 'json',
+    // 超时设置
+    timeout: 5 * 1000,
+    // 用于node.js
+    httpAgent: new http.Agent({
+        keepAlive: true
+    }),
+    httpsAgent: new https.Agent({
+        keepAlive: true
+    })
+});
 
 // 请求拦截器
-axios.interceptors.request.use(
+service.interceptors.request.use(
     config => {
         const token = store.getters.token || '';
         if (token) {
-            config.headers.Authorization = token;
+            config.headers['Authorization'] = 'Bearer ' + token;
         }
         return config;
     },
@@ -27,7 +56,7 @@ axios.interceptors.request.use(
 );
 
 // 响应拦截器器
-axios.interceptors.response.use(
+service.interceptors.response.use(
     response => {
         console.log('响应成功结果response: ', response);
         if (response.data.code === 200) {
