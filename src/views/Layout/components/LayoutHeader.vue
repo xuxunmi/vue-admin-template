@@ -8,7 +8,7 @@
 </template>
 
 <script>
-// import { remove as removeStorage } from '@/utils/storage.js';
+import { remove as removeStorage } from '@/utils/storage.js';
 export default {
     name: 'LayoutHeader',
     computed: {
@@ -22,8 +22,8 @@ export default {
         },
         // 退出登录
         logout() {
-            // this.$store.dispatch('user/setToken', null);
-            // removeStorage('token', false);
+            this.$store.dispatch('user/setToken', null);
+            removeStorage('token', true);
             this.$message({
                 type: 'success',
                 message: '退出成功',

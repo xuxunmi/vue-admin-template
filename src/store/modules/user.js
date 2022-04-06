@@ -21,6 +21,7 @@ const user = {
     },
     actions: {
         setToken(content, payload) {
+            // console.log('payload: ', payload);
             content.commit('SET_TOKEN', payload);
         },
         setUserInfo(content, payload) {

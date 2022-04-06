@@ -43,11 +43,12 @@ export default {
         clock() {
             // 获取canvas元素
             // const clk = document.getElementById('myClock');
+
             // 使用refs引用指向DOM元素
-            const clk = this.$refs.myClock;
-            if (clk.getContext) {
-                const width = (clk.width = 300);
-                const ctx = clk.getContext('2d');
+            const canvas = this.$refs.myClock;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+                const width = (canvas.width = 300);
                 const r = width / 2 - 10;
                 ctx.translate(150, 150);
                 ctx.save();

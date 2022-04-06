@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { set as setStorage, get as getStorage } from '@/utils/storage.js';
 export default {
     name: 'Login',
     data() {
@@ -70,7 +72,28 @@ export default {
             this.$refs.loginForm.validate(valid => {
                 if (valid) {
                     this.loading = true;
-                    this.$router.push({ path: '/home' });
+                    // mockjs使用
+                    axios
+                        .post('/api/login')
+                        .then(res => {
+                            console.log('res: ', res.data);
+                            let { code, token, msg } = res.data;
+                            if (code === 200) {
+                                // 设置sessionStorage
+                                setStorage('token', token, true);
+                                console.log('getStorage: ', getStorage('token', true));
+                                this.$store.dispatch('user/setToken', token);
+                                this.$message({
+                                    type: 'success',
+                                    message: msg,
+                                    center: true
+                                });
+                                this.$router.push({ path: '/home' });
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
                 } else {
                     console.log('error submit!!');
                     return false;

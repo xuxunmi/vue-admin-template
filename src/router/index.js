@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-// import store from '@/store/index.js';
+import store from '@/store/index.js';
+import { get as getStorage } from '@/utils/storage.js';
+
 import Layout from '@/views/Layout/index.vue';
 
 Vue.use(VueRouter);
@@ -132,24 +134,25 @@ const router = new VueRouter({
     routes
 });
 
-// router.beforeEach((to, from, next) => {
-//     // 判断该路由是否需要登录权限
-//     if (to.meta.requireAuth) {
-//         // 是否有token
-//         let isLogin = store.getters.token || '';
-//         if (isLogin) {
-//             next();
-//         } else {
-//             if (to.path !== '/login' && to.path !== '/forgot') {
-//                 next({
-//                     path: '/login',
-//                     query: { redirect: to.fullPath }
-//                 });
-//             }
-//         }
-//     } else {
-//         next();
-//     }
-// });
+router.beforeEach((to, from, next) => {
+    // 判断该路由是否需要登录权限
+    if (to.meta.requireAuth) {
+        //meta.requireAuth为true时，表示进入该路由需要进行登录权限验证
+        let isLogin = store.getters.token || getStorage('token', true);
+        if (isLogin) {
+            next();
+        } else {
+            if (to.path !== '/login' && to.path !== '/forget') {
+                next({
+                    path: '/login',
+                    // 将跳转的路由path作为参数，登录成功后跳转到该路由
+                    query: { redirect: to.fullPath }
+                });
+            }
+        }
+    } else {
+        next();
+    }
+});
 
 export default router;
