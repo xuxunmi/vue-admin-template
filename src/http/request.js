@@ -135,7 +135,7 @@ service.interceptors.response.use(
 export default {
     get(url, data) {
         return new Promise((resolve, reject) => {
-            axios({
+            service({
                 method: 'get',
                 url,
                 params: data
@@ -156,7 +156,7 @@ export default {
             };
         }
         return new Promise((resolve, reject) => {
-            axios({
+            service({
                 method: 'post',
                 url,
                 data: contentType ? data : qs.stringify(data),
@@ -172,7 +172,7 @@ export default {
     },
     download(url, data) {
         return new Promise((resolve, reject) => {
-            axios({
+            service({
                 method: 'get',
                 url: url,
                 data: data,

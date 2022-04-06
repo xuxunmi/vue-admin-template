@@ -1,6 +1,8 @@
-// import { request } from '@/http/request.js';
+import request from '@/http/request.js';
 
-// // 答题回执列表
-// export function getReceiptList(param) {
-//     return request.get('/project/answer_inform_settings/', param);
-// }
+/**
+ * @description:活动管理活动列表/搜索
+ */
+export function getReceiptList(param) {
+    return request.get('/project/answer_inform_settings/', param);
+}
