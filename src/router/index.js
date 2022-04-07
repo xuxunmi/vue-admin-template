@@ -20,17 +20,17 @@ const routes = [
                 component: () => import('@/views/Home/index.vue'),
                 meta: {
                     title: '首页',
-                    icon: 'el-icon-s-home',
+                    icon: 'icon-shouye1',
                     requireAuth: true
                 }
             },
             {
                 path: '/user',
-                name: '用户信息',
+                name: '用户管理',
                 component: { render: e => e('router-view') },
                 meta: {
-                    title: '用户信息',
-                    icon: 'el-icon-user-solid'
+                    title: '用户管理',
+                    icon: 'icon-yonghuguanli1'
                 },
                 children: [
                     {
@@ -39,7 +39,7 @@ const routes = [
                         component: () => import('@/views/User/LuckyDraw/index.vue'),
                         meta: {
                             title: '抽奖功能',
-                            icon: 'el-icon-present',
+                            icon: 'icon-choujiang1',
                             requireAuth: true
                         }
                     }
@@ -51,7 +51,7 @@ const routes = [
                 component: { render: e => e('router-view') },
                 meta: {
                     title: '系统管理',
-                    icon: 'el-icon-s-management'
+                    icon: 'icon-xitongguanli1'
                 },
                 children: [
                     {
@@ -59,8 +59,8 @@ const routes = [
                         name: 'UserManage',
                         component: () => import('@/views/SystemManage/UserManage/index.vue'),
                         meta: {
-                            title: '用户管理',
-                            icon: 'el-icon-set-up',
+                            title: '用户信息',
+                            icon: 'icon-user',
                             requireAuth: true
                         }
                     }
@@ -72,7 +72,7 @@ const routes = [
                 component: { render: e => e('router-view') },
                 meta: {
                     title: 'Echarts图表',
-                    icon: 'el-icon-s-tools'
+                    icon: 'icon-tubiao2'
                 },
                 children: [
                     {
@@ -81,7 +81,7 @@ const routes = [
                         component: () => import('@/views/ECharts/LinePieChart/index.vue'),
                         meta: {
                             title: '折线饼图',
-                            icon: 'el-icon-set-up',
+                            icon: 'icon-shuju1',
                             requireAuth: true
                         }
                     }
@@ -93,7 +93,7 @@ const routes = [
                 component: { render: e => e('router-view') },
                 meta: {
                     title: '流程管理',
-                    icon: 'el-icon-s-operation'
+                    icon: 'icon-liuchengguanli'
                 },
                 children: [
                     {
@@ -102,7 +102,7 @@ const routes = [
                         component: () => import('@/views/Process/Design/index.vue'),
                         meta: {
                             title: '流程设计',
-                            icon: 'el-icon-set-up',
+                            icon: 'icon-liuchengsheji',
                             requireAuth: true
                         }
                     }

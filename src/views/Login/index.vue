@@ -76,7 +76,6 @@ export default {
                     axios
                         .post('/api/login')
                         .then(res => {
-                            console.log('res: ', res.data);
                             let { code, token, msg } = res.data;
                             if (code === 200) {
                                 // 设置sessionStorage

@@ -18,6 +18,7 @@
             <vxe-table
                 round
                 border
+                keep-source
                 height="500"
                 ref="vxeTableRef"
                 :loading="loading"

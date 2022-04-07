@@ -5,17 +5,17 @@ const user = {
     namespaced: true,
     state: {
         // 保存token
-        token: getStorage('token', false) || null,
+        token: getStorage('token', true) || null,
         // 用户信息
-        userInfo: getStorage('userInfo', false) || {}
+        userInfo: getStorage('userInfo', true) || {}
     },
     mutations: {
         SET_TOKEN(state, token) {
             state.token = token;
-            setStrorage('token', token, false);
+            setStrorage('token', token, true);
         },
         SET_USER_INFO(state, data) {
-            setStrorage('userInfo', data, false);
+            setStrorage('userInfo', data, true);
             state.userInfo = data;
         }
     },
