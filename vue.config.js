@@ -27,7 +27,7 @@ module.exports = {
         https: false,
         open: false, // 是否自动启动浏览器
         host: '0.0.0.0', // 允许任意电脑ip访问
-        port: 8080,
+        port: 9527,
         proxy: {
             '/api': {
                 // 请求前添加的路径，会代替target网址请求
