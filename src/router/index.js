@@ -10,7 +10,7 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: '/',
-        name: 'Layout',
+        name: 'Home',
         redirect: '/home',
         component: Layout,
         children: [
@@ -55,11 +55,21 @@ const routes = [
                 },
                 children: [
                     {
-                        path: '/system/user',
-                        name: 'UserManage',
-                        component: () => import('@/views/SystemManage/UserManage/index.vue'),
+                        path: '/system/table',
+                        name: 'Table',
+                        component: () => import('@/views/SystemManage/VuexTable/index.vue'),
                         meta: {
-                            title: '用户信息',
+                            title: 'vuex-table表格',
+                            icon: 'icon-user',
+                            requireAuth: true
+                        }
+                    },
+                    {
+                        path: '/system/iconfont',
+                        name: 'Iconfont',
+                        component: () => import('@/views/SystemManage/Iconfont/index.vue'),
+                        meta: {
+                            title: 'iconfont图标',
                             icon: 'icon-user',
                             requireAuth: true
                         }

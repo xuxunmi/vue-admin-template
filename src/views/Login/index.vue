@@ -6,7 +6,8 @@
             </div>
             <el-form class="login-form" :model="loginForm" ref="loginForm" :rules="rules">
                 <el-form-item prop="username">
-                    <el-input v-model="loginForm.username" placeholder="用户名" :autofocus="true"></el-input>
+                    <!-- 自动获取焦点： :autofocus="true" -->
+                    <el-input v-model="loginForm.username" placeholder="用户名"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input

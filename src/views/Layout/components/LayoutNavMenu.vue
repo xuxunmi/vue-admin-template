@@ -23,20 +23,20 @@
                 <!-- 有子集 -->
                 <el-submenu :index="menu.path + ''" :key="menu.id" v-if="menu.children && menu.children.length > 0">
                     <template slot="title">
-                        <i class="iconfont" :class="menu.meta.icon"></i>
+                        <i :class="'iconfont ' + menu.meta.icon"></i>
                         <span>{{ menu.meta.title }}</span>
                     </template>
                     <!-- 二级导航 -->
                     <el-menu-item v-for="subMenu in menu.children" :index="subMenu.path + ''" :key="subMenu.id">
                         <template slot="title">
-                            <!-- <i class="iconfont" :class="subMenu.meta.icon"></i> -->
+                            <!-- <i :class="'iconfont ' + subMenu.meta.icon"></i> -->
                             <span>{{ subMenu.meta.title }}</span>
                         </template>
                     </el-menu-item>
                 </el-submenu>
                 <!-- 无子集 -->
                 <el-menu-item v-show="!menu.hidden" :index="menu.path + ''" :key="menu.id" v-else>
-                    <i class="iconfont" :class="menu.meta.icon"></i>
+                    <i :class="'iconfont ' + menu.meta.icon"></i>
                     <template slot="title">{{ menu.meta.title }}</template>
                 </el-menu-item>
             </template>
@@ -74,7 +74,7 @@ export default {
         }
     },
     mounted() {
-        console.log('this.$router.options.routes[0].children: ', this.$router.options.routes[0].children);
+        console.log('this.$router.options.routes: ', this.$router.options.routes);
     },
     methods: {
         // 设置当前激活的导航栏
