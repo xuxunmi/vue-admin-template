@@ -1,5 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 import dayjs from 'dayjs';
+import * as CryptoJS from 'crypto-js';
+
 /**
  * 全局脱敏显示
  * @param {String} str 脱敏处理的string
@@ -265,10 +267,121 @@ export function randomString(length, chars) {
  */
 
 export const dynamicCSS = url => {
-    const link = document.createElement("link");
-    link.type = "text/css";
-    link.rel = "stylesheet";
+    const link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
     link.href = url;
-    const head = document.getElementsByTagName("head")[0];
+    const head = document.getElementsByTagName('head')[0];
     head.appendChild(link);
+};
+
+/**
+ * 设置全局灰度模式
+ */
+export const toggleGrayMode = status => {
+    if (status) {
+        document.body.className = document.body.className + ' grayMode';
+    } else {
+        document.body.className = document.body.className.replace(' grayMode', '');
+    }
+};
+
+/**
+ * 设置全局主题
+ */
+export const setTheme = name => {
+    document.body.className = name;
+};
+
+/**
+ *加密处理
+ */
+export const encryption = params => {
+    let { data, type, param, key } = params;
+    const result = JSON.parse(JSON.stringify(data));
+    if (type === 'Base64') {
+        param.forEach(ele => {
+            result[ele] = btoa(result[ele]);
+        });
+    } else {
+        param.forEach(ele => {
+            var data = result[ele];
+            key = CryptoJS.enc.Latin1.parse(key);
+            var iv = key;
+            // 加密
+            var encrypted = CryptoJS.AES.encrypt(data, key, {
+                iv: iv,
+                mode: CryptoJS.mode.CFB,
+                padding: CryptoJS.pad.NoPadding
+            });
+            result[ele] = encrypted.toString();
+        });
+    }
+    return result;
+};
+
+/**
+ * 浏览器判断是否全屏
+ */
+export const fullscreenToggel = () => {
+    if (fullscreenEnable()) {
+        exitFullScreen();
+    } else {
+        reqFullScreen();
+    }
+};
+
+/**
+ * esc监听全屏
+ */
+export const listenfullscreen = callback => {
+    function listen() {
+        callback();
+    }
+
+    document.addEventListener('fullscreenchange', function () {
+        listen();
+    });
+    document.addEventListener('mozfullscreenchange', function () {
+        listen();
+    });
+    document.addEventListener('webkitfullscreenchange', function () {
+        listen();
+    });
+    document.addEventListener('msfullscreenchange', function () {
+        listen();
+    });
+};
+
+/**
+ * 浏览器判断是否全屏
+ */
+export const fullscreenEnable = () => {
+    return document.isFullScreen || document.mozIsFullScreen || document.webkitIsFullScreen;
+};
+
+/**
+ * 浏览器全屏
+ */
+export const reqFullScreen = () => {
+    if (document.documentElement.requestFullScreen) {
+        document.documentElement.requestFullScreen();
+    } else if (document.documentElement.webkitRequestFullScreen) {
+        document.documentElement.webkitRequestFullScreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+        document.documentElement.mozRequestFullScreen();
+    }
+};
+
+/**
+ * 浏览器退出全屏
+ */
+export const exitFullScreen = () => {
+    if (document.documentElement.requestFullScreen) {
+        document.exitFullScreen();
+    } else if (document.documentElement.webkitRequestFullScreen) {
+        document.webkitCancelFullScreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+        document.mozCancelFullScreen();
+    }
 };

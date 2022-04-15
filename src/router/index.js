@@ -36,7 +36,7 @@ const routes = [
                     {
                         path: '/user/luckydraw',
                         name: 'LuckyDraw',
-                        component: () => import('@/views/User/LuckyDraw/index.vue'),
+                        component: () => import('@/views/UserManage/LuckyDraw/index.vue'),
                         meta: {
                             title: '抽奖功能',
                             icon: 'icon-choujiang1',
@@ -60,7 +60,7 @@ const routes = [
                         component: () => import('@/views/SystemManage/VuexTable/index.vue'),
                         meta: {
                             title: 'vuex-table表格',
-                            icon: 'icon-user',
+                            icon: 'icon-24gf-table',
                             requireAuth: true
                         }
                     },
@@ -70,7 +70,7 @@ const routes = [
                         component: () => import('@/views/SystemManage/Iconfont/index.vue'),
                         meta: {
                             title: 'iconfont图标',
-                            icon: 'icon-user',
+                            icon: 'icon-tubiao',
                             requireAuth: true
                         }
                     }
@@ -98,21 +98,31 @@ const routes = [
                 ]
             },
             {
-                path: '/process',
-                name: '流程设计',
+                path: '/tools',
+                name: '工具管理',
                 component: { render: e => e('router-view') },
                 meta: {
-                    title: '流程管理',
-                    icon: 'icon-liuchengguanli'
+                    title: '工具管理',
+                    icon: 'icon-gongju1'
                 },
                 children: [
                     {
-                        path: '/process/design',
-                        name: 'Design',
+                        path: '/tools/process_design',
+                        name: 'processDesign',
                         component: () => import('@/views/Process/Design/index.vue'),
                         meta: {
                             title: '流程设计',
                             icon: 'icon-liuchengsheji',
+                            requireAuth: true
+                        }
+                    },
+                    {
+                        path: '/tools/formula_editor',
+                        name: 'formulaEditor',
+                        component: () => import('@/views/FormulaEditor/index.vue'),
+                        meta: {
+                            title: '公式编辑',
+                            icon: 'icon-bianji1',
                             requireAuth: true
                         }
                     }

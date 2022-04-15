@@ -58,9 +58,9 @@ export default {
             loading: false,
             loginForm: {
                 // 用户名
-                username: '',
+                username: 'admin',
                 // 用户密码
-                password: ''
+                password: '123456'
             },
             rules: {
                 username: [{ validator: validateUsername, trigger: 'blur' }],

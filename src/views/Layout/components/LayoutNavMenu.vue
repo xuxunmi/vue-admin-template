@@ -29,7 +29,7 @@
                     <!-- 二级导航 -->
                     <el-menu-item v-for="subMenu in menu.children" :index="subMenu.path + ''" :key="subMenu.id">
                         <template slot="title">
-                            <!-- <i :class="'iconfont ' + subMenu.meta.icon"></i> -->
+                            <i :class="'iconfont ' + subMenu.meta.icon"></i>
                             <span>{{ subMenu.meta.title }}</span>
                         </template>
                     </el-menu-item>

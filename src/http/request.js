@@ -133,12 +133,18 @@ service.interceptors.response.use(
 );
 
 export default {
-    get(url, data) {
+    /**
+     * 封装get请求
+     * @param url
+     * @param params {Object}
+     * @returns {Promise}
+     */
+    get(url, params) {
         return new Promise((resolve, reject) => {
             service({
                 method: 'get',
                 url,
-                params: data
+                params: params
             })
                 .then(response => {
                     resolve(response);
@@ -148,6 +154,13 @@ export default {
                 });
         });
     },
+    /**
+     * 封装post请求
+     * @param url
+     * @param data {Object}
+     * @param contentType
+     * @returns {Promise}
+     */
     post(url, data, contentType) {
         let setting = {};
         if (contentType) {
@@ -170,7 +183,14 @@ export default {
                 });
         });
     },
-    download(url, data) {
+    /**
+     * 封装文件下载
+     * @param url
+     * @param data {Object}
+     * @param contentType
+     * @returns {Promise}
+     */
+     downBlobFile(url, data, fileName) {
         return new Promise((resolve, reject) => {
             service({
                 method: 'get',
@@ -180,7 +200,6 @@ export default {
             })
                 .then(res => {
                     const blob = new Blob([res.data]);
-                    const fileName = res.headers['content-disposition'].split('=')[1];
                     if ('download' in document.createElement('a')) {
                         // 非IE下载
                         const elink = document.createElement('a');
@@ -202,4 +221,36 @@ export default {
                 });
         });
     }
+
+    // /**
+    //  *
+    //  * @param url 目标下载接口
+    //  * @param query 查询参数
+    //  * @param fileName 文件名称
+    //  * @returns {*}
+    //  */
+    // downBlobFile(url, query, fileName) {
+    //     return service({
+    //         url: url,
+    //         method: 'get',
+    //         responseType: 'blob',
+    //         params: query
+    //     }).then(response => {
+    //         // 处理返回的文件流
+    //         const blob = response.data;
+    //         if (blob && blob.size === 0) {
+    //             this.$notify.error('内容为空，无法下载');
+    //             return;
+    //         }
+    //         const link = document.createElement('a');
+    //         link.href = URL.createObjectURL(blob);
+    //         link.download = fileName;
+    //         document.body.appendChild(link);
+    //         link.click();
+    //         window.setTimeout(function () {
+    //             URL.revokeObjectURL(blob);
+    //             document.body.removeChild(link);
+    //         }, 0);
+    //     });
+    // }
 };

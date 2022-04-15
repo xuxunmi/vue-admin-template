@@ -14,6 +14,7 @@ export const HTTP_STATUS_CODE = {
     '505': 'http版本不支持该请求',
     default: '连接到服务器失败'
 };
+
 // 返回错误码
 export const HTTP_RESPONSE_ERROR = {
     '10015': '操作失败，请重新尝试',
@@ -81,12 +82,6 @@ export const REDIRECT_LOGIN_ERROR = {
     '10001': '未登录',
     '40403': '未登录',
     '40502': '无权限访问'
-};
-
-export const PAGE_ERROR = {
-    '10002': 'un-auth',
-    // '10003': 'un-auth',
-    '10004': 'not-found'
 };
 
 // 客户端error
