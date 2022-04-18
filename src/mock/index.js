@@ -4,9 +4,8 @@ import Mock from 'mockjs';
 /**
  * @description: 登录
  */
-Mock.mock('/api/login', 'post', function (req, res) {
-    console.log(req);
-    console.log(res);
+Mock.mock('/api/login', 'post', (req, res) => {
+    console.log(req, res);
     return {
         code: 200,
         msg: '登录成功',
@@ -17,4 +16,3 @@ Mock.mock('/api/login', 'post', function (req, res) {
         }
     };
 });
-
