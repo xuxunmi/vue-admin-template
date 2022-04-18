@@ -195,9 +195,9 @@ export default {
         handleSaveProcessDraft(data) {
             // console.log('data: ', data);
             let initData = this.initData;
-            data.procId = initData.key;
+            data.processId = initData.key;
             data.name = initData.name;
-            this.$emit('processSave', data);
+            this.$emit('processSaveData', data, false);
         },
         // 处理创建新流程图
         handleCreateNewProcess() {

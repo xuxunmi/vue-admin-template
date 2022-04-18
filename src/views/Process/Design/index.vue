@@ -4,10 +4,11 @@
             <el-button type="primary" size="small" @click="handleAddProcess">添加流程</el-button>
         </div>
         <div class="design-table">
-            <el-table :data="processData" style="width: 100%;" header-align="center">
+            <el-table border :data="processData" style="width: 100%;" header-align="center">
+                <el-table-column type="index" width="50"> </el-table-column>
                 <el-table-column prop="processId" label="流程定义ID" align="center"> </el-table-column>
                 <el-table-column prop="name" label="流程名称" align="center"> </el-table-column>
-                <el-table-column label="操作" align="center" fixed="right"> </el-table-column>
+                <!-- <el-table-column label="操作" align="center" fixed="right"> </el-table-column> -->
             </el-table>
         </div>
         <!-- 流程设计弹窗 -->
@@ -15,7 +16,7 @@
             <vue-bpmn
                 style="overflow: hidden; width: 100%; height: 750px;"
                 product="flowable"
-                @processSave="processSave"
+                @processSaveData="processSaveData(arguments)"
             ></vue-bpmn>
         </dialog-frame>
     </div>
@@ -41,8 +42,12 @@ export default {
         handleAddProcess() {
             this.dialogProcessDesignVisible = true;
         },
-        processSave(data) {
-            console.log('data:', data);
+        processSaveData(values) {
+            console.log('values:', values);
+            const [data, val] = values;
+            this.processData.push(data);
+            // 关闭弹窗
+            this.dialogProcessDesignVisible = val;
             // let that = this;
             // that.post(this.Apis.processBuffer, data, res => {
             // if (res.code == 200) {
