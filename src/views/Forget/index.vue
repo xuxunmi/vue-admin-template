@@ -41,7 +41,7 @@
 
 <script>
 export default {
-    name: 'ForgetPasswordPage',
+    name: 'forgetPasswordPage',
     data() {
         const validatePhone = (rule, value, callback) => {
             if (!value) {

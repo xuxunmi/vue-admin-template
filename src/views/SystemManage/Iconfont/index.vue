@@ -60,6 +60,9 @@ export default {
 
 <style lang="scss" scoped>
 .iconfont-page {
+    box-sizing: border-box;
+    margin-top: 50px;
+    padding: 0 20px;
     code {
         background-color: #f9fafc;
         padding: 0 4px;

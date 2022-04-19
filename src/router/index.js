@@ -119,7 +119,7 @@ const routes = [
                     {
                         path: '/tools/formula_editor',
                         name: 'formulaEditor',
-                        component: () => import('@/views/FormulaEditor/index.vue'),
+                        component: () => import('@/views/Process/FormulaEditor/index.vue'),
                         meta: {
                             title: '公式编辑',
                             icon: 'icon-bianji1',

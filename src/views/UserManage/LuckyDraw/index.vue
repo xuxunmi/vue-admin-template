@@ -1,56 +1,54 @@
 <template>
-    <div>
-        <div class="container">
-            <ul class="box">
-                <li
-                    v-for="item in data"
-                    :key="item.id"
-                    class="box-item"
-                    :class="['item' + item.id, activeId === item.id ? 'active' : '']"
-                >
-                    {{ item.id }}
-                </li>
-                <button class="btn" :disabled="isStart" @click="handleClick">GO</button>
-                <div class="left-point point-wrapper">
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                </div>
-                <div class="right-point point-wrapper">
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                </div>
-                <div class="top-point point-wrapper">
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                </div>
-                <div class="bottom-point point-wrapper">
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                    <span class="point"></span>
-                </div>
-            </ul>
-        </div>
+    <div class="container">
+        <ul class="box">
+            <li
+                v-for="item in data"
+                :key="item.id"
+                class="box-item"
+                :class="['item' + item.id, activeId === item.id ? 'active' : '']"
+            >
+                {{ item.id }}
+            </li>
+            <button class="btn" :disabled="isStart" @click="handleClick">GO</button>
+            <div class="left-point point-wrapper">
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+            </div>
+            <div class="right-point point-wrapper">
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+            </div>
+            <div class="top-point point-wrapper">
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+            </div>
+            <div class="bottom-point point-wrapper">
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+                <span class="point"></span>
+            </div>
+        </ul>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'UserResetPsd',
+    name: 'luckyDraw',
     data() {
         return {
             activeId: 0,

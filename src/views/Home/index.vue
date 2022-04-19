@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    name: 'Home',
+    name: 'homePage',
     data() {
         return {
             timer: null,
@@ -223,7 +223,7 @@ export default {
 
 <style lang="scss" scoped>
 .home-page {
-    margin-top: 50px;
+    margin-top: 100px;
     text-align: center;
     .time {
         margin-top: 20px;

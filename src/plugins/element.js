@@ -40,7 +40,11 @@ import {
     Cascader,
     Tooltip,
     Breadcrumb,
-    BreadcrumbItem
+    BreadcrumbItem,
+    Tag,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem
 } from 'element-ui';
 
 Vue.use(Dialog);
@@ -81,6 +85,10 @@ Vue.use(Cascader);
 Vue.use(Tooltip);
 Vue.use(Breadcrumb);
 Vue.use(BreadcrumbItem);
+Vue.use(Tag);
+Vue.use(Dropdown);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;

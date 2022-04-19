@@ -62,7 +62,12 @@ export default {
 <style lang="scss" scoped>
 // 流程设计器全局样式
 @import url('../../../components/Bpmn/css/vue-bmpn.css');
-.design-table {
-    margin-top: 30px;
+.design-page {
+    box-sizing: border-box;
+    margin-top: 60px;
+    padding: 0 20px;
+    .design-table {
+        margin-top: 20px;
+    }
 }
 </style>

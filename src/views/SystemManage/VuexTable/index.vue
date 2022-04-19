@@ -59,6 +59,7 @@
 import XEUtils from 'xe-utils';
 
 export default {
+    name: 'VuexTable',
     data() {
         return {
             // 图标
@@ -177,6 +178,9 @@ export default {
 
 <style lang="scss" scoped>
 .user-manage-page {
+    box-sizing: border-box;
+    margin-top: 50px;
+    padding: 0 20px;
     .vxe-table {
         margin-top: 20px;
         h1 {

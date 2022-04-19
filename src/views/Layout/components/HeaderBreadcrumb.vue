@@ -48,6 +48,10 @@ export default {
     margin-left: 10px;
     .el-breadcrumb {
         font-size: 16px !important;
+        ::v-deep .el-breadcrumb__inner,
+        ::v-deep .el-breadcrumb__item:last-child .el-breadcrumb__inner {
+            color: #fff;
+        }
     }
 }
 </style>

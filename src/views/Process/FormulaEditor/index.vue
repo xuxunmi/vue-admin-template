@@ -30,6 +30,11 @@ export default {
 
 <style lang="scss" scoped>
 .formula-editor-page {
+    box-sizing: border-box;
+    height: 100%;
+    margin-top: 60px;
+    padding: 0 20px;
+    background-color: #eaedf1;
     .formula-editor {
         textarea {
             display: block;

@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: 'LayoutMain',
+    name: 'layoutMain',
     computed: {
         key() {
             return this.$route.path;

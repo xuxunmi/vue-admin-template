@@ -37,7 +37,7 @@
 import axios from 'axios';
 import { set as setStorage, get as getStorage } from '@/utils/storage.js';
 export default {
-    name: 'Login',
+    name: 'login',
     data() {
         // 自定义校验
         const validateUsername = (rule, value, callback) => {

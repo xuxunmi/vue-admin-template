@@ -82,10 +82,12 @@ export default {
 
 <style lang="scss" scoped>
 .echart-page {
+    box-sizing: border-box;
+    margin-top: 50px;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
     background-color: #fff;
     .line-chart-wrap {
         width: 48%;

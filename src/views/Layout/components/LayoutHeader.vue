@@ -17,7 +17,7 @@
 import headerBreadcrumb from './HeaderBreadcrumb.vue';
 import { remove as removeStorage } from '@/utils/storage.js';
 export default {
-    name: 'LayoutHeader',
+    name: 'layoutHeader',
     components: {
         'header-breadcrumb': headerBreadcrumb
     },
@@ -58,7 +58,7 @@ export default {
         .toggle-button {
             // margin-left: 10px;
             font-size: 24px;
-            color: #333;
+            color: #fff;
             cursor: pointer;
         }
     }
