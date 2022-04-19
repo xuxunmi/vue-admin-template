@@ -1,11 +1,11 @@
 <template>
     <div class="design-page">
         <div class="toolbar">
-            <el-button type="primary" size="small" @click="handleAddProcess">添加流程</el-button>
+            <el-button type="primary" size="small" @click="handleAddProcess">添加新流程</el-button>
         </div>
         <div class="design-table">
             <el-table border :data="processData" style="width: 100%;" header-align="center">
-                <el-table-column type="index" width="50"> </el-table-column>
+                <el-table-column type="index" label="序号" width="60" align="center"> </el-table-column>
                 <el-table-column prop="processId" label="流程定义ID" align="center"> </el-table-column>
                 <el-table-column prop="name" label="流程名称" align="center"> </el-table-column>
                 <!-- <el-table-column label="操作" align="center" fixed="right"> </el-table-column> -->

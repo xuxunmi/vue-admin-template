@@ -38,7 +38,9 @@ import {
     RadioGroup,
     RadioButton,
     Cascader,
-    Tooltip
+    Tooltip,
+    Breadcrumb,
+    BreadcrumbItem
 } from 'element-ui';
 
 Vue.use(Dialog);
@@ -77,6 +79,8 @@ Vue.use(RadioGroup);
 Vue.use(RadioButton);
 Vue.use(Cascader);
 Vue.use(Tooltip);
+Vue.use(Breadcrumb);
+Vue.use(BreadcrumbItem);
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;

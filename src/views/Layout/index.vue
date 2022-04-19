@@ -53,7 +53,7 @@ export default {
         .el-container {
             width: 100vw;
             .el-header {
-                background-color: #373d41;
+                background-color: #fff;
             }
             .el-main {
                 background-color: #eaedf1;

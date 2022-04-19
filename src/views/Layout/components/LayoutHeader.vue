@@ -1,16 +1,26 @@
 <template>
     <div class="layoutheader-page">
-        <div class="toggle-button" @click="toggleCollapse">
-            <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
+        <div class="layoutheader-left">
+            <div class="toggle-button" @click="toggleCollapse">
+                <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
+            </div>
+            <!-- 面包屑导航 -->
+            <header-breadcrumb></header-breadcrumb>
         </div>
-        <el-button size="small" type="primary" @click="logout">退出登录</el-button>
+        <div class="layoutheader-right">
+            <el-button size="small" type="primary" @click="logout">退出登录</el-button>
+        </div>
     </div>
 </template>
 
 <script>
+import headerBreadcrumb from './HeaderBreadcrumb.vue';
 import { remove as removeStorage } from '@/utils/storage.js';
 export default {
     name: 'LayoutHeader',
+    components: {
+        'header-breadcrumb': headerBreadcrumb
+    },
     computed: {
         isCollapse() {
             return this.$store.state.isCollapse;
@@ -42,12 +52,15 @@ export default {
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
-    color: #fff;
-    .toggle-button {
-        // margin-left: 10px;
-        font-size: 24px;
-        color: #fff;
-        cursor: pointer;
+    .layoutheader-left {
+        display: flex;
+        align-items: center;
+        .toggle-button {
+            // margin-left: 10px;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+        }
     }
 }
 </style>
