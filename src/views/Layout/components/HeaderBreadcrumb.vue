@@ -1,8 +1,8 @@
 <template>
     <div class="header-breadcrumb-page">
         <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item v-for="(route, index) in breadcrumbItems" :key="index">
-                <span>{{ route.title }}</span>
+            <el-breadcrumb-item v-for="(item, index) in breadcrumbItems" :to="item.path" :key="index">
+                <span>{{ item.meta.title }}</span>
             </el-breadcrumb-item>
         </el-breadcrumb>
     </div>
@@ -17,20 +17,27 @@ export default {
         };
     },
     created() {
-        this.geBreadcrumbItems(this.$route);
+        this.getBreadcrumbItems(this.$route);
     },
     methods: {
-        geBreadcrumbItems(route) {
-            // 获取当前页面的路由组
-            this.breadcrumbItems = route.matched;
-            // 从下标为1的位置开始获取路由，去除了最外层定义的根路由信息，并且获取到的数组里面只有meta数据，方便我们取值
-            this.breadcrumbItems = route.matched.map(item => item.meta).splice(1);
-            console.log('this.breadcrumbItems: ', this.breadcrumbItems);
+        getBreadcrumbItems(route) {
+            let breadcrumbList = route.matched.filter(item => {
+                if (item.meta && item.meta.title) {
+                    if (item.redirect === undefined) {
+                        item.path = '';
+                    }
+                    return true;
+                }
+            });
+            if (breadcrumbList[0].meta.title !== '首页') {
+                breadcrumbList.unshift({ path: '/', meta: { title: '首页' } });
+            }
+            this.breadcrumbItems = breadcrumbList;
         }
     },
     watch: {
         $route(newVal) {
-            this.geBreadcrumbItems(newVal);
+            this.getBreadcrumbItems(newVal);
         }
     }
 };
