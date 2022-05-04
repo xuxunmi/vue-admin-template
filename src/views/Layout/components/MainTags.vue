@@ -70,7 +70,7 @@ export default {
         // 关闭当前标签
         closeTags(index) {
             const delItem = this.tagsList[index];
-            this.$store.commit('delTagsItem', { index });
+            this.$store.commit('DEL_TAGS', { index });
             const item = this.tagsList[index] ? this.tagsList[index] : this.tagsList[index - 1];
             if (item) {
                 delItem.path === this.$route.fullPath && this.$router.push({ path: item.path });
@@ -82,10 +82,10 @@ export default {
                 return item.path === route.fullPath;
             });
             if (!isExist) {
-                if (this.tagsListlength >= 8) {
-                    this.$store.commit('delTagsItem', { index: 0 });
+                if (this.tagsList.length >= 9) {
+                    this.$store.commit('DEL_TAGS', { index: 0 });
                 }
-                this.$store.commit('setTagsItem', {
+                this.$store.commit('SET_TAGS', {
                     name: route.name,
                     title: route.meta.title,
                     path: route.fullPath
@@ -97,7 +97,7 @@ export default {
         },
         // 关闭全部标签
         closeAll() {
-            this.$store.commit('clearTags');
+            this.$store.commit('CLEAR_TAGS');
             this.$router.push({ path: '/home' });
         },
         // 关闭其他标签
@@ -105,7 +105,7 @@ export default {
             const curItem = this.tagsList.filter(item => {
                 return item.path === this.$route.fullPath;
             });
-            this.$store.commit('closeTagsOther', curItem);
+            this.$store.commit('CLOSE_TAGSOther', curItem);
         }
     }
 };

@@ -18,33 +18,21 @@ const mutations = {
     SET_COLLAPSE(state) {
         state.isCollapse = !state.isCollapse;
     },
-    delTagsItem(state, data) {
+    // 删除标签
+    DEL_TAGS(state, data) {
         state.tagsList.splice(data.index, 1);
     },
-    setTagsItem(state, data) {
+    // 添加标签
+    SET_TAGS(state, data) {
         state.tagsList.push(data);
     },
-    clearTags(state) {
+    // 清空标签
+    CLEAR_TAGS(state) {
         state.tagsList = [];
     },
-    closeTagsOther(state, data) {
+    // 关闭其他标签
+    CLOSE_TAGSOther(state, data) {
         state.tagsList = data;
-    },
-    closeCurrentTag(state, data) {
-        for (let i = 0, len = state.tagsList.length; i < len; i++) {
-            const item = state.tagsList[i];
-            if (item.path === data.$route.fullPath) {
-                if (i < len - 1) {
-                    data.$router.push(state.tagsList[i + 1].path);
-                } else if (i > 0) {
-                    data.$router.push(state.tagsList[i - 1].path);
-                } else {
-                    data.$router.push('/home');
-                }
-                state.tagsList.splice(i, 1);
-                break;
-            }
-        }
     }
 };
 
