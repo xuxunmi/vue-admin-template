@@ -184,13 +184,55 @@ export default {
         });
     },
     /**
+     * 封装put请求
+     * @param url
+     * @param params {Object}
+     * @returns {Promise}
+     */
+    put(url, params) {
+        return new Promise((resolve, reject) => {
+            service({
+                method: 'put',
+                url,
+                params
+            })
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    },
+    /**
+     * 封装delete请求
+     * @param url
+     * @param params {Object}
+     * @returns {Promise}
+     */
+    delete(url, params) {
+        return new Promise((resolve, reject) => {
+            service({
+                method: 'delete',
+                url,
+                params
+            })
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    },
+    /**
      * 封装文件下载
      * @param url
      * @param data {Object}
      * @param contentType
      * @returns {Promise}
      */
-     downBlobFile(url, data, fileName) {
+    downBlobFile(url, data, fileName) {
         return new Promise((resolve, reject) => {
             service({
                 method: 'get',
