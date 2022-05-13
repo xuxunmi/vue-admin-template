@@ -1,5 +1,5 @@
 import axios from 'axios';
-import qs from 'qs';
+// import qs from 'qs';
 import Vue from 'vue';
 import http from 'http';
 import https from 'https';
@@ -161,19 +161,12 @@ export default {
      * @param contentType
      * @returns {Promise}
      */
-    post(url, data, contentType) {
-        let setting = {};
-        if (contentType) {
-            setting = {
-                'Content-Type': contentType
-            };
-        }
+    post(url, data) {
         return new Promise((resolve, reject) => {
             service({
                 method: 'post',
                 url,
-                data: contentType ? data : qs.stringify(data),
-                headers: setting
+                data: JSON.stringify(data)
             })
                 .then(response => {
                     resolve(response);
@@ -215,7 +208,7 @@ export default {
             service({
                 method: 'delete',
                 url,
-                params
+                params: params
             })
                 .then(response => {
                     resolve(response);
