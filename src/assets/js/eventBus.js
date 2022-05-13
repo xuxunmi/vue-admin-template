@@ -4,7 +4,7 @@ export default new Vue();
 
 // 使用示例：
 // 按需引入
-// import { EventBus } from '@/assets/js/eventBus';
+// import EventBus from '@/assets/js/eventBus';
 
 // 传递数据：
 // EventBus.$emit('eventName', 参数值);
