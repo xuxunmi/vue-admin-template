@@ -163,6 +163,8 @@ export default {
                 link.click();
                 document.body.removeChild(link);
 
+                this.$emit('closeDialog', false);
+
                 console.log('definitions: ', JSON.stringify(definitions));
 
                 // let data = {

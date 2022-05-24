@@ -10,6 +10,7 @@
                 @handleImportBpmn="handleImportBpmn"
                 @handleSaveProcessDraft="handleSaveProcessDraft"
                 @handleCreateNewProcess="handleCreateNewProcess"
+                @closeDialog="closeDialog"
             ></bpmn-header>
             <div class="bpmn-viewer-container">
                 <div class="bpmn-viewer-content" ref="bpmnViewer"></div>
@@ -55,6 +56,10 @@ export default {
         this.init();
     },
     methods: {
+        // 关闭流程弹窗
+        closeDialog(val) {
+            this.$emit('update:show', val);
+        },
         init() {
             // // 支持activiti和flowable
             let _moddleExtensions = this.getModdleExtensions();

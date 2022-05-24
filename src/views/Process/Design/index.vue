@@ -15,6 +15,7 @@
         <dialog-frame :title="'流程图'" :show.sync="dialogProcessDesignVisible" width="90%" :footer="false">
             <vue-bpmn
                 style="overflow: hidden; width: 100%; height: 750px;"
+                :show.sync="dialogProcessDesignVisible"
                 product="flowable"
                 @processSaveData="processSaveData(arguments)"
             ></vue-bpmn>

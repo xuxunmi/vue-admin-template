@@ -37,7 +37,7 @@ module.exports = {
                 secure: false, // 使用的是http协议设为false，https协议设为true
                 pathRewrite: {
                     // 路径重写
-                    '^/api': ''
+                    '^/api': '/'
                 }
             }
         }
