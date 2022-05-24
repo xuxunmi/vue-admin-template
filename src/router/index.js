@@ -25,6 +25,16 @@ const routes = [
                 }
             },
             {
+                path: '/table_plus',
+                name: 'TablePlus',
+                component: () => import('@/views/TablePlus/index.vue'),
+                meta: {
+                    title: '自定义表格',
+                    icon: 'icon-shouye1',
+                    requireAuth: true
+                }
+            },
+            {
                 path: '/user',
                 name: '用户管理',
                 component: { render: e => e('router-view') },
