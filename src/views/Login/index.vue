@@ -79,6 +79,7 @@ export default {
                         .then(res => {
                             let { code, token, msg } = res.data;
                             if (code === 200) {
+                                // console.log('process.env: ', process.env);
                                 // 设置sessionStorage
                                 setStorage('token', token, true);
                                 console.log('getStorage: ', getStorage('token', true));

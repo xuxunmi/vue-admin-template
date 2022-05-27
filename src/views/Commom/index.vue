@@ -1012,6 +1012,16 @@ export default {
     data() {
         return {
             selectLoading: false,
+            statusList: [
+                {
+                    id: 1,
+                    name: '启用'
+                },
+                {
+                    id: 0,
+                    name: '停用'
+                }
+            ],
             selectFormData: {
                 // 状态类型
                 statusData: [
@@ -1234,6 +1244,15 @@ export default {
         this.querySelectFormData();
     },
     methods: {
+        // 获取状态name
+        statusName(row) {
+            return this.statusList.find(val => val.id === row.status)?.name;
+        },
+        // 查数组对象的下标
+        getIndex() {
+            let index = this.statusList.findIndex(val => val.name === '启用');
+            return index;
+        },
         querySelectFormData() {
             this.selectLoading = true;
             getSelectContent()
