@@ -34,6 +34,8 @@ export default {
         logout() {
             this.$store.dispatch('user/setToken', null);
             removeStorage('token', true);
+            // 先清空tagsList
+            this.$store.commit('CLEAR_TAGS');
             this.$message({
                 type: 'success',
                 message: '退出成功',

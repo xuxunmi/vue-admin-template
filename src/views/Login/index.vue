@@ -84,6 +84,12 @@ export default {
                                 setStorage('token', token, true);
                                 console.log('getStorage: ', getStorage('token', true));
                                 this.$store.dispatch('user/setToken', token);
+                                // 设置tagsList
+                                this.$store.commit('SET_TAGS', {
+                                    name: 'home',
+                                    title: '首页',
+                                    path: '/home'
+                                });
                                 this.$message({
                                     type: 'success',
                                     message: msg,

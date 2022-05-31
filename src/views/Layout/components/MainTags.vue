@@ -98,6 +98,12 @@ export default {
         // 关闭全部标签
         closeAll() {
             this.$store.commit('CLEAR_TAGS');
+            // 设置tagsList
+            this.$store.commit('SET_TAGS', {
+                name: 'home',
+                title: '首页',
+                path: '/home'
+            });
             this.$router.push({ path: '/home' });
         },
         // 关闭其他标签
