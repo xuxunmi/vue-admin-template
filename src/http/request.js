@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import qs from 'qs';
+import qs from 'qs';
 import Vue from 'vue';
 import http from 'http';
 import https from 'https';
@@ -45,8 +45,14 @@ const service = axios.create({
 service.interceptors.request.use(
     config => {
         const token = store.getters.token || '';
+        //只针对get方式进行序列化
+        if (config.method === 'get') {
+            config.paramsSerializer = function (params) {
+                return qs.stringify(params, { arrayFormat: 'repeat' });
+            };
+        }
         if (token) {
-            config.headers['Authorization'] = 'Bearer ' + token;
+            config.headers['Authorization'] = `Bearer ${token}`;
         }
         return config;
     },
