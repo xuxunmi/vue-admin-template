@@ -26,7 +26,7 @@ const service = axios.create({
             'Content-Type': 'application/json;charset=utf-8'
         }
     },
-    // 跨域是否带Token
+    // 跨域是否带Token/Cookie
     withCredentials: true,
     // 响应的数据格式 json / blob /document /arraybuffer / text / stream
     responseType: 'json',
