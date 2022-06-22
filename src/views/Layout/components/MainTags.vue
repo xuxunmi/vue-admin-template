@@ -1,5 +1,5 @@
 <template>
-    <div class="tags-page" :class="isCollapse ? 'w-calc-60 ' : 'w-calc-200'" v-if="showTags">
+    <div class="tags-page" :class="isCollapse ? 'w-calc-64 ' : 'w-calc-200'" v-if="showTags">
         <ul>
             <li class="tags-li" v-for="(item, index) in tagsList" :class="{ active: isActive(item.path) }" :key="index">
                 <router-link :to="item.path" class="tags-li-title">{{ item.title }}</router-link>

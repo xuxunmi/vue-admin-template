@@ -1,7 +1,7 @@
 import { get as getStorage, set as setStrorage } from '@/utils/storage.js';
 
 const user = {
-    // 取别名
+    // 模块别名
     namespaced: true,
     state: {
         // 保存token

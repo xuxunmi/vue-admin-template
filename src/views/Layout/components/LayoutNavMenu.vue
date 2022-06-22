@@ -4,50 +4,34 @@
             <img :class="isCollapse ? 'header-img' : ''" src="@/assets/logo.png" alt="" />
             <span v-show="!isCollapse">管理后台系统</span>
         </div>
-
-        <!-- 侧边栏导航区域 -->
-        <el-menu
-            :default-active="activePathIndex"
-            @open="handleOpen"
-            @close="handleClose"
-            background-color="#333744"
-            text-color="#fff"
-            active-text-color="#409EFF"
-            :unique-opened="true"
-            :collapse="isCollapse"
-            :collapse-transition="false"
-            router
-        >
-            <!-- 一级导航 -->
-            <template v-for="menu in routers">
-                <!-- 有子集 -->
-                <el-submenu :index="menu.path + ''" :key="menu.id" v-if="menu.children && menu.children.length > 0">
-                    <template slot="title">
-                        <i :class="'iconfont ' + menu.meta.icon"></i>
-                        <span>{{ menu.meta.title }}</span>
-                    </template>
-                    <!-- 二级导航 -->
-                    <el-menu-item v-for="subMenu in menu.children" :index="subMenu.path + ''" :key="subMenu.id">
-                        <template slot="title">
-                            <i :class="'iconfont ' + subMenu.meta.icon"></i>
-                            <span>{{ subMenu.meta.title }}</span>
-                        </template>
-                    </el-menu-item>
-                </el-submenu>
-                <!-- 无子集 -->
-                <el-menu-item v-show="!menu.hidden" :index="menu.path + ''" :key="menu.id" v-else>
-                    <i :class="'iconfont ' + menu.meta.icon"></i>
-                    <template slot="title">{{ menu.meta.title }}</template>
-                </el-menu-item>
-            </template>
-        </el-menu>
+        <el-scrollbar wrap-class="scrollbar-wrapper">
+            <!-- 侧边栏导航区域 -->
+            <el-menu
+                :default-active="activePathIndex"
+                @open="handleOpen"
+                @close="handleClose"
+                background-color="#333744"
+                text-color="#fff"
+                active-text-color="#409EFF"
+                :unique-opened="true"
+                :collapse="isCollapse"
+                :collapse-transition="false"
+                router
+            >
+                <nav-bar v-for="route in routers" :key="route.id" :childItems="route"></nav-bar>
+            </el-menu>
+        </el-scrollbar>
     </div>
 </template>
 
 <script>
+import navBar from './navBar.vue';
 import { mapState } from 'vuex';
 export default {
     name: 'layoutNavMenu',
+    components: {
+        'nav-bar': navBar
+    },
     data() {
         return {};
     },
@@ -114,20 +98,18 @@ export default {
     .el-menu {
         border-right: none;
     }
-    .el-submenu,
-    .el-menu-item {
-        text-align: left !important;
+    .el-scrollbar {
+        height: calc(100% - 80px); // 必须设置el-scrollbar的高度
+        background-color: #324458 !important;
+        ::v-deep .scrollbar-wrapper {
+            width: 100%;
+            overflow-x: hidden !important;
+            overflow-y: hidden !important;
+        }
     }
-    .el-menu-item:hover,
-    ::v-deep .el-submenu__title:hover,
-    .el-menu-item i:hover {
-        margin-right: 5px;
-        outline: 0 !important;
-        color: #fff !important;
-        background-color: #33a2ef !important;
-    }
-    .iconfont {
-        margin-right: 5px;
+    /deep/ .el-menu--collapse > .sidebar-page > .el-submenu > .el-submenu__title > .el-submenu__icon-arrow,
+    /deep/ .el-menu--collapse > .sidebar-page > .el-submenu > .el-submenu__title > span {
+        display: none;
     }
 }
 </style>

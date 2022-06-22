@@ -47,7 +47,8 @@ import {
     DropdownItem,
     Popconfirm,
     Popover,
-    Switch
+    Switch,
+    Scrollbar
 } from 'element-ui';
 
 Vue.use(Dialog);
@@ -95,6 +96,7 @@ Vue.use(DropdownItem);
 Vue.use(Popconfirm);
 Vue.use(Popover);
 Vue.use(Switch);
+Vue.use(Scrollbar);
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;
