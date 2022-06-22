@@ -36,6 +36,7 @@
 <script>
 import axios from 'axios';
 import { set as setStorage, get as getStorage } from '@/utils/storage.js';
+import { mapMutations, mapActions } from 'vuex';
 export default {
     name: 'login',
     data() {
@@ -69,6 +70,8 @@ export default {
         };
     },
     methods: {
+        ...mapMutations(['SET_TAGS']),
+        ...mapActions('user', ['setToken']),
         handleLoginBtn() {
             this.$refs.loginForm.validate(valid => {
                 if (valid) {
@@ -83,9 +86,9 @@ export default {
                                 // 设置sessionStorage
                                 setStorage('token', token, true);
                                 console.log('getStorage: ', getStorage('token', true));
-                                this.$store.dispatch('user/setToken', token);
+                                this.setToken(token);
                                 // 设置tagsList
-                                this.$store.commit('SET_TAGS', {
+                                this.SET_TAGS({
                                     name: 'home',
                                     title: '首页',
                                     path: '/home'

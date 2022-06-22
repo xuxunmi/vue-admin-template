@@ -1,5 +1,5 @@
 <template>
-    <div class="tags-page" v-if="showTags">
+    <div class="tags-page" :class="isCollapse ? 'w-calc-60 ' : 'w-calc-200'" v-if="showTags">
         <ul>
             <li class="tags-li" v-for="(item, index) in tagsList" :class="{ active: isActive(item.path) }" :key="index">
                 <router-link :to="item.path" class="tags-li-title">{{ item.title }}</router-link>
@@ -38,12 +38,11 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 export default {
     name: 'mainTags',
     computed: {
-        tagsList() {
-            return this.$store.state.tagsList;
-        },
+        ...mapState(['isCollapse', 'tagsList']),
         showTags() {
             return this.tagsList.length > 0;
         }
@@ -57,6 +56,7 @@ export default {
     //     console.log('this.tagsList: ', this.tagsList);
     // },
     methods: {
+        ...mapMutations(['DEL_TAGS', 'SET_TAGS', 'CLEAR_TAGS', 'CLOSE_TAGSOther']),
         // handleClose(tag) {
         //     this.tagsList.splice(this.tagsList.indexOf(tag), 1);
         // },
@@ -70,7 +70,7 @@ export default {
         // 关闭当前标签
         closeTags(index) {
             const delItem = this.tagsList[index];
-            this.$store.commit('DEL_TAGS', { index });
+            this.DEL_TAGS({ index });
             const item = this.tagsList[index] ? this.tagsList[index] : this.tagsList[index - 1];
             if (item) {
                 delItem.path === this.$route.fullPath && this.$router.push({ path: item.path });
@@ -83,9 +83,9 @@ export default {
             });
             if (!isExist) {
                 if (this.tagsList.length >= 9) {
-                    this.$store.commit('DEL_TAGS', { index: 0 });
+                    this.DEL_TAGS({ index: 0 });
                 }
-                this.$store.commit('SET_TAGS', {
+                this.SET_TAGS({
                     name: route.name,
                     title: route.meta.title,
                     path: route.fullPath
@@ -97,9 +97,9 @@ export default {
         },
         // 关闭全部标签
         closeAll() {
-            this.$store.commit('CLEAR_TAGS');
+            this.CLEAR_TAGS();
             // 设置tagsList
-            this.$store.commit('SET_TAGS', {
+            this.SET_TAGS({
                 name: 'home',
                 title: '首页',
                 path: '/home'
@@ -111,13 +111,19 @@ export default {
             const curItem = this.tagsList.filter(item => {
                 return item.path === this.$route.fullPath;
             });
-            this.$store.commit('CLOSE_TAGSOther', curItem);
+            this.CLOSE_TAGSOther(curItem);
         }
     }
 };
 </script>
 
 <style lang="scss" scoped>
+.w-calc-64 {
+    width: calc(100% - 64px) !important;
+}
+.w-calc-200 {
+    width: calc(100% - 200px) !important;
+}
 .tags-page {
     box-sizing: border-box;
     display: flex;
@@ -125,7 +131,6 @@ export default {
     align-items: center;
     position: absolute;
     overflow: hidden;
-    width: calc(100% - 200px);
     height: 40px;
     padding: 0 10px;
     background-color: #eaedf1;

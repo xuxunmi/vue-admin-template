@@ -16,26 +16,37 @@
 <script>
 import headerBreadcrumb from './HeaderBreadcrumb.vue';
 import { remove as removeStorage } from '@/utils/storage.js';
+import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
     name: 'layoutHeader',
     components: {
         'header-breadcrumb': headerBreadcrumb
     },
     computed: {
-        isCollapse() {
-            return this.$store.state.isCollapse;
-        }
+        // mapState辅助函数写法：
+        ...mapState(['isCollapse'])
     },
     methods: {
+        // vuex辅助函数
+        ...mapMutations(['SET_COLLAPSE', 'CLEAR_TAGS']),
+        // mapActions模块使用：
+        ...mapActions('user', ['setToken']),
+
         toggleCollapse() {
-            this.$store.commit('SET_COLLAPSE');
+            this.SET_COLLAPSE();
         },
         // 退出登录
         logout() {
-            this.$store.dispatch('user/setToken', null);
+            // 直接使用：
+            // this.$store.dispatch('user/setToken', null);
+            // mapActions辅助函数写法：
+            this.setToken(null);
             removeStorage('token', true);
             // 先清空tagsList
-            this.$store.commit('CLEAR_TAGS');
+            // 直接使用：
+            // this.$store.commit('CLEAR_TAGS');
+            // mapMutations辅助函数写法：
+            this.CLEAR_TAGS();
             this.$message({
                 type: 'success',
                 message: '退出成功',

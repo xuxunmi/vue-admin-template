@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
     name: 'layoutNavMenu',
     data() {
@@ -69,9 +70,8 @@ export default {
         routers() {
             return this.$router.options.routes[0].children;
         },
-        isCollapse() {
-            return this.$store.state.isCollapse;
-        }
+        // mapState辅助函数写法：
+        ...mapState(['isCollapse'])
     },
     mounted() {
         console.log('this.$router.options.routes: ', this.$router.options.routes);

@@ -28,6 +28,8 @@ import layoutHeader from './components/LayoutHeader.vue';
 import layoutNavMenu from './components/LayoutNavMenu.vue';
 import layoutMain from './components/LayoutMain.vue';
 import mainTags from './components/MainTags.vue';
+import { mapGetters } from 'vuex';
+
 export default {
     name: 'layout',
     components: {
@@ -37,9 +39,12 @@ export default {
         mainTags
     },
     computed: {
-        isCollapse() {
-            return this.$store.state.isCollapse;
-        }
+        // 直接使用
+        // isCollapse() {
+        //     return this.$store.getters.isCollapse;
+        // }
+        // 辅助函数map使用
+        ...mapGetters(['isCollapse'])
     }
 };
 </script>
