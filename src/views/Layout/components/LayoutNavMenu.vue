@@ -100,7 +100,7 @@ export default {
     }
     .el-scrollbar {
         height: calc(100% - 60px); // 必须设置el-scrollbar的高度
-        background-color: #324458 !important;
+        background-color: #333744 !important;
         ::v-deep .scrollbar-wrapper {
             width: 100%;
             overflow-x: hidden !important;

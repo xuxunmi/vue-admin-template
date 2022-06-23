@@ -43,7 +43,7 @@ export default {
     }
     ::v-deep .el-submenu__title,
     ::v-deep .el-menu-item {
-        background-color: #324458 !important;
+        background-color: #333744 !important;
     }
     .el-menu-item:hover,
     ::v-deep .el-submenu__title:hover,
