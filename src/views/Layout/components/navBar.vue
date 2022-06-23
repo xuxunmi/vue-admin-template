@@ -2,21 +2,21 @@
     <div class="sidebar-page">
         <!-- 一级导航 -->
         <!-- 有子集 -->
-        <template v-if="childItems.children && childItems.children.length > 0">
-            <el-submenu :index="childItems.path + ''" :key="childItems.id">
+        <template v-if="routes.children && routes.children.length > 0">
+            <el-submenu :index="routes.path + ''" :key="routes.id">
                 <template slot="title">
-                    <i :class="'iconfont ' + childItems.meta.icon"></i>
-                    <span>{{ childItems.meta.title }}</span>
+                    <i :class="'iconfont ' + routes.meta.icon"></i>
+                    <span>{{ routes.meta.title }}</span>
                 </template>
                 <!-- 二级导航 -->
-                <nav-bar v-for="subMenu in childItems.children" :key="subMenu.id" :childItems="subMenu"></nav-bar>
+                <nav-bar v-for="subMenu in routes.children" :key="subMenu.id" :routes="subMenu"></nav-bar>
             </el-submenu>
         </template>
         <!-- 无子集 -->
         <template v-else>
-            <el-menu-item v-show="!childItems.hidden" :index="childItems.path + ''" :key="childItems.id">
-                <i v-if="childItems.meta.icon" :class="'iconfont ' + childItems.meta.icon"></i>
-                <template slot="title">{{ childItems.meta.title }}</template>
+            <el-menu-item v-show="!routes.hidden" :index="routes.path + ''" :key="routes.id">
+                <i v-if="routes.meta.icon" :class="'iconfont ' + routes.meta.icon"></i>
+                <template slot="title">{{ routes.meta.title }}</template>
             </el-menu-item>
         </template>
     </div>
@@ -26,7 +26,7 @@
 export default {
     name: 'navBar',
     props: {
-        childItems: {
+        routes: {
             type: Object,
             default: () => {}
         }

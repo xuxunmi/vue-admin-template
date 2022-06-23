@@ -97,6 +97,8 @@ export default {
         },
         // 关闭全部标签
         closeAll() {
+            // 判断当前tags是否唯一且为首页
+            if (this.tagsList.length === 1 && this.$route.name === '首页') return;
             this.CLEAR_TAGS();
             // 设置tagsList
             this.SET_TAGS({
@@ -134,7 +136,7 @@ export default {
     height: 40px;
     padding: 0 10px;
     background-color: #eaedf1;
-    box-shadow: 0 5px 10px #ddd;
+    box-shadow: 0px 5px 3px 0px #ddd;
     z-index: 999;
     ul {
         box-sizing: border-box;

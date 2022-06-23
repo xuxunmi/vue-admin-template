@@ -18,7 +18,7 @@
                 :collapse-transition="false"
                 router
             >
-                <nav-bar v-for="route in routers" :key="route.id" :childItems="route"></nav-bar>
+                <nav-bar v-for="route in routers" :key="route.id" :routes="route"></nav-bar>
             </el-menu>
         </el-scrollbar>
     </div>
@@ -99,7 +99,7 @@ export default {
         border-right: none;
     }
     .el-scrollbar {
-        height: calc(100% - 80px); // 必须设置el-scrollbar的高度
+        height: calc(100% - 60px); // 必须设置el-scrollbar的高度
         background-color: #324458 !important;
         ::v-deep .scrollbar-wrapper {
             width: 100%;
