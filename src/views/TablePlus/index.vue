@@ -1,9 +1,8 @@
 <template>
     <div class="app-layout">
-        <h1>TablePlus</h1>
+        <h1 class="mb-8">TablePlus表格：</h1>
         <div class="app-layout__container">
             <div class="app-layout__left">
-                <h2 class="app-layout__title">表格</h2>
                 <table-plus
                     :columns="columns"
                     :data-source="dataSource"

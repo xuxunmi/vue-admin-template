@@ -1,7 +1,7 @@
 <template>
     <div class="user-manage-page">
         <div class="vxe-table">
-            <h1>vxe-table表格使用示例：</h1>
+            <h1 class="text-2xl font-bold">vxe-table表格使用示例：</h1>
             <vxe-toolbar export print zoom custom>
                 <template #buttons>
                     <vxe-button @click="insertEvent">新增</vxe-button>
@@ -30,7 +30,7 @@
                 :export-config="{}"
                 :edit-config="{ trigger: 'click', mode: 'row', showStatus: true }"
             >
-                <vxe-column type="checkbox" title="ID" width="140"></vxe-column>
+                <vxe-column type="checkbox" title="选择" width="140"></vxe-column>
                 <vxe-column field="name" title="姓名" sortable></vxe-column>
                 <vxe-column field="sex" title="性别" :formatter="formatSex" sortable></vxe-column>
                 <vxe-column field="age" title="年龄" sortable></vxe-column>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-// import { iconfontList } from '@/utils/iconfontList.js';
+import '@assets/css/vxe-table/vxe-reset.scss';
 import XEUtils from 'xe-utils';
 
 export default {
@@ -95,7 +95,7 @@ export default {
                         '<img height="40" src="https://n.sinaimg.cn/sinacn17/w120h120/20180314/89fc-fyscsmv5911424.gif">'
                 },
                 {
-                    id: 10003,
+                    id: 10004,
                     name: '狠人大帝',
                     sex: '0',
                     age: 20,
@@ -104,7 +104,7 @@ export default {
                         '<img height="40" src="https://n.sinaimg.cn/sinacn17/w120h120/20180314/89fc-fyscsmv5911424.gif">'
                 },
                 {
-                    id: 10004,
+                    id: 10005,
                     name: '段德',
                     sex: '1',
                     age: 30,
@@ -185,6 +185,11 @@ export default {
         margin-top: 20px;
         h1 {
             margin-bottom: 20px;
+        }
+        ::v-deep .vxe-cell--html img {
+            width: 60px;
+            height: 45px;
+            margin: 0 auto;
         }
     }
 }

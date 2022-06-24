@@ -58,6 +58,7 @@ export default {
         height: 100%;
         .el-aside {
             background-color: #333744;
+            overflow: hidden;
         }
         .el-container {
             width: 100vw;

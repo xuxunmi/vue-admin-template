@@ -2,7 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import './plugins/element.js';
+import './plugins/elementui/element.js';
+import './plugins/tailwindcss/tailwindcss.css';
 import '@/styles/global.css';
 import '@/mock/index.js';
 

@@ -46,16 +46,21 @@ module.exports = {
         loaderOptions: {
             sass: {
                 // 配置全局样式变量
+                implementation: require('sass'),
+                additionalData: `@import "@/styles/variables.scss";`
             }
         }
     },
     chainWebpack: config => {
         // 路径重命名
         config.resolve.alias
-            .set('components', resolve('src/components'))
-            .set('views', resolve('src/views'))
-            .set('assets', resolve('src/assets'))
-            .set('api', resolve('src/api'));
+            .set('@', resolve('src'))
+            .set('@components', resolve('src/components'))
+            .set('@views', resolve('src/views'))
+            .set('@assets', resolve('src/assets'))
+            .set('@router', resolve('src/router'))
+            .set('@store', resolve('src/store'))
+            .set('@api', resolve('src/api'));
     },
     configureWebpack: config => {
         if (process.env.NODE_ENV === 'production') {

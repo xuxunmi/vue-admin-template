@@ -137,8 +137,8 @@ export default {
 .container {
     margin: 100px auto;
     text-align: center;
-    width: 360px;
-    height: 360px;
+    width: 400px;
+    height: 400px;
     border-radius: 20px;
     background-color: lawngreen;
     padding: 20px;

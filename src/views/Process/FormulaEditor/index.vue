@@ -1,16 +1,16 @@
 <template>
     <div class="formula-editor-page">
+        <h1 class="text-2xl font-bold">公式：</h1>
         <div class="formula-editor">
-            <h1>公式：</h1>
             <textarea v-model="formula" cols="30" rows="10"></textarea>
         </div>
-        <h2>结果：</h2>
+        <h2 class="text-2xl font-bold">结果：</h2>
         <vue-mathjax :formula="formula" :safe="false"></vue-mathjax>
     </div>
 </template>
 
 <script>
-import VueMathjax from 'components/vueMathjax/vue-mathjax.vue';
+import VueMathjax from '@components/vueMathjax/vue-mathjax.vue';
 export default {
     name: 'formulaEditor',
     components: {
@@ -32,7 +32,7 @@ export default {
 .formula-editor-page {
     box-sizing: border-box;
     height: 100%;
-    margin-top: 60px;
+    margin-top: 45px;
     padding: 0 20px;
     background-color: #eaedf1;
     .formula-editor {

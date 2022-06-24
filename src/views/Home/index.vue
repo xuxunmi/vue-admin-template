@@ -1,5 +1,6 @@
 <template>
     <div class="home-page">
+        <div class="mb-8 font-bold text-2xl">canvas绘制时钟：</div>
         <canvas id="myClock" ref="myClock" width="300" height="300"></canvas>
         <div class="time">北京时间：{{ nowTime }}</div>
     </div>
@@ -225,6 +226,9 @@ export default {
 .home-page {
     margin-top: 100px;
     text-align: center;
+    #myClock {
+        display: inline-block;
+    }
     .time {
         margin-top: 20px;
     }

@@ -82,6 +82,7 @@ export default {
         margin-left: 15px;
         color: #fff;
         img {
+            display: inline;
             width: 32px;
             height: 32px;
             vertical-align: middle;
@@ -107,8 +108,8 @@ export default {
             overflow-y: hidden !important;
         }
     }
-    /deep/ .el-menu--collapse > .sidebar-page > .el-submenu > .el-submenu__title > .el-submenu__icon-arrow,
-    /deep/ .el-menu--collapse > .sidebar-page > .el-submenu > .el-submenu__title > span {
+    ::v-deep .el-menu--collapse > .sidebar-page > .el-submenu > .el-submenu__title > .el-submenu__icon-arrow,
+    ::v-deep .el-menu--collapse > .sidebar-page > .el-submenu > .el-submenu__title > span {
         display: none;
     }
 }
