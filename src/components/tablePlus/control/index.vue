@@ -23,12 +23,21 @@
         :size="size"
         @input="handleInput"
     />
+    <el-input-number
+        v-else-if="type === 'inputNumber'"
+        v-bind="$attrs"
+        v-on="$listeners"
+        :value="value"
+        :placeholder="$attrs.placeholder || '请输入'"
+        :size="size"
+        @input="handleInput"
+    />
     <el-input
         v-else
         v-bind="$attrs"
         v-on="$listeners"
         :value="value"
-        :placeholder="$attrs.placeholder || '请选择'"
+        :placeholder="$attrs.placeholder || '请输入'"
         :size="size"
         @input="handleInput"
     />
@@ -84,7 +93,7 @@ export default {
     },
     computed: {
         size() {
-            return this.$attrs.size ?? 'small';
+            return this.$attrs.size ?? 'mini';
         }
     },
     methods: {

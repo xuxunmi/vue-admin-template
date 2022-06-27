@@ -6,6 +6,10 @@
             @row-add="handleRowAdd"
             @row-add-child="handleRowAddChild"
             @row-remove="handleRowRemove"
+            @row-modify="handleRowModify"
+            @row-enable="handleRowEnable"
+            @row-disable="handleRowDisable"
+            @row-be-invalid="handleRowBeInvalid"
             @custom-btn-click="handleCustomBtnClick"
             @search="handleSearch"
             @filtered-columns-change="handleFilteredColumnsChange"
@@ -20,7 +24,7 @@
             cell-class-name="table-plus__cell"
             highlight-current-row
             default-expand-all
-            @row-click="handleRowDoubleClick"
+            @row-click="handleRowClick"
             @selection-change="handleSelectionChange"
             @current-change="handleCurrentChange"
         >
@@ -66,7 +70,7 @@
                                 v-if="columnIndex === columns.length - 1"
                                 v-model="editToolbarVisible"
                                 popper-class="popper__table-edit-toolbar"
-                                placement="right"
+                                placement="bottom"
                                 trigger="manual"
                                 :visible-arrow="false"
                             >
@@ -101,6 +105,7 @@
 import Sortable from 'sortablejs';
 import TablePlusToolbar from './toolbar/index.vue';
 import TablePlusControl from './control/index.vue';
+import { Message } from 'element-ui';
 import { randomString, removeItemsInTree } from './utils';
 import { getLevelFromClassName } from './utils/dom';
 
@@ -130,10 +135,15 @@ export default {
         // 是否启用双击编辑
         rowEditable: {
             type: Boolean,
-            default: true
+            default: false
         },
         // 是否启用行排序
         rowSortable: {
+            type: Boolean,
+            default: false
+        },
+        // 是否启用本地移除
+        rowLocalRemove: {
             type: Boolean,
             default: false
         },
@@ -258,16 +268,6 @@ export default {
         },
 
         /**
-         * 点击自定义按钮
-         */
-        handleCustomBtnClick(onClick) {
-            if (!onClick) {
-                return;
-            }
-            onClick(this.selectedRows);
-        },
-
-        /**
          * 列过滤
          */
         handleFilteredColumnsChange(value) {
@@ -308,7 +308,8 @@ export default {
         /**
          * 双击时行编辑
          */
-        handleRowDoubleClick(row) {
+        handleRowClick(row) {
+            this.$emit('row-click');
             if (!this.rowEditable) {
                 return;
             }
@@ -319,7 +320,12 @@ export default {
          * 添加行
          */
         handleRowAdd() {
+            this.$emit('row-add');
+            if (!this.rowEditable) {
+                return;
+            }
             const newRow = this.initNewRow();
+            // eslint-disable-next-line vue/no-mutating-props
             this.dataSource.push(newRow);
             this.editRow(newRow);
         },
@@ -330,7 +336,7 @@ export default {
         handleRowAddChild() {
             const parentRow = this.currentHighlightRow || this.selectedRows[0];
             if (!parentRow) {
-                this.$message.warning('请先选中一行');
+                Message.warning('请先选中一行');
                 return;
             }
             const newRow = this.initNewRow();
@@ -340,6 +346,71 @@ export default {
                 this.$set(parentRow, 'children', [newRow]);
             }
             this.editRow(newRow);
+        },
+
+        /**
+         * 点击自定义按钮
+         */
+        handleCustomBtnClick(onClick) {
+            if (!onClick) {
+                return;
+            }
+            onClick(this.selectedRows);
+        },
+
+        /**
+         * 点击修改按钮
+         */
+        handleRowModify() {
+            const lastRow = this.getLastSelectedRow();
+            if (!lastRow) {
+                return;
+            }
+            this.$emit('row-modify', lastRow);
+        },
+
+        /**
+         * 点击启用
+         */
+        handleRowEnable() {
+            const lastRow = this.getLastSelectedRow();
+            if (!lastRow) {
+                return;
+            }
+            this.$emit('row-enable', lastRow);
+        },
+
+        /**
+         * 点击停用
+         */
+        handleRowDisable() {
+            const lastRow = this.getLastSelectedRow();
+            if (!lastRow) {
+                return;
+            }
+            this.$emit('row-disable', lastRow);
+        },
+
+        /**
+         * 点击作废
+         */
+        handleRowBeInvalid() {
+            const lastRow = this.getLastSelectedRow();
+            if (!lastRow) {
+                return;
+            }
+            this.$emit('row-be-invalid', lastRow);
+        },
+
+        /**
+         * 获得最后一条选择的记录
+         */
+        getLastSelectedRow() {
+            if (!this.selectedRows.length) {
+                Message.warning('请先选中一条记录');
+                return;
+            }
+            return this.selectedRows[this.selectedRows.length - 1];
         },
 
         /**
@@ -375,11 +446,14 @@ export default {
          * 行移除
          */
         handleRowRemove() {
-            if (!this.selectedRows?.length) {
+            if (!this.selectedRows.length) {
+                Message.warning('请先选中一条记录');
                 return;
             }
-            const handleRemove = () => removeItemsInTree(this.dataSource, this.selectedRows);
-            this.$emit('row-remove', this.selectedRows, handleRemove);
+            if (this.rowLocalRemove) {
+                removeItemsInTree(this.dataSource, this.selectedRows);
+            }
+            this.$emit('row-remove', this.selectedRows);
         },
 
         /**
