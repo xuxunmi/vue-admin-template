@@ -65,8 +65,8 @@ const routes = [
                 },
                 children: [
                     {
-                        path: '/system/table',
-                        name: 'Table',
+                        path: '/system/vuextable',
+                        name: 'vuexTable',
                         component: () => import('@/views/SystemManage/VuexTable/index.vue'),
                         meta: {
                             title: 'vuex-table表格',
@@ -161,6 +161,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+    // mode: 'history',  //去掉url中的#，需要后端配合
     routes
 });
 
