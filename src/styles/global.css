@@ -246,8 +246,23 @@ textarea::-webkit-input-placeholder {
     color: #aaaaaa;
 }
 
-
 /* 解决级联选择器超出屏幕现象 */
-.el-cascader-panel{
+.el-cascader-panel {
     height: 600px;
+}
+
+/**
+* 解决el-input设置类型为number时，去掉输入框后面上下箭头
+**/
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+}
+input[type='number'] {
+    -moz-appearance: textfield !important;
+}
+/**
+* 解决el-input设置类型为number时，中文输入法光标上移问题
+**/
+.el-input__inner {
+    line-height: 1px !important;
 }
