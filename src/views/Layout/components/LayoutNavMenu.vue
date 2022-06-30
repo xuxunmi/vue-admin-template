@@ -105,6 +105,9 @@ export default {
         ::v-deep .scrollbar-wrapper {
             overflow-x: hidden !important;
         }
+        ::v-deep .el-scrollbar__bar.is-horizontal{
+            display: none !important;
+        }
     }
     ::v-deep .el-menu--collapse > .sidebar-page > .el-submenu > .el-submenu__title > .el-submenu__icon-arrow,
     ::v-deep .el-menu--collapse > .sidebar-page > .el-submenu > .el-submenu__title > span {
