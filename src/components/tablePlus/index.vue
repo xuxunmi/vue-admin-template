@@ -151,6 +151,11 @@ export default {
         initialRowModel: {
             type: Object,
             default: () => ({})
+        },
+        // 是否启用前端搜索
+        localSearch: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
@@ -264,7 +269,11 @@ export default {
          * 前端搜索
          */
         handleSearch(val) {
-            this.searchText = val;
+            if (this.localSearch) {
+                this.searchText = val;
+                return;
+            }
+            this.$emit('search', val);
         },
 
         /**
@@ -306,7 +315,7 @@ export default {
         },
 
         /**
-         * 双击时行编辑
+         * 单击时行编辑
          */
         handleRowClick(row) {
             this.$emit('row-click');
@@ -362,61 +371,60 @@ export default {
          * 点击修改按钮
          */
         handleRowModify() {
-            const lastRow = this.getLastSelectedRow();
-            if (!lastRow) {
+            if (!this.checkSelectedRows()) {
                 return;
             }
-            this.$emit('row-modify', lastRow);
+            this.$emit('row-modify', this.selectedRows);
         },
 
         /**
          * 点击启用
          */
         handleRowEnable() {
-            const lastRow = this.getLastSelectedRow();
-            if (!lastRow) {
+            if (!this.checkSelectedRows()) {
                 return;
             }
-            this.$emit('row-enable', lastRow);
+            this.$emit('row-enable', this.selectedRows);
         },
 
         /**
          * 点击停用
          */
         handleRowDisable() {
-            const lastRow = this.getLastSelectedRow();
-            if (!lastRow) {
+            if (!this.checkSelectedRows()) {
                 return;
             }
-            this.$emit('row-disable', lastRow);
+            this.$emit('row-disable', this.selectedRows);
         },
 
         /**
          * 点击作废
          */
         handleRowBeInvalid() {
-            const lastRow = this.getLastSelectedRow();
-            if (!lastRow) {
+            if (!this.checkSelectedRows()) {
                 return;
             }
-            this.$emit('row-be-invalid', lastRow);
+            this.$emit('row-be-invalid', this.selectedRows);
         },
 
         /**
-         * 获得最后一条选择的记录
+         * 检测是否选中一行
          */
-        getLastSelectedRow() {
+        checkSelectedRows() {
             if (!this.selectedRows.length) {
                 Message.warning('请先选中一条记录');
-                return;
+                return false;
             }
-            return this.selectedRows[this.selectedRows.length - 1];
+            return true
         },
 
         /**
          * 编辑指定行
          */
         editRow(row) {
+            if(this.currentEditRow) {
+                this.confirmEdit()
+            }
             this.currentEditRow = row;
             this.$refs.table.clearSelection();
             this.$nextTick(() => {

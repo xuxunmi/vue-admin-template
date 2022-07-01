@@ -23,14 +23,14 @@
             <el-popconfirm v-if="showDisableBtn" class="mr-3" title="确定停用选择的记录吗？" @confirm="$emit('row-disable')">
                 <el-button slot="reference" size="mini" plain>停用</el-button>
             </el-popconfirm>
-            <el-popconfirm
+            <!-- <el-popconfirm
                 v-if="showBeInvalidBtn"
                 class="mr-3"
                 title="确定作废选择的记录吗？"
                 @confirm="$emit('row-be-invalid')"
             >
                 <el-button slot="reference" type="warning" size="mini" plain>作废</el-button>
-            </el-popconfirm>
+            </el-popconfirm> -->
             <el-popconfirm
                 v-if="showRemoveBtn"
                 class="mr-3"
