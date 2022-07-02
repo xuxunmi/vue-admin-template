@@ -19,13 +19,8 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <div
-                        class="login-btn"
-                        v-loading="loading"
-                        element-loading-spinner="el-icon-loading"
-                        @click="handleLoginBtn"
-                    >
-                        登录
+                    <div class="login-btn" @click="handleLoginBtn">
+                        {{ loading ? '登录中...' : '登录' }}
                     </div>
                 </el-form-item>
             </el-form>
@@ -73,40 +68,36 @@ export default {
         ...mapMutations(['SET_TAGS']),
         ...mapActions('user', ['setToken']),
         handleLoginBtn() {
-            this.$refs.loginForm.validate(valid => {
+            this.loading = true;
+            this.$refs.loginForm.validate(async valid => {
                 if (valid) {
                     this.loading = true;
                     // mockjs使用
-                    axios
-                        .post('/api/login')
-                        .then(res => {
-                            let { code, token, msg } = res.data;
-                            if (code === 200) {
-                                // console.log('process.env: ', process.env);
-                                // 设置sessionStorage
-                                setStorage('token', token, true);
-                                console.log('getStorage: ', getStorage('token', true));
-                                this.setToken(token);
-                                // 设置tagsList
-                                this.SET_TAGS({
-                                    name: 'home',
-                                    title: '首页',
-                                    path: '/home'
-                                });
-                                this.$message({
-                                    type: 'success',
-                                    message: msg,
-                                    center: true
-                                });
-                                this.$router.push({ path: '/home' });
-                            }
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });
-                } else {
-                    console.log('error submit!!');
-                    return false;
+                    let result = await axios.post('/api/login');
+                    try {
+                        let { code, token, msg } = result.data;
+                        if (code === 200) {
+                            // console.log('process.env: ', process.env);
+                            // 设置sessionStorage
+                            setStorage('token', token, true);
+                            console.log('getStorage: ', getStorage('token', true));
+                            this.setToken(token);
+                            // 设置tagsList
+                            this.SET_TAGS({
+                                name: 'home',
+                                title: '首页',
+                                path: '/home'
+                            });
+                            this.$message({
+                                type: 'success',
+                                message: msg,
+                                center: true
+                            });
+                            this.$router.push({ path: '/home' });
+                        }
+                    } finally {
+                        this.loading = false;
+                    }
                 }
             });
         }
