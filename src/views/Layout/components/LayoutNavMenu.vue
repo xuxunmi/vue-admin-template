@@ -1,7 +1,7 @@
 <template>
     <div class="layout-navmenu-page">
         <div class="header-wrap">
-            <img :class="isCollapse ? 'header-img' : ''" src="@/assets/logo.png" alt="" />
+            <img :class="isCollapse ? 'header-img' : ''" :src="headerImgToggele" alt="" />
             <span v-show="!isCollapse">管理后台系统</span>
         </div>
         <el-scrollbar wrap-class="scrollbar-wrapper">
@@ -33,7 +33,9 @@ export default {
         'nav-bar': navBar
     },
     data() {
-        return {};
+        return {
+            headerImgToggele: require('@/assets/logo.png')
+        };
     },
     watch: {
         // 监听路由，打开相对应的侧边导航
@@ -105,7 +107,7 @@ export default {
         ::v-deep .scrollbar-wrapper {
             overflow-x: hidden !important;
         }
-        ::v-deep .el-scrollbar__bar.is-horizontal{
+        ::v-deep .el-scrollbar__bar.is-horizontal {
             display: none !important;
         }
     }
