@@ -1,12 +1,13 @@
 <template>
     <!-- 路由占位符 -->
     <!-- 不能使用 keep-alive 缓存组件，会导致canvas报错 -->
-    <!-- <keep-alive> -->
+
     <!-- 组件过渡 -->
     <transition name="component-fade" mode="out-in">
+        <!-- <keep-alive> -->
         <router-view :key="key"></router-view>
+        <!-- </keep-alive> -->
     </transition>
-    <!-- </keep-alive> -->
 </template>
 
 <script>

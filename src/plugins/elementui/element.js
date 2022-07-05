@@ -48,7 +48,9 @@ import {
     Popconfirm,
     Popover,
     Switch,
-    Scrollbar
+    Scrollbar,
+    Autocomplete
+
 } from 'element-ui';
 
 Vue.use(Dialog);
@@ -97,6 +99,7 @@ Vue.use(Popconfirm);
 Vue.use(Popover);
 Vue.use(Switch);
 Vue.use(Scrollbar);
+Vue.use(Autocomplete);
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;

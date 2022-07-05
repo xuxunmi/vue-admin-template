@@ -4,6 +4,21 @@
             <img :class="isCollapse ? 'header-img' : ''" :src="headerImgToggele" alt="" />
             <span v-show="!isCollapse">管理后台系统</span>
         </div>
+        <div class="navbar-input" v-show="!isCollapse">
+            <el-autocomplete
+                size="mini"
+                style="width: 100%;"
+                v-model="searchValue"
+                :fetch-suggestions="querySearch"
+                placeholder="请输入关键字"
+                :trigger-on-focus="false"
+                value-key="name"
+                @select="handleSelect"
+            >
+                <!-- TODO：缺少搜索icon图标，iconfont目前无法生成新的css链接，链接待替换 -->
+                <i slot="suffix" class="iconfont icon-search"></i>
+            </el-autocomplete>
+        </div>
         <el-scrollbar wrap-class="scrollbar-wrapper">
             <!-- 侧边栏导航区域 -->
             <el-menu
@@ -34,7 +49,8 @@ export default {
     },
     data() {
         return {
-            headerImgToggele: require('@/assets/logo.png')
+            headerImgToggele: require('@/assets/logo.png'),
+            searchValue: ''
         };
     },
     watch: {
@@ -67,6 +83,34 @@ export default {
         setActivePathIndex(path) {
             this.activePathIndex = path;
         },
+        querySearch(queryString, cb) {
+            // 合并一级导航
+            let menuArr = [].concat(this.routers);
+            // 遍及获取二级导航
+            this.routers.forEach(item => {
+                if (item.children && item.children.length > 0) {
+                    // children数组展开
+                    menuArr.push(...item.children);
+                }
+            });
+            let restaurants = menuArr.map(item => {
+                return {
+                    name: item.meta.title,
+                    path: item.path
+                };
+            });
+            var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+            // 调用 callback 返回建议列表的数据
+            cb(results);
+        },
+        createFilter(queryString) {
+            return restaurant => {
+                return restaurant.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0;
+            };
+        },
+        handleSelect(item) {
+            this.$router.push({ path: item.path });
+        },
         handleOpen(key, keyPath) {
             console.log(key, keyPath);
         },
@@ -96,6 +140,18 @@ export default {
         }
         .header-img {
             margin-top: 18px;
+        }
+    }
+    .navbar-input {
+        .iconfont {
+            position: relative;
+            top: 5px;
+        }
+        ::v-deep .el-input__inner {
+            background-color: #324458;
+            color: #fff !important;
+            border-radius: 0px !important;
+            border: 1px solid #333744;
         }
     }
     .el-menu {
