@@ -16,10 +16,11 @@
         />
         <el-table
             ref="table"
+            v-loading="loading"
             v-bind="$attrs"
             v-on="$listeners"
             :data="filteredDataSource"
-            :row-key="rowKey"
+            :row-key="getRowKey"
             :row-class-name="generateRowClassName"
             cell-class-name="table-plus__cell"
             highlight-current-row
@@ -30,8 +31,11 @@
         >
             <el-table-column type="selection" width="55" />
             <template v-for="(columnItem, columnIndex) in columns">
+                <template v-if="columnItem.type">
+                    <el-table-column v-bind="columnItem" :key="columnItem.prop" />
+                </template>
                 <el-table-column
-                    v-if="filteredColumnProps.includes(columnItem.prop)"
+                    v-else-if="filteredColumnProps.includes(columnItem.prop)"
                     v-bind="columnItem"
                     :key="columnItem.prop"
                 >
@@ -120,7 +124,12 @@ export default {
         // 数据唯一标识，必填
         rowKey: {
             type: String,
-            default: 'id'
+            default: 'oid'
+        },
+        // 是否加载中
+        loading: {
+            type: Boolean,
+            default: false
         },
         // 列配置
         columns: {
@@ -229,7 +238,10 @@ export default {
                     const relatedLevel = getLevelFromClassName(event.related.className);
                     return draggedLevel === relatedLevel;
                 },
-                onEnd: () => {
+                onEnd: ({ oldIndex,  newIndex}) => {
+                    const currentRow = this.dataSource.splice(oldIndex, 1)[0];
+                    this.dataSource.splice(newIndex, 0, currentRow);
+                    this.$emit('row-sort', { oldIndex, newIndex });
                     // 重置当前正在编辑的行的工具栏，防止位置错乱
                     if (this.currentEditRow) {
                         this.editToolbarVisible = false;
@@ -237,6 +249,13 @@ export default {
                     }
                 }
             });
+        },
+
+        /**
+         * 获取 rowKey 值
+         */
+        getRowKey(row) {
+            return row[this.rowKey] ?? row['_newRowId']
         },
 
         /**
@@ -334,7 +353,6 @@ export default {
                 return;
             }
             const newRow = this.initNewRow();
-            // eslint-disable-next-line vue/no-mutating-props
             this.dataSource.push(newRow);
             this.editRow(newRow);
         },
@@ -415,15 +433,15 @@ export default {
                 Message.warning('请先选中一条记录');
                 return false;
             }
-            return true
+            return true;
         },
 
         /**
          * 编辑指定行
          */
         editRow(row) {
-            if(this.currentEditRow) {
-                this.confirmEdit()
+            if (this.currentEditRow) {
+                this.confirmEdit();
             }
             this.currentEditRow = row;
             this.$refs.table.clearSelection();
@@ -447,7 +465,7 @@ export default {
          * 初始化新行
          */
         initNewRow() {
-            return { [this.rowKey]: randomString(), _isNewRow: true, ...this.initialRowModel };
+            return {  _isNewRow: true, _newRowId: randomString(), ...this.initialRowModel };
         },
 
         /**
@@ -502,10 +520,12 @@ export default {
             if (row1 === row2) {
                 return true;
             }
-            if (!(row1[this.rowKey] || row2[this.rowKey] === 0) || !(row2[this.rowKey] || row2[this.rowKey] === 0)) {
+            const row1Key = this.getRowKey(row1)
+            const row2Key = this.getRowKey(row2)
+            if (!(row1Key || row1Key === 0) || !(row2Key || row2Key === 0)) {
                 return false;
             }
-            return row1[this.rowKey] === row2[this.rowKey];
+            return row1Key === row2Key;
         },
 
         /**
