@@ -7,10 +7,11 @@
             <el-form class="login-form" :model="loginForm" ref="loginForm" :rules="rules">
                 <el-form-item prop="username">
                     <!-- 自动获取焦点： :autofocus="true" -->
-                    <el-input v-model="loginForm.username" placeholder="用户名"></el-input>
+                    <el-input size="small" v-model="loginForm.username" placeholder="用户名"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input
+                        size="small"
                         type="password"
                         v-model="loginForm.password"
                         placeholder="密码"
@@ -126,7 +127,7 @@ export default {
             display: table;
         }
         .login-title {
-            margin-top: 30px;
+            padding-top: 30px;
             img {
                 width: 50px;
                 height: 50px;
