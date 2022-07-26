@@ -64,7 +64,7 @@ service.interceptors.request.use(
 // 响应拦截器器
 service.interceptors.response.use(
     response => {
-        console.log('响应成功结果response: ', response);
+        // console.log('响应成功结果response: ', response.data);
         if (response.data.code === 200) {
             return Promise.resolve(response.data);
         } else {
@@ -78,7 +78,7 @@ service.interceptors.response.use(
         }
     },
     error => {
-        console.log('响应成功结果error: ', error);
+        // console.log('响应错误结果error: ', error.response.data);
         // if (error && error.response) {
         //     switch (error.response.status) {
         //         case 400:
