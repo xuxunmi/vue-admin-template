@@ -37,16 +37,15 @@ export default {
         },
         // 退出登录
         logout() {
-            // 直接使用：
-            // this.$store.dispatch('user/setToken', null);
-            // mapActions辅助函数写法：
-            this.setToken(null);
+            // this.$store.dispatch('user/setToken', null); // 直接使用：
+            this.setToken(null); // mapActions辅助函数写法：
+
             removeStorage('token', true);
+            
             // 先清空tagsList
-            // 直接使用：
-            // this.$store.commit('CLEAR_TAGS');
-            // mapMutations辅助函数写法：
-            this.CLEAR_TAGS();
+            // this.$store.commit('CLEAR_TAGS'); // 直接使用：
+            this.CLEAR_TAGS(); // mapMutations辅助函数写法：
+
             this.$message({
                 type: 'success',
                 message: '退出成功',

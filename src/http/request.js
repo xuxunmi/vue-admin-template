@@ -5,8 +5,8 @@ import http from 'http';
 import https from 'https';
 import { Message } from 'element-ui';
 Vue.prototype.$message = Message;
-// import { get as getStorage } from '@/utils/storage.js'
-// import router from '@/router/index.js';
+import { get as getStorage, remove as removeStorage } from '@/utils/storage.js';
+import router from '@/router/index.js';
 import store from '@/store/index.js';
 import { HTTP_STATUS_CODE } from './httpErrorCode.js';
 
@@ -44,15 +44,15 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
     config => {
-        const token = store.getters.token || '';
+        const token = store.getters.token || getStorage('token', true);
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
         //只针对get方式进行序列化
         if (config.method === 'get') {
             config.paramsSerializer = function (params) {
                 return qs.stringify(params, { arrayFormat: 'repeat' });
             };
-        }
-        if (token) {
-            config.headers['Authorization'] = `Bearer ${token}`;
         }
         return config;
     },
@@ -123,8 +123,36 @@ service.interceptors.response.use(
         // } else {
         //     error.message = '连接到服务器失败';
         // }
+
+        // if (error && error.response) {
+        //     error.message = HTTP_STATUS_CODE[error.response.status];
+        // } else {
+        //     error.message = HTTP_STATUS_CODE.default;
+        // }
+
         if (error && error.response) {
-            error.message = HTTP_STATUS_CODE[error.response.status];
+            let { code, message } = error.response.data;
+            if (code === 401) {
+                store.dispatch('user/setToken', null);
+                removeStorage('token', true);
+                // 先清空tagsList
+                store.commit('CLEAR_TAGS');
+                error.message = HTTP_STATUS_CODE[code];
+                Message({
+                    message: `${error.message}`,
+                    type: 'error',
+                    duration: 3000,
+                    center: true
+                });
+                router.push({ path: '/login' });
+            } else {
+                // 判断返回的状态码是否在 HTTP_STATUS_CODE 对象中
+                if (code in HTTP_STATUS_CODE) {
+                    error.message = HTTP_STATUS_CODE[code];
+                } else {
+                    error.message = message;
+                }
+            }
         } else {
             error.message = HTTP_STATUS_CODE.default;
         }
