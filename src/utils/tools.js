@@ -385,3 +385,22 @@ export const exitFullScreen = () => {
         document.mozCancelFullScreen();
     }
 };
+
+/**
+ * 是否是数字
+ * @param {*} value
+ * @returns
+ */
+export function isNumber(value) {
+    return typeof value === 'number' && isFinite(value);
+}
+
+/**
+ * 保留指定位小数
+ * @param {*} src
+ * @param {*} pos
+ * @returns
+ */
+export function formatFloat(src, pos = 2) {
+    return Math.round(src * Math.pow(10, pos)) / Math.pow(10, pos);
+}

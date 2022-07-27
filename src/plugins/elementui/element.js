@@ -9,6 +9,7 @@ import {
     Submenu,
     MenuItem,
     Input,
+    InputNumber,
     Table,
     TableColumn,
     Tabs,
@@ -50,7 +51,6 @@ import {
     Switch,
     Scrollbar,
     Autocomplete
-
 } from 'element-ui';
 
 Vue.use(Dialog);
@@ -59,6 +59,7 @@ Vue.use(Menu);
 Vue.use(Submenu);
 Vue.use(MenuItem);
 Vue.use(Input);
+Vue.use(InputNumber);
 Vue.use(Table);
 Vue.use(TableColumn);
 Vue.use(Tabs);
