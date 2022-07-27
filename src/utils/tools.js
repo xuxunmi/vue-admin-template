@@ -125,6 +125,15 @@ export function moneyFormat(money, decimal, symbol) {
     return symbol ? symbol + num : num;
 }
 
+/**
+ * 千分位格式化，每三位逗号隔开
+ * @method formatMoney
+ * @param {Number} money 数字
+ */
+export function formatMoney(money) {
+    return money.replace(new RegExp(`(?!^)(?=(\\d{3})+${money.includes('.') ? '\\.' : '$'})`, 'g'), ',');
+}
+
 // 区分浏览器类型
 export function distinguishUserAgentUtils(userAgent) {
     let ua = userAgent || window.navigator.userAgent;
