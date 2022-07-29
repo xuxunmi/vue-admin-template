@@ -145,16 +145,14 @@ service.interceptors.response.use(
                     center: true
                 });
                 router.push({ path: '/login' });
-            } else {
-                // 判断返回的状态码是否在 HTTP_STATUS_CODE 对象中
-                if (code in HTTP_STATUS_CODE) {
-                    error.message = HTTP_STATUS_CODE[code];
-                } else {
-                    error.message = message;
-                }
+                return;
             }
-        } else {
-            error.message = HTTP_STATUS_CODE.default;
+            // 判断返回的状态码是否在 HTTP_STATUS_CODE 对象中
+            if (code in HTTP_STATUS_CODE) {
+                error.message = HTTP_STATUS_CODE[code];
+            } else {
+                error.message = message || HTTP_STATUS_CODE.default;
+            }
         }
         Message({
             message: `${error.message}`,
