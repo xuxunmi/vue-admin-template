@@ -17,6 +17,8 @@ import { dynamicCSS } from '@/utils/tools.js';
 // import * as urls from "@/config/env";
 import { iconfontUrl, iconfontVersion } from '@/config/env';
 
+import * as filters from './filters'; // 全局filter
+
 // 全局引入 vxe-table 表格
 import 'xe-utils';
 import VXETable from 'vxe-table';
@@ -44,6 +46,11 @@ Vue.config.devtools = true;
 iconfontVersion.forEach(ele => {
     // console.log(iconfontUrl.replace("$key", ele));
     dynamicCSS(iconfontUrl.replace('$key', ele));
+});
+
+//注册加载过滤器
+Object.keys(filters).forEach(key => {
+    Vue.filter(key, filters[key]);
 });
 
 new Vue({

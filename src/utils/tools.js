@@ -130,8 +130,13 @@ export function moneyFormat(money, decimal, symbol) {
  * @method formatMoney
  * @param {Number} money 数字
  */
+// 第一种方式：
 export function formatMoney(money) {
     return money.replace(new RegExp(`(?!^)(?=(\\d{3})+${money.includes('.') ? '\\.' : '$'})`, 'g'), ',');
+}
+// 第二种方式：
+export function toThousandslsFilter(num) {
+    return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','));
 }
 
 // 区分浏览器类型
