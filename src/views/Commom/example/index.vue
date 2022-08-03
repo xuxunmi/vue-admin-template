@@ -45,6 +45,9 @@
                     <el-button type="warning" size="mini" plain @click="handleResetPwdBtn(scope.row)"
                         >重置密码</el-button
                     >
+                    <el-button type="warning" size="mini" plain @click="handleDistributionMenuBtn(scope.row)"
+                        >分配菜单</el-button
+                    >
                 </template>
             </el-table-column>
         </el-table>
@@ -85,6 +88,16 @@
                 @refreshTable="handleRefreshTable(arguments)"
             ></authorize-popup>
         </dialog-frame>
+
+        <!-- 修改分配菜单权限弹窗 -->
+        <dialog-frame :title="'分配菜单权限'" :show.sync="dialogVisible.menu" width="40%" :footer="false">
+            <menu-popup
+                v-if="dialogVisible.menu"
+                :show.sync="dialogVisible.menu"
+                :role-id="roleId"
+                @refreshTable="handleRefreshTable(arguments)"
+            ></menu-popup>
+        </dialog-frame>
     </div>
 </template>
 
@@ -92,6 +105,7 @@
 import dialogFrame from '@/components/dialogFrame/index.vue';
 import userPopup from './components/userPopup.vue';
 import authorizePopup from './components/authorizePopup.vue';
+import menuPopup from './components/menuPopup.vue';
 import {
     getUserManageList,
     getSysRoleList,
@@ -101,7 +115,7 @@ import {
 } from '@/api/systemManage/userManage/index.js';
 export default {
     name: 'userManage',
-    components: { dialogFrame, userPopup, authorizePopup },
+    components: { dialogFrame, userPopup, authorizePopup, menuPopup },
     data() {
         return {
             loading: false,
@@ -119,7 +133,8 @@ export default {
             type: '',
             dialogVisible: {
                 user: false, // 是否显示新增/编辑弹窗
-                authorize: false // 是否显示授权角色弹窗
+                authorize: false, // 是否显示授权角色弹窗
+                menu: false // 是否分配菜单按钮弹窗
             },
             editForm: {} // 编辑用户/授权角色信息
         };
@@ -135,7 +150,6 @@ export default {
     methods: {
         // 刷新table
         handleRefreshTable(data) {
-            console.log(' ', data);
             this.dialogVisible[data[1]] = data[0];
             this.queryUserManageData();
         },
@@ -260,7 +274,8 @@ export default {
         // 处理分配角色按钮
         handleDistributeBtn(row) {
             this.editForm = row;
-            this.dialogVisible.authorize = true;
+            let dialogType = 'authorize';
+            this.dialogVisible[dialogType] = true;
         },
         // 处理重置密码
         handleResetPwdBtn(row) {
@@ -294,6 +309,12 @@ export default {
                         center: true
                     });
                 });
+        },
+        // 处理分配菜单按钮
+        handleDistributionMenuBtn(row) {
+            console.log('row: ', row);
+            let dialogType = 'menu';
+            this.dialogVisible[dialogType] = true;
         },
         // 处理分页
         handleSizeChange() {

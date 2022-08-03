@@ -50,7 +50,8 @@ import {
     Popover,
     Switch,
     Scrollbar,
-    Autocomplete
+    Autocomplete,
+    Tree,
 } from 'element-ui';
 
 Vue.use(Dialog);
@@ -101,6 +102,7 @@ Vue.use(Popover);
 Vue.use(Switch);
 Vue.use(Scrollbar);
 Vue.use(Autocomplete);
+Vue.use(Tree);
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;
