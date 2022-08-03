@@ -79,6 +79,7 @@ export default {
                         let checkedMenuIds = this.getAllNodeId(data);
                         checkedMenuIds.forEach(val => {
                             this.$nextTick(() => {
+                                // 解决element-ui的el-tree组件半选中回显的问题
                                 this.$refs.tree.setChecked(val, true, false);
                             });
                         });
