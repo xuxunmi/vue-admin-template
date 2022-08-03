@@ -33,21 +33,30 @@
                     </el-switch>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" width="360" align="center">
                 <template v-slot="scope">
                     <el-button type="primary" size="mini" plain @click="handleAddAndModifyBtn('edit', scope.row)"
                         >修改</el-button
                     >
                     <el-button type="danger" size="mini" plain @click="handleDeleteBtn(scope.row)">删除</el-button>
-                    <el-button type="primary" size="mini" plain @click="handleDistributeBtn(scope.row)"
-                        >分配角色</el-button
-                    >
-                    <el-button type="warning" size="mini" plain @click="handleResetPwdBtn(scope.row)"
-                        >重置密码</el-button
-                    >
-                    <el-button type="warning" size="mini" plain @click="handleDistributionMenuBtn(scope.row)"
-                        >分配菜单</el-button
-                    >
+                    <el-dropdown trigger="click" style="margin-left: 10px;">
+                        <el-button size="mini" type="primary">
+                            更多 <i class="el-icon-arrow-down el-icon--right"></i>
+                        </el-button>
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item @click.native="handleDistributeBtn(scope.row)"
+                                    >分配角色</el-dropdown-item
+                                >
+                                <el-dropdown-item @click.native="handleResetPwdBtn(scope.row)"
+                                    >重置密码</el-dropdown-item
+                                >
+                                <el-dropdown-item @click.native="handleDistributionMenuBtn(scope.row)"
+                                    >分配菜单</el-dropdown-item
+                                >
+                            </el-dropdown-menu>
+                        </template>
+                    </el-dropdown>
                 </template>
             </el-table-column>
         </el-table>
