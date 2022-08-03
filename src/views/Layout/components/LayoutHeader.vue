@@ -29,6 +29,7 @@ export default {
     methods: {
         // vuex辅助函数
         ...mapMutations(['SET_COLLAPSE', 'CLEAR_TAGS']),
+        ...mapMutations('permission', ['SET_MENU_LIST']),
         // mapActions模块使用：
         ...mapActions('user', ['setToken']),
 
@@ -41,7 +42,10 @@ export default {
             this.setToken(null); // mapActions辅助函数写法：
 
             removeStorage('token', true);
-            
+
+            // 清空动态路由
+            this.SET_MENU_LIST([]);
+
             // 先清空tagsList
             // this.$store.commit('CLEAR_TAGS'); // 直接使用：
             this.CLEAR_TAGS(); // mapMutations辅助函数写法：

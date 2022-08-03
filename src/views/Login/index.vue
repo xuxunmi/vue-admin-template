@@ -94,7 +94,7 @@ export default {
                                 message: msg,
                                 center: true
                             });
-                            this.$router.push({ path: '/home' });
+                            this.$router.push({ path: '/' });
                         }
                     } finally {
                         this.loading = false;

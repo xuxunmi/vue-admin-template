@@ -1,7 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-// 模块
+// 用户模块
 import user from './modules/user.js';
+// 权限模块
+import permission from './modules/permission.js';
+
 import getters from './getters';
 
 import { createVuexPersistedState } from 'vue-persistedstate';
@@ -55,7 +58,8 @@ const persistedState = createVuexPersistedState({
 
 export default new Vuex.Store({
     modules: {
-        user
+        user,
+        permission
     },
     state,
     getters,
