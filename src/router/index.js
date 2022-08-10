@@ -218,7 +218,8 @@ const dynamicRoutes = [
 
 const router = new VueRouter({
     // mode: 'history',  //去掉url中的#，需要后端配合
-    routes: constantRoutes
+    routes: constantRoutes,
+    scrollBehavior: () => ({ y: 0 })
 });
 
 router.beforeEach((to, from, next) => {

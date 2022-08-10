@@ -6,8 +6,7 @@ import 'nprogress/nprogress.css'; // Progress 进度条样式
 
 NProgress.configure({ showSpinner: false }); // 进度环隐藏
 
-// 记录路由
-let hasRoles = true;
+let isRefresh = false; //判断是否是刷新页面进入的守卫
 
 //无需权限页面
 const whiteList = ['/login'];
@@ -18,13 +17,12 @@ router.beforeEach(async (to, from, next) => {
     let isLogin = store.getters.token || getStorage('token', true);
     if (isLogin) {
         if (to.path === '/login') {
-            next({ path: '/' });
+            next();
             NProgress.done();
         } else {
-            let routers = await store.dispatch('permission/setMenuList');
-            if (hasRoles) {
-                routers.forEach(item => router.addRoute('Home', item));
-                hasRoles = false;
+            if (store.getters.menuList.length === 0 || !isRefresh) {
+                await store.dispatch('permission/setMenuList');
+                isRefresh = true;
                 next({ ...to, replace: true });
             } else {
                 next();
