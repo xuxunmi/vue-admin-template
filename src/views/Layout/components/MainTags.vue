@@ -1,13 +1,20 @@
 <template>
     <div class="tags-page" :class="isCollapse ? 'w-calc-64 ' : 'w-calc-200'" v-if="showTags">
-        <ul>
-            <li class="tags-li" v-for="(item, index) in tagsList" :class="{ active: isActive(item.path) }" :key="index">
-                <router-link :to="item.path" class="tags-li-title">{{ item.title }}</router-link>
-                <span class="tags-li-icon" @click="closeTags(index)">
-                    <i v-show="tagsList.lenght !== 1 && item.title !== '首页'" class="el-icon-close"></i>
-                </span>
-            </li>
-        </ul>
+        <el-scrollbar wrap-class="scrollbar-wrapper">
+            <ul class="item-list">
+                <li
+                    class="tags-item"
+                    v-for="(item, index) in tagsList"
+                    :class="{ active: isActive(item.path) }"
+                    :key="index"
+                >
+                    <router-link :to="item.path" class="tags-item-title">{{ item.title }}</router-link>
+                    <span class="tags-item-icon" @click="closeTags(index)">
+                        <i v-show="tagsList.lenght !== 1 && item.title !== '首页'" class="el-icon-close"></i>
+                    </span>
+                </li>
+            </ul>
+        </el-scrollbar>
         <div class="tags-close-box">
             <el-dropdown @command="handleTags">
                 <el-button size="mini" type="primary">
@@ -138,45 +145,57 @@ export default {
     background-color: #eaedf1;
     box-shadow: 0px 5px 3px 0px #ddd;
     z-index: 999;
-    ul {
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-    }
-    .tags-li {
-        box-sizing: border-box;
-        height: 30px;
-        margin: 0 3px;
-        padding: 0 10px;
-        border: 1px solid #e9eaec;
-        border-radius: 3px;
-        font-size: 13px;
-        line-height: 30px;
-        background: #fff;
-        padding: 0 5px 0 12px;
-        vertical-align: middle;
-        color: #666;
-        -webkit-transition: all 0.3s ease-in;
-        -moz-transition: all 0.3s ease-in;
-        transition: all 0.3s ease-in;
-        cursor: pointer;
-    }
-    .tags-li:not(.active):hover {
-        background: #f8f8f8;
-    }
-    .tags-li.active {
-        background-color: #409eff;
-    }
-    .tags-li-title {
-        max-width: 80px;
-        color: #666;
-        overflow: hidden;
-        word-break: keep-all;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        margin-right: 5px;
+    white-space: nowrap;
+    .el-scrollbar {
+        height: 100%; // 必须设置el-scrollbar的高度
+        ::v-deep .scrollbar-wrapper {
+            overflow-x: hidden !important;
+            overflow-y: hidden !important;
+        }
+        ::v-deep .el-scrollbar__bar.is-vertical {
+            display: none !important;
+        }
+        .item-list {
+            width: 100%;
+            height: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 40px;
+        }
+        .tags-item {
+            display: inline-block;
+            height: 30px;
+            margin-right: 10px;
+            padding: 0 10px;
+            border: 1px solid #e9eaec;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 3px;
+            font-size: 13px;
+            line-height: 30px;
+            background: #fff;
+            vertical-align: middle;
+            color: #666;
+            -webkit-transition: all 0.3s ease-in;
+            -moz-transition: all 0.3s ease-in;
+            transition: all 0.3s ease-in;
+            cursor: pointer;
+        }
+        .tags-item:not(.active):hover {
+            background: #f8f8f8;
+        }
+        .tags-item.active {
+            background-color: #409eff;
+        }
+        .tags-item-title {
+            max-width: 80px;
+            color: #666;
+            overflow: hidden;
+            word-break: keep-all;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            margin-right: 5px;
+        }
     }
 }
 </style>
