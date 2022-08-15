@@ -1,5 +1,6 @@
 import dynamicRoutes from '@/router/index.js';
 import { getDynamicMenuList } from '@/api/permission/index.js';
+import router, { resetRouter } from '@/router/index';
 
 /**
  *
@@ -59,7 +60,13 @@ const permission = {
                             // console.log('routerNameArr: ', routerNameArr);
                             // 根据动态路由name匹配本地路由获取动态路由
                             const addRoutersList = filterRouters(dynamicRoutes, routerNameArr);
-                            // // 将动态路由存入vuex中
+                            // 解决路由name重复警告
+                            resetRouter();
+                            // 添加路由
+                            addRoutersList.forEach(item => router.addRoute('layout', item));
+                            // // 添加404页面
+                            // router.addRoute({ path: '*', redirect: '/404', hidden: true });
+                            // 将动态路由存入vuex中
                             commit('SET_MENU_LIST', addRoutersList);
                             resolve(addRoutersList);
                         }

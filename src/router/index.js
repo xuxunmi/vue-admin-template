@@ -161,66 +161,75 @@ const constantRoutes = [
 ];
 
 /* 需要权限判断的路由 */
-const dynamicRoutes = [
-    {
-        path: '/user',
-        name: '用户管理',
-        component: { render: e => e('router-view') },
-        meta: {
-            title: '用户管理',
-            icon: 'icon-yonghuguanli1'
-        },
-        children: [
-            {
-                path: '/user/luckydraw',
-                name: 'LuckyDraw',
-                component: () => import('@/views/UserManage/LuckyDraw/index.vue'),
-                meta: {
-                    title: '抽奖功能',
-                    icon: 'icon-choujiang1',
-                    requireAuth: true
-                }
-            }
-        ]
-    },
-    {
-        path: '/system',
-        name: '系统管理',
-        component: { render: e => e('router-view') },
-        meta: {
-            title: '系统管理',
-            icon: 'icon-xitongguanli1'
-        },
-        children: [
-            {
-                path: '/system/vuextable',
-                name: 'vuexTable',
-                component: () => import('@/views/SystemManage/VuexTable/index.vue'),
-                meta: {
-                    title: 'vuex-table表格',
-                    icon: 'icon-24gf-table',
-                    requireAuth: true
-                }
-            },
-            {
-                path: '/system/iconfont',
-                name: 'Iconfont',
-                component: () => import('@/views/SystemManage/Iconfont/index.vue'),
-                meta: {
-                    title: 'iconfont图标',
-                    icon: 'icon-tubiao',
-                    requireAuth: true
-                }
-            }
-        ]
-    }
-];
+// const dynamicRoutes = [
+//     {
+//         path: '/user',
+//         name: '用户管理',
+//         component: { render: e => e('router-view') },
+//         meta: {
+//             title: '用户管理',
+//             icon: 'icon-yonghuguanli1'
+//         },
+//         children: [
+//             {
+//                 path: '/user/luckydraw',
+//                 name: 'LuckyDraw',
+//                 component: () => import('@/views/UserManage/LuckyDraw/index.vue'),
+//                 meta: {
+//                     title: '抽奖功能',
+//                     icon: 'icon-choujiang1',
+//                     requireAuth: true
+//                 }
+//             }
+//         ]
+//     },
+//     {
+//         path: '/system',
+//         name: '系统管理',
+//         component: { render: e => e('router-view') },
+//         meta: {
+//             title: '系统管理',
+//             icon: 'icon-xitongguanli1'
+//         },
+//         children: [
+//             {
+//                 path: '/system/vuextable',
+//                 name: 'vuexTable',
+//                 component: () => import('@/views/SystemManage/VuexTable/index.vue'),
+//                 meta: {
+//                     title: 'vuex-table表格',
+//                     icon: 'icon-24gf-table',
+//                     requireAuth: true
+//                 }
+//             },
+//             {
+//                 path: '/system/iconfont',
+//                 name: 'Iconfont',
+//                 component: () => import('@/views/SystemManage/Iconfont/index.vue'),
+//                 meta: {
+//                     title: 'iconfont图标',
+//                     icon: 'icon-tubiao',
+//                     requireAuth: true
+//                 }
+//             }
+//         ]
+//     }
+// ];
 
-const router = new VueRouter({
-    // mode: 'history',  //去掉url中的#，需要后端配合
-    routes: constantRoutes,
-    scrollBehavior: () => ({ y: 0 })
-});
+const createRouter = () =>
+    new VueRouter({
+        // mode: 'history',  //去掉url中的#，需要后端配合
+        routes: constantRoutes,
+        scrollBehavior: () => ({ y: 0 })
+    });
+
+const router = createRouter();
+
+//解决重复登录时重复添加路由 或者 高级权限改低级权限时 某些路由已经注入的问题
+export function resetRouter() {
+    const newRouter = createRouter();
+    router.matcher = newRouter.matcher;
+}
 
 router.beforeEach((to, from, next) => {
     // 判断该路由是否需要登录权限

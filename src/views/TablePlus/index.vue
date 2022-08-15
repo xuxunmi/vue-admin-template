@@ -10,6 +10,7 @@
                     :initial-row-model="initialRowModel"
                     row-key="id"
                     row-sortable
+                    row-editable
                     stripe
                     @row-remove="handleRowRemove"
                     @row-edit-value-change="handleRowEditValueChange"
