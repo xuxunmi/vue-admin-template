@@ -16,6 +16,7 @@
         />
         <el-table
             ref="table"
+            class="drag"
             v-loading="loading"
             v-bind="$attrs"
             v-on="$listeners"
@@ -29,7 +30,10 @@
             @selection-change="handleSelectionChange"
             @current-change="handleCurrentChange"
         >
-            <el-table-column type="selection" width="55" />
+            <el-table-column v-if="rowSortable" width="40">
+                <i class="el-icon-rank cursor-move table-plus__drag-handler" />
+            </el-table-column>
+            <el-table-column type="selection" width="40" />
             <template v-for="(columnItem, columnIndex) in columns">
                 <template v-if="columnItem.type">
                     <el-table-column v-bind="columnItem" :key="columnItem.prop" />
@@ -151,6 +155,11 @@ export default {
             type: Boolean,
             default: false
         },
+        // 行排序序号字段
+        rowSortSequenceField: {
+            type: String,
+            default: undefined
+        },
         // 是否启用本地移除
         rowLocalRemove: {
             type: Boolean,
@@ -231,6 +240,7 @@ export default {
             const selector = this.$refs.table.$el.querySelector('.el-table__body-wrapper > table > tbody');
             sortable = Sortable.create(selector, {
                 animation: 300,
+                handle: '.table-plus__drag-handler',
                 draggable: '.el-table__row',
                 filter: '.row-draggable--disabled',
                 onMove: event => {
@@ -238,9 +248,16 @@ export default {
                     const relatedLevel = getLevelFromClassName(event.related.className);
                     return draggedLevel === relatedLevel;
                 },
-                onEnd: ({ oldIndex,  newIndex}) => {
+                onEnd: ({ oldIndex, newIndex }) => {
                     const currentRow = this.dataSource.splice(oldIndex, 1)[0];
                     this.dataSource.splice(newIndex, 0, currentRow);
+                    this.$nextTick(() => {
+                        if (this.rowSortSequenceField) {
+                            this.dataSource.forEach((item, index) => {
+                                item[this.rowSortSequenceField] = index + 1;
+                            });
+                        }
+                    });
                     this.$emit('row-sort', { oldIndex, newIndex });
                     // 重置当前正在编辑的行的工具栏，防止位置错乱
                     if (this.currentEditRow) {
@@ -255,7 +272,7 @@ export default {
          * 获取 rowKey 值
          */
         getRowKey(row) {
-            return row[this.rowKey] ?? row['_newRowId']
+            return row[this.rowKey] ?? row['_newRowId'];
         },
 
         /**
@@ -465,7 +482,7 @@ export default {
          * 初始化新行
          */
         initNewRow() {
-            return {  _isNewRow: true, _newRowId: randomString(), ...this.initialRowModel };
+            return { _isNewRow: true, _newRowId: randomString(), ...this.initialRowModel };
         },
 
         /**
@@ -520,8 +537,8 @@ export default {
             if (row1 === row2) {
                 return true;
             }
-            const row1Key = this.getRowKey(row1)
-            const row2Key = this.getRowKey(row2)
+            const row1Key = this.getRowKey(row1);
+            const row2Key = this.getRowKey(row2);
             if (!(row1Key || row1Key === 0) || !(row2Key || row2Key === 0)) {
                 return false;
             }
@@ -549,6 +566,27 @@ export default {
     ::v-deep &__cell .cell {
         display: flex;
         align-items: center;
+    }
+    ::v-deep .el-table__body-wrapper {
+        &::-webkit-scrollbar {
+            width: 16px;
+            background-color: #fff;
+        }
+        &::-webkit-scrollbar-track {
+            background-color: #fff;
+        }
+        &::-webkit-scrollbar-track:hover {
+            background-color: #f4f4f4;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #babac0;
+            border-radius: 16px;
+            border: 5px solid #fff;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: #a0a0a5;
+            border: 4px solid #f4f4f4;
+        }
     }
 }
 </style>
