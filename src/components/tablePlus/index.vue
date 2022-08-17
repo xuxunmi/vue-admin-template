@@ -33,7 +33,7 @@
             <el-table-column v-if="rowSortable" width="40">
                 <i class="el-icon-rank cursor-move table-plus__drag-handler" />
             </el-table-column>
-            <el-table-column type="selection" width="40" />
+            <el-table-column v-if="showSelection" type="selection" width="40" />
             <template v-for="(columnItem, columnIndex) in columns">
                 <template v-if="columnItem.type">
                     <el-table-column v-bind="columnItem" :key="columnItem.prop" />
@@ -172,6 +172,11 @@ export default {
         },
         // 是否启用前端搜索
         localSearch: {
+            type: Boolean,
+            default: true
+        },
+        // 是否展示多选
+        showSelection: {
             type: Boolean,
             default: true
         }
