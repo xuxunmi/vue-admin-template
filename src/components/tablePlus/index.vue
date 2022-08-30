@@ -21,9 +21,10 @@
             v-bind="$attrs"
             v-on="$listeners"
             :data="filteredDataSource"
+            :height="height"
             :row-key="getRowKey"
             :row-class-name="generateRowClassName"
-            cell-class-name="table-plus__cell"
+            :cell-class-name="generateCellClassName"
             highlight-current-row
             default-expand-all
             @row-click="handleRowClick"
@@ -39,7 +40,7 @@
                     <el-table-column v-bind="columnItem" :key="columnItem.prop" />
                 </template>
                 <el-table-column
-                    v-else-if="filteredColumnProps.includes(columnItem.prop)"
+                    v-else-if="filteredColumnProps.includes(columnItem.prop) && columnItem.visible !== false"
                     v-bind="columnItem"
                     :key="columnItem.prop"
                 >
@@ -145,6 +146,11 @@ export default {
             type: Array,
             default: () => []
         },
+        // 表行类名
+        rowClassName: {
+            type: Function,
+            default: () => ''
+        },
         // 是否启用双击编辑
         rowEditable: {
             type: Boolean,
@@ -170,6 +176,11 @@ export default {
             type: Object,
             default: () => ({})
         },
+        // 单元格行类名
+        cellClassName: {
+            type: Function,
+            default: () => ''
+        },
         // 是否启用前端搜索
         localSearch: {
             type: Boolean,
@@ -179,6 +190,11 @@ export default {
         showSelection: {
             type: Boolean,
             default: true
+        },
+        // 是否设置表格高度,达到固定表头
+        height: {
+            type: String,
+            default: '100%'
         }
     },
     data() {
@@ -283,10 +299,20 @@ export default {
         /**
          * 生成表格行类名
          */
-        generateRowClassName({ row }) {
+        generateRowClassName({ row, rowIndex }) {
+            let classes = this.rowClassName ? this.rowClassName({ row, rowIndex }) : '';
             if (row.children?.length) {
-                return 'row-draggable--disabled';
+                classes += ' row-draggable--disabled';
             }
+            return classes;
+        },
+
+        /**
+         * 生成表格单元格类名
+         */
+        generateCellClassName({ row, column, rowIndex, columnIndex }) {
+            let classes = this.cellClassName ? this.cellClassName({ row, column, rowIndex, columnIndex }) : '';
+            return `${classes} table-plus__cell`;
         },
 
         /**
@@ -323,6 +349,13 @@ export default {
         handleFilteredColumnsChange(value) {
             this.filteredColumnProps = value;
             this.$nextTick(() => this.$refs.table.doLayout());
+        },
+        
+        /**
+         * 重新布局
+         */
+        doLayout() {
+           this.$refs.table.doLayout()
         },
 
         /**
@@ -570,6 +603,7 @@ export default {
 @import '@/assets/css/element-scrollbar.scss';
 
 .table-plus {
+    height: 100%;
     ::v-deep &__cell .cell {
         display: flex;
         align-items: center;
