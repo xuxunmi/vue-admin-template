@@ -15,8 +15,10 @@
                     @row-remove="handleRowRemove"
                     @row-edit-value-change="handleRowEditValueChange"
                 >
-                    <template #status="scope">
-                        {{ scope.row.status === 1 ? '启用' : '关闭' }}
+                    <template v-slot:status="{ row }">
+                        <el-tag :type="row.status === 1 ? 'success' : 'info'" size="mini">
+                            {{ row.status === 1 ? '启用' : row.status === 0 ? '停用' : '未知' }}
+                        </el-tag>
                     </template>
                 </table-plus>
             </div>
@@ -38,6 +40,7 @@
 
 <script>
 import TablePlus from '@/components/tablePlus/index.vue';
+import ExportExcel from 'js-export-excel';
 
 const nameOptions = [
     { id: 100, name: '可选项1', age: 1, sex: '男', city: '无锡' },
@@ -69,13 +72,17 @@ export default {
                 { prop: 'city', label: '城市', editable: true },
                 {
                     prop: 'status',
-                    label: '启用',
+                    label: '状态',
                     slotProp: 'status',
                     editable: true,
                     editProps: {
                         type: 'switch',
                         activeValue: 1,
                         inactiveValue: 0
+                    },
+                    formatter: row => {
+                        // return this.statusList.find(item => item.id === row.status)?.name;
+                        return row.status === 1 ? '启用' : row.status === 0 ? '停用' : '未知';
                     }
                 }
             ],
@@ -108,11 +115,32 @@ export default {
                             this.$message.info(`选中了${names.join('、')}`);
                         }
                     }
-                }
+                },
+                { label: '导出 Excel', onClick: this.handleExportExcel }
             ]
         };
     },
     methods: {
+        // 处理导出Excel按钮
+        handleExportExcel() {
+            const columns = this.columns.filter(item => item.label);
+            // TODO：待处理处理树形结构表格，目无法导出children中的数据的问题
+            const sheetData = this.dataSource.map(item =>
+                columns.map(columnItem => (columnItem.formatter ? columnItem.formatter(item) : item[columnItem.prop]))
+            );
+            const option = {
+                fileName: '导出插件使用',
+                datas: [
+                    {
+                        sheetHeader: columns.map(item => item.label),
+                        sheetData: sheetData,
+                        columnWidths: new Array(columns.length).fill(10)
+                    }
+                ]
+            };
+            const toExcel = new ExportExcel(option);
+            toExcel.saveExcel();
+        },
         /**
          * 行编辑变化
          */
