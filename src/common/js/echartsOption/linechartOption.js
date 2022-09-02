@@ -5,6 +5,7 @@ let formatDate = dayjs(new Date()).format('YYYY-MM-DD');
 let formatMonth = dayjs(new Date()).format('YYYY-MM');
 let formatYear = dayjs(new Date()).year();
 console.log('formatDate: ', formatDate, formatMonth, formatYear);
+
 /**
  * 数据看盘数据
  * @param todayData: 今日数据

@@ -5,7 +5,7 @@
  * @param legendData：图例数据
  */
 function piechartOption(pieChartData, legendData) {
-    console.log('data: ', pieChartData, legendData);
+    // console.log('data: ', pieChartData, legendData);
     let option = {
         color: ['#2589ff', '#ef0001', '#00ce70', '#f7c73a', '#525252'],
         tooltip: {

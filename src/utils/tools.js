@@ -418,3 +418,21 @@ export function isNumber(value) {
 export function formatFloat(src, pos = 2) {
     return Math.round(src * Math.pow(10, pos)) / Math.pow(10, pos);
 }
+
+/**
+ * 将树结构数组转换成数组的形式,传入tree数据，返回array数据
+ * @param {treeList} Array
+ */
+export function treeToArray(treeList) {
+    let arr = [];
+    const expanded = datas => {
+        if (datas && datas.length > 0) {
+            datas.forEach(e => {
+                arr.push(e);
+                expanded(e.children);
+            });
+        }
+    };
+    expanded(treeList);
+    return arr;
+}

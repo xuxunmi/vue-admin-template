@@ -1,37 +1,7 @@
+import { getRouterName, filterRouters } from '@/router/recursionRouter.js';
 import dynamicRoutes from '@/router/index.js';
 import { getDynamicMenuList } from '@/api/permission/index.js';
 import router, { resetRouter } from '@/router/index';
-
-/**
- *
- * @param  {Array} routers 后台返回的用户权限json
- * @return {Array} nameArr 过滤后返回的路由name
- */
-const getRouterName = (routers, nameArr = []) => {
-    routers.forEach(item => {
-        nameArr.push(item.menuCode);
-        if (item.children && item.children.length > 0) {
-            getRouterName(item.children, nameArr);
-        }
-    });
-    return nameArr;
-};
-
-/**
- * @param  {Array} rouerNames 过滤后的路由name
- * @param  {Array} allDynamicRouter  前端配置好的所有动态路由的集合
- * @return {Array} arr 过滤后返回的路由
- */
-const filterRouters = (allDynamicRouter, rouerNames = []) => {
-    const arr = allDynamicRouter.filter(item => rouerNames.includes(item.name));
-    arr.forEach(citem => {
-        if (citem.children && citem.children.length > 0) {
-            citem.children = citem.children.filter(value => rouerNames.includes(value.name));
-            filterRouters(citem.children, rouerNames);
-        }
-    });
-    return arr;
-};
 
 const permission = {
     namespaced: true,
@@ -40,8 +10,25 @@ const permission = {
     },
     mutations: {
         SET_MENU_LIST(state, menu) {
-            // console.log('menu: ', menu);
             state.menuList = menu;
+            const home = [
+                {
+                    path: '/home',
+                    name: 'home',
+                    component: () => import('@/views/Home/index.vue'),
+                    meta: {
+                        title: '首页',
+                        requireAuth: true
+                    }
+                }
+            ];
+            // 从动态路由中获取等于home首页的路由
+            let newMenu = menu.filter(m => m.name === 'home');
+            if (newMenu && newMenu.length > 0) {
+                state.menuList = menu;
+            } else {
+                state.menuList = [...home, ...menu];
+            }
         }
     },
     actions: {

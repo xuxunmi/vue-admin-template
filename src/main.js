@@ -30,6 +30,9 @@ Vue.use(VXETable);
 import MathJax from '../src/assets/js/MathJax.js';
 Vue.prototype.MathJax = MathJax;
 
+// import './permission'; // 引入动态路由权限
+import './error'; // 日志
+
 // 阻止启动生产消息
 Vue.config.productionTip = false;
 
