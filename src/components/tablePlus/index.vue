@@ -21,7 +21,6 @@
             v-bind="$attrs"
             v-on="$listeners"
             :data="filteredDataSource"
-            :height="height"
             :row-key="getRowKey"
             :row-class-name="generateRowClassName"
             :cell-class-name="generateCellClassName"
@@ -31,10 +30,10 @@
             @selection-change="handleSelectionChange"
             @current-change="handleCurrentChange"
         >
-            <el-table-column v-if="rowSortable" width="40">
+            <el-table-column v-if="rowSortable" width="90">
                 <i class="el-icon-rank cursor-move table-plus__drag-handler" />
             </el-table-column>
-            <el-table-column v-if="showSelection" type="selection" width="40" />
+            <el-table-column v-if="showSelection" type="selection" width="60" />
             <template v-for="(columnItem, columnIndex) in columns">
                 <template v-if="columnItem.type">
                     <el-table-column v-bind="columnItem" :key="columnItem.prop" />
@@ -190,12 +189,12 @@ export default {
         showSelection: {
             type: Boolean,
             default: true
-        },
-        // 是否设置表格高度,达到固定表头
-        height: {
-            type: String,
-            default: '100%'
         }
+        // // 是否设置表格高度,达到固定表头,会导致默认合计行不显示，解决：给table一个固定高度
+        // height: {
+        //     type: String,
+        //     default: '100%'
+        // }
     },
     data() {
         return {
@@ -350,12 +349,12 @@ export default {
             this.filteredColumnProps = value;
             this.$nextTick(() => this.$refs.table.doLayout());
         },
-        
+
         /**
          * 重新布局
          */
         doLayout() {
-           this.$refs.table.doLayout()
+            this.$refs.table.doLayout();
         },
 
         /**

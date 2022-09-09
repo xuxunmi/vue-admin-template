@@ -4,14 +4,19 @@
         <div class="app-layout__container">
             <div class="app-layout__left">
                 <table-plus
+                    ref="tablePlus"
                     :columns="columns"
                     :data-source="dataSource"
+                    :loading="loading"
                     :custom-btns="customBtns"
                     :initial-row-model="initialRowModel"
+                    :summary-method="getSummaries"
+                    show-summary
                     row-key="id"
                     row-sortable
                     row-editable
                     stripe
+                    border
                     @row-remove="handleRowRemove"
                     @row-edit-value-change="handleRowEditValueChange"
                 >
@@ -41,6 +46,7 @@
 <script>
 import TablePlus from '@/components/tablePlus/index.vue';
 import ExportExcel from 'js-export-excel';
+import { formatFloat } from '@/utils/tools';
 
 const nameOptions = [
     { id: 100, name: '可选项1', age: 1, sex: '男', city: '无锡' },
@@ -54,6 +60,7 @@ export default {
     },
     data() {
         return {
+            loading: false,
             columns: [
                 {
                     prop: 'name',
@@ -67,9 +74,10 @@ export default {
                         optionValue: 'id'
                     }
                 },
-                { prop: 'age', label: '年龄', width: '180', editable: true, sortable: true },
                 { prop: 'sex', label: '性别', editable: false, width: '180' },
+                { prop: 'age', label: '年龄', width: '180', editable: true, sortable: true },
                 { prop: 'city', label: '城市', editable: true },
+                { prop: 'deposit', label: '存款', editable: true },
                 {
                     prop: 'status',
                     label: '状态',
@@ -93,15 +101,16 @@ export default {
                     age: 22,
                     sex: '男',
                     city: '上海',
+                    deposit: 99,
                     status: 1,
                     children: [
-                        { id: 11, name: '张三1', age: 1, sex: '男', city: '徐汇', status: 1 },
-                        { id: 12, name: '张三2', age: 2, sex: '男', city: '浦东', status: 1 }
+                        { id: 11, name: '张三1', age: 1, sex: '男', city: '徐汇', deposit: 98, status: 1 },
+                        { id: 12, name: '张三2', age: 2, sex: '男', city: '浦东', deposit: 97, status: 1 }
                     ]
                 },
-                { id: 2, name: '李四', age: 28, sex: '女', city: '苏州', status: 0 },
-                { id: 3, name: '王五', age: 20, sex: '女', city: '杭州', status: 1 },
-                { id: 4, name: '赵六', age: 18, sex: '男', city: '南京', status: 1 }
+                { id: 2, name: '李四', age: 28, sex: '女', city: '苏州', deposit: 99, status: 0 },
+                { id: 3, name: '王五', age: 20, sex: '女', city: '杭州', deposit: 88, status: 1 },
+                { id: 4, name: '赵六', age: 18, sex: '男', city: '南京', deposit: 87, status: 1 }
             ],
             initialRowModel: {
                 sex: '男'
@@ -150,7 +159,6 @@ export default {
                 Object.assign(rowModel, option);
             }
         },
-
         /**
          * 行移除
          */
@@ -160,7 +168,75 @@ export default {
                 this.$message.success(`移除了${names.join('、')}`);
             }
             handleRemove();
+        },
+        /**
+         * 表尾总计: 第一种方式
+         */
+        getSummaries({ columns, data }) {
+            return columns.reduce((acc, _, index) => {
+                if (index === 0) {
+                    acc[index] = '';
+                } else if (index === 1) {
+                    acc[index] = '';
+                } else if (index === 2) {
+                    acc[index] = '合计';
+                } else if (index === 3) {
+                    acc[index] = '/';
+                } else if (index === 4) {
+                    acc[index] =
+                        formatFloat(
+                            data.reduce((acc, cur) => {
+                                return acc + (cur.age || 0);
+                            }, 0),
+                            4
+                        ) + ' 岁';
+                } else if (index === 5) {
+                    acc[index] = '/';
+                } else if (index === 6) {
+                    acc[index] =
+                        formatFloat(
+                            data.reduce((acc, cur) => {
+                                return acc + (cur.deposit || 0);
+                            }, 0),
+                            4
+                        ) + ' 百万';
+                }
+                return acc;
+            }, {});
         }
+        /**
+         * 表尾总计: 第二种方式
+         */
+        // getSummaries(param) {
+        //     const { columns, data } = param;
+        //     const sums = [];
+        //     columns.forEach((column, index) => {
+        //         if (index === 0) {
+        //             sums[index] = '';
+        //         } else if (index === 1) {
+        //             sums[index] = '';
+        //         } else if (index === 2) {
+        //             sums[index] = '合计';
+        //         } else if (index === 3) {
+        //             sums[index] = 'N/A';
+        //         } else if (index === 5) {
+        //             sums[index] = 'N/A';
+        //         }
+        //         const values = data.map(item => Number(item[column.property]));
+        //         if (column.property === 'age' || column.property === 'deposit') {
+        //             sums[index] = values.reduce((prev, curr) => {
+        //                 const value = Number(curr);
+        //                 if (!isNaN(value)) {
+        //                     return prev + curr;
+        //                 } else {
+        //                     return prev;
+        //                 }
+        //             }, 0);
+        //             sums[index] = formatFloat(sums[index], 4);
+        //         }
+        //     });
+        //     return sums;
+        // }
     }
 };
 </script>
@@ -181,12 +257,12 @@ export default {
     }
 
     &__left {
-        width: 50%;
+        width: 80%;
         padding-right: 20px;
     }
 
     &__right {
-        width: 50%;
+        width: 30%;
         padding-left: 20px;
     }
 }
