@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【每日一练】5—黑暗模式的实现</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat';
+            color: var(--color-4);
+        }
+        body[data-theme="light"] {
+            --color-1:#ddd;
+            --color-2: #eee; 
+            --color-3:  #f5f5f5;
+            --color-4: #353535;
+        }
+        body[data-theme="dark"] {
+            --color-1:#1E1F26;
+            --color-2: #292c33; 
+            --color-3: rgb(39, 40, 42);
+            --color-4: rgb(186, 186, 202);
+        }
+        section {
+            background-color: var(--color-1);
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            background-color: var(--color-2);
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 500px;
+        }
+        h1 {
+            font-size: 30px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        p {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            line-height: 25px;
+        }
+        button {
+            background-color: var(--color-4);
+            padding: 10px 30px;
+            border: none;
+            font-size: 24px;
+            text-transform: uppercase;
+            color: var(--color-3);
+            border-radius: 4px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        button a {
+            color: #fafafa;
+            text-decoration: none;
+        }
+        .theme-switcher {
+            position: absolute;
+            right: 30px;
+            top: 10px;
+        }
+        input {
+            width: 0;
+            height: 0;
+            display: none;
+            visibility: hidden;
+        }
+        label {
+            cursor: pointer;
+            display: block;
+            text-indent: -9999px;
+            height: 30px;
+            width: 60px;
+            border-radius: 50px;
+            background-color: rgb(255, 255, 255);
+            transition: .5s ease background-color;
+        }
+        label::after {
+            position: absolute;
+            content: '';
+            width: 20px;
+            height: 20px;
+            border-radius: 50px;
+            top: 50%;
+            left: 5px;
+            transform: translateY(-50%);
+            background-color: rgb(46, 42, 68);
+            transition: .5s ease;
+        }
+        input:checked+label::after {
+            left: calc(100% - 25px);
+            background-color: aliceblue;
+        }
+        input:checked+label {
+            background-color: rgb(25, 26, 37);
+            border: 2px solid whitesmoke;
+        }
+    </style>
+</head>
+
+<body data-theme="light">
+    <section>
+        <div class="container">
+            <h1>web前端开发</h1>
+            <p>编程 10 年后我作为程序员意识到的 4 个可悲的事实：</p>
+            <p> 1、这个行业是由擅长与人打交道的人统治的，而不是由擅长与计算机打交道的人统治的。与编写更多代码相比，召开更多会议更容易获得晋升。</p>
+            <p>
+                2、我们的大部分工作都是隐形的。我的一个堂兄弟是医生，每次我们谈到他时，我的祖母都充满自豪。而当我坐在电脑前在家工作时，祖母会认为我失业了。她甚至会认为我和沉迷电子游戏的弟弟是同一类人。
+            </p>
+            <p>3、如果你完美地构建和维护一个项目，你的老板或客户会认为这是一件很正常的事情。</p>
+            <p>
+                4、你不能与你的配偶、父母或其他不熟悉编程的好朋友分享你的天才代码和成就。如果您是运动员、画家或 YouTuber，您可以轻松地与家人和朋友分享您的精彩片段，但程序员很难做到这一点。</p>
+            </p>
+            <button><a href="http://www.webqdkf.com" target="">阅读更多</button>
+        </div>
+    </section>
+    <div class="theme-switcher">
+        <input type="checkbox" id="switcher">
+        <label for=switcher>switch</label>
+    </div>
+
+    <script type="text/javascript">
+        const input = document.querySelector('.theme-switcher input');
+
+        input.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                document.body.setAttribute('data-theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+            }
+        })
+    </script>
+</body>
+
+</html>

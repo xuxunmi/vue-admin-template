@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css3网格布局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            
+            width: 600px;
+            height: 600px;
+            margin: 50px auto;
+            border: 1px solid #f00;
+        }
+        .list {
+            display: grid;
+            /* 设置单元格列宽 */
+            /* grid-template-columns: repeat(3, 180px); */
+            grid-template-columns: 180px auto 180px;
+            /* 设置单元行列宽 */
+            /* grid-template-rows: repeat(3, 180px); */
+            grid-template-rows: 180px auto 180px;
+
+            /* 设置行间距 */
+            /* grid-row-gap: 30px; */
+            /* 设置列间距 */
+            /* grid-column-gap: 30px; */
+            /* 合并写法 */
+            grid-gap: 30px 30px;
+
+            /* 控制项目在单元格水平对齐方式：start | end | center | stretch */
+            /* justify-items: center; */
+            /* 控制项目在单元格垂直对齐方式：start | end | center | stretch */
+            /* align-items: center; */
+            /* 单元格对齐方式简写：place-items: <align-items> <justify-items> => 拉伸，充满整个单元格，第二个值不写，默认与第一个值相同 */
+            place-items: center;
+            grid-template-areas: 'a a c'
+                                 'd e f'
+                                 'g h .';
+            width: 100%;
+            height: 100%;
+            background-color: #f8d29d;
+            list-style: none;
+        }
+        .list > .item {
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        /* 奇数：even  偶数：odd */
+        .list > .item:nth-child(even){
+            background-color: #ef3429;
+            justify-self: start;
+            align-self: start;
+        }
+        .list > .item:nth-child(odd){
+            background-color: #f68f25;
+            justify-self: end;
+            align-self: end;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul class="list">
+            <li class="item">1</li>
+            <li class="item">2</li>
+            <li class="item">3</li>
+            <li class="item">4</li>
+            <li class="item">5</li>
+            <li class="item">6</li>
+            <li class="item">7</li>
+            <li class="item">8</li>
+            <li class="item">9</li>
+        </ul>
+    </div>
+</body>
+</html>

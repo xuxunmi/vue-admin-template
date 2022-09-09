@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【每日一练】15-一个​文本烟雾消失动画效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        section {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #111;
+            overflow: hidden;
+        }
+        section .text {
+            position: relative;
+            color: #fff;
+            margin: 40px;
+            max-width: 800px;
+            user-select: none;
+            font-size: 1.5em;
+            line-height: 1.8em;
+            letter-spacing: 5px;
+        }
+        section .text span {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        section .text span.active {
+            animation: smoke 2s linear forwards;
+            transform-origin: bottom;
+        }
+        @keyframes smoke {
+            0% {
+                opacity: 1;
+                filter: blur(0);
+                transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+            }
+            50% {
+                opacity: 1;
+                pointer-events: none;
+            }
+            100% {
+                opacity: 0;
+                filter: blur(20px);
+                transform: translateX(300px) translateY(-300px) rotate(720deg) scale(4);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <p class="text">消费型思维与投资型思维的人，
+            消费型思维的人，看重的是买买买的本身，投资型思维的人，买买买只是第一步，买买买后面的投资回报才是重点。
+            消费型思维与投资型思维的人，
+            消费型思维的人，看重的是买买买的本身，
+            投资型思维的人，买买买只是第一步，
+            买买买后面的投资回报才是重点。</p>
+    </section>
+
+    <script type="text/javaScript">
+        const text = document.querySelector('.text');
+        text.innerHTML = text.textContent.replace(/\S/g,"<span>$&</span>");
+        const letters = document.querySelectorAll('span');
+        for (let i=0; i<letters.length; i++){
+            letters[i].addEventListener("mouseover", function(){
+                letters[i].classList.add('active')
+            })
+        }
+</script>
+</body>
+
+</html>

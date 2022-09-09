@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>控制项目位置</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .main {
+            width: 600px;
+            height: 600px;
+            margin: 50px auto;
+            border: 1px solid #f00;
+            display: grid;
+            grid-template-columns: repeat(3, 200px);
+            grid-template-rows: repeat(3, 200px);
+            grid-template-areas: 'a b c'
+                                 'aside aside aside'
+                                 'g h i';
+        }
+        /* 
+            第一种方式： 
+        */
+        .item {
+            background-color: lightseagreen;
+            /* 控制行位置 */
+            grid-row-start: 2;
+            grid-row-end: 3;
+            /* 控制列位置 */
+            grid-column-start: 2;
+            grid-column-end: 3;
+        }
+        /* 
+            第二种方式：命名方式 
+        */
+        .item {
+            background-color: lightseagreen;
+            /* 控制行位置 */
+            grid-row-start: e-start;
+            grid-row-end: e-end;
+            /* 简写： */
+            grid-row: e-start/e-end;
+            grid-row: e;
+            /* 控制列位置 */
+            grid-column-start: e-start;
+            grid-column-end: e-end;
+            /* 简写： */
+            grid-column: e-start/e-end;
+            grid-column: e;
+        }
+        /* 
+            第三种方式：命名方式 
+        */
+        .item {
+            background-color: lightseagreen;
+            grid-area: aside;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="item"></div>
+    </div>
+</body>
+</html>

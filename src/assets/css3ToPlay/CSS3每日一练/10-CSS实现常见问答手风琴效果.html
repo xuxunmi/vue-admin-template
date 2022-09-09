@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【每日一练】10-CSS实现常见问答手风琴效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f8ff;
+        }
+        .container {
+            margin: 0 40px;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .container h1 {
+            color: #333;
+        }
+        .container .tab {
+            position: relative;
+            background: #fff;
+            padding: 0 20px 20px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.05);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .container .tab input {
+            appearance: none;
+        }
+        .container .tab label {
+            display: inline-block;
+            display: flex;
+            margin-bottom: 0px;
+            align-items: center;
+            cursor: pointer;
+        }
+        .container .tab label::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            font-size: 2em;
+            color: rgba(0, 0, 0, 0.1);
+            transition: transform 1s;
+        }
+        .container .tab:hover label::after {
+            color: #333;
+        }
+        .container .tab input:checked~label::after {
+            content: '+';
+            color: #fff;
+            transform: rotate(135deg);
+        }
+        .container .tab label h2 {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 1.25em;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .container .tab input:checked~label h2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 8em;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+        .container .tab label h3 {
+            position: relative;
+            font-weight: 500;
+            color: #333;
+            z-index: 10;
+        }
+        .container .tab input:checked~label h3 {
+            background: #fff;
+            padding: 2px 10px;
+            color: #333;
+            border-radius: 2px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .container .tab .content {
+            max-height: 0;
+            overflow: hidden;
+            transition: 1s;
+        }
+        .container .tab input:checked~.content {
+            max-height: 100vh;
+            transition: 1s;
+        }
+        .container .tab .content p {
+            position: relative;
+            padding: 10px 0;
+            color: #333;
+            z-index: 10;
+        }
+        .container .tab input:checked~.content p {
+            color: #fff;
+        }
+        .container .tab:nth-child(2) label h2 {
+            background: linear-gradient(135deg, #70F570 10%, #49C628 100%);
+        }
+        .container .tab:nth-child(3) label h2 {
+            background: linear-gradient(135deg, #3C8CE7 10%, #00EAFF 100%);
+        }
+        .container .tab:nth-child(4) label h2 {
+            background: linear-gradient(135deg, #FF96F9 10%, #C32BAC 100%);
+        }
+        .container .tab:nth-child(5) label h2 {
+            background: linear-gradient(135deg, #FD6E6A 10%, #FFC600 100%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>HTML5常见问题解答?</h1>
+        <div class="tab">
+            <input type="radio" name="acc" id="acc1">
+            <label for="acc1">
+                <h2>01</h2>
+                <h3>HTML5中有哪些不允许写结束标记的元素？</h3>
+            </label>
+            <div class="content">
+                <p>主要有area、base、br、col、command、embed、hr、img、input、keggen、link、meta、param、source、track、wbr。</p>
+            </div>
+        </div>
+        <div class="tab">
+            <input type="radio" name="acc" id="acc2">
+            <label for="acc2">
+                <h2>02</h2>
+                <h3>HTML5有哪些可以省略结束标记的元素？</h3>
+            </label>
+            <div class="content">
+                <p>主要有li、dt、 dd 、p 、rt 、 rp 、 optgroup
+                    、option、colgroup、thead、tbody、tfoot、tr、td、th，虽然这些元素都可以省略结束标记，但是不建议省略，这个是HTML5中新增的特性。</p>
+            </div>
+        </div>
+        <div class="tab">
+            <input type="radio" name="acc" id="acc3">
+            <label for="acc3">
+                <h2>03</h2>
+                <h3>HTML5中有哪些不允许写结束标记的元素？</h3>
+            </label>
+            <div class="content">
+                <p>主要有area、base、br、col、command、embed、hr、img、input、keggen、link、meta、param、source、track、wbr。</p>
+            </div>
+        </div>
+        <div class="tab">
+            <input type="radio" name="acc" id="acc4">
+            <label for="acc4">
+                <h2>04</h2>
+                <h3>HTML5有哪些可以省略结束标记的元素？</h3>
+            </label>
+            <div class="content">
+                <p>主要有li、dt、 dd 、p 、rt 、 rp 、 optgroup
+                    、option、colgroup、thead、tbody、tfoot、tr、td、th，虽然这些元素都可以省略结束标记，但是不建议省略，这个是HTML5中新增的特性。</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
