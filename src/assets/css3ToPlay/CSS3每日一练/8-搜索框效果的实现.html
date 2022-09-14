@@ -1,139 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>【每日一练】8-搜索框效果的实现</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+            body {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background: #fafafa;
+            }
+            .search {
+                position: relative;
+                width: 60px;
+                height: 60px;
+                background: #fff;
+                border-radius: 60px;
+                overflow: hidden;
+                transition: 0.5s;
+                box-shadow: 0 0 0 2px #00a6bc;
+            }
+            .search.active {
+                width: 360px;
+            }
+            .search .icon {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 60px;
+                height: 60px;
+                background: #fff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                z-index: 1;
+            }
+            .search .icon:before {
+                content: '';
+                position: absolute;
+                width: 15px;
+                height: 15px;
+                border: 3px solid #00a6bc;
+                border-radius: 50%;
+                transform: translate(-4px, -4px);
+                transition: 0.5s;
+            }
+            .search .icon:after {
+                content: '';
+                position: absolute;
+                width: 3px;
+                height: 12px;
+                background: #00a6bc;
+                transform: translate(6px, 6px) rotate(315deg);
+            }
+            .search .input {
+                position: relative;
+                width: 300px;
+                height: 60px;
+                left: 60px;
+                background: #f0f;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .search .input input {
+                position: absolute;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                padding: 10px 0;
+                border: none;
+                outline: none;
+                font-size: 18px;
+            }
+            .clear {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 15px;
+                width: 15px;
+                height: 15px;
+                display: block;
+                background: #fff;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .clear:before {
+                position: absolute;
+                content: '';
+                width: 1px;
+                height: 15px;
+                background: #999;
+                transform: rotate(45deg);
+            }
+            .clear:after {
+                position: absolute;
+                content: '';
+                width: 1px;
+                height: 15px;
+                background: #999;
+                transform: rotate(315deg);
+            }
+        </style>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>【每日一练】8-搜索框效果的实现</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        body {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: #fafafa;
-        }
-        .search {
-            position: relative;
-            width: 60px;
-            height: 60px;
-            background: #fff;
-            border-radius: 60px;
-            overflow: hidden;
-            transition: 0.5s;
-            box-shadow: 0 0 0 2px #00a6bc;
-        }
-        .search.active {
-            width: 360px;
-        }
-        .search .icon {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 60px;
-            height: 60px;
-            background: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 1;
-        }
-        .search .icon:before {
-            content: '';
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            border: 3px solid #00a6bc;
-            border-radius: 50%;
-            transform: translate(-4px, -4px);
-            transition: 0.5s;
-        }
-        .search .icon:after {
-            content: '';
-            position: absolute;
-            width: 3px;
-            height: 12px;
-            background: #00a6bc;
-            transform: translate(6px, 6px) rotate(315deg);
-        }
-        .search .input {
-            position: relative;
-            width: 300px;
-            height: 60px;
-            left: 60px;
-            background: #f0f;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .search .input input {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            padding: 10px 0;
-            border: none;
-            outline: none;
-            font-size: 18px;
-        }
-        .clear {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 15px;
-            width: 15px;
-            height: 15px;
-            display: block;
-            background: #fff;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .clear:before {
-            position: absolute;
-            content: '';
-            width: 1px;
-            height: 15px;
-            background: #999;
-            transform: rotate(45deg);
-        }
-        .clear:after {
-            position: absolute;
-            content: '';
-            width: 1px;
-            height: 15px;
-            background: #999;
-            transform: rotate(315deg);
-        }
-    </style>
-</head>
-
-<body>
-    <div class="search">
-        <div class="icon"></div>
-        <div class="input">
-            <input type="text" name="" id="SearchInput" placeholder="输入你需要查找的内容">
+    <body>
+        <div class="search">
+            <div class="icon"></div>
+            <div class="input">
+                <input type="text" name="" id="SearchInput" placeholder="输入你需要查找的内容" />
+            </div>
+            <span class="clear" onclick="document.getElementById('SearchInput').value = ''"></span>
         </div>
-        <span class="clear" onclick="document.getElementById('SearchInput').value = ''"></span>
-    </div>
 
-    <script type="text/javascript">
-        const icon = document.querySelector('.icon');
-        const search = document.querySelector('.search');
-        icon.onclick = function () {
-            search.classList.toggle('active');
-        }
-    </script>
-</body>
+        <script type="text/javascript">
+            const icon = document.querySelector('.icon');
+            const search = document.querySelector('.search');
+            const input = document.getElementById('SearchInput');
+            console.log('input: ', input);
 
+            icon.onclick = function () {
+                search.classList.toggle('active');
+            };
+            input.onblur = function () {
+                search.classList.remove('active');
+                // 失去焦点时，清空输入框得值
+                // input.value = '';
+            };
+        </script>
+    </body>
 </html>
