@@ -128,15 +128,27 @@ export function moneyFormat(money, decimal, symbol) {
 /**
  * 千分位格式化，每三位逗号隔开
  * @method formatMoney
- * @param {Number} money 数字
+ * @param {Number} num 数字
  */
 // 第一种方式：
-export function formatMoney(money) {
-    return money.replace(new RegExp(`(?!^)(?=(\\d{3})+${money.includes('.') ? '\\.' : '$'})`, 'g'), ',');
+export function formatMoney(num) {
+    if ((!num || isNaN(num)) && num != 0) return;
+    return num.replace(new RegExp(`(?!^)(?=(\\d{3})+${num.includes('.') ? '\\.' : '$'})`, 'g'), ',');
 }
 // 第二种方式：
-export function toThousandslsFilter(num) {
+export function toThousandslsFormat(num) {
+    if ((!num || isNaN(num)) && num != 0) return;
     return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','));
+}
+
+/**
+ * 去除千分位格式化
+ * @param {String} num
+ */
+export function delcommafy(num) {
+    if ((!num || isNaN(num)) && num != 0) return '';
+    num = num.replace(/,/gi, '');
+    return num;
 }
 
 // 区分浏览器类型

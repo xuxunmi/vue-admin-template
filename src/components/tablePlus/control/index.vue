@@ -37,6 +37,7 @@
         v-bind="$attrs"
         v-on="$listeners"
         :value="value"
+        :type="type"
         :placeholder="$attrs.placeholder || '请输入'"
         :size="size"
         @input="handleInput"
@@ -107,4 +108,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+::v-deep .el-input__inner {
+    padding: 1px 4px;
+}
+::v-deep .el-textarea__inner {
+    padding: 1px 4px;
+}
+</style>

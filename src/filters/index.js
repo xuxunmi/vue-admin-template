@@ -51,11 +51,9 @@ export function parseTime(time, cFormat) {
     if (arguments.length === 0) {
         return null;
     }
-
     if ((time + '').length === 10) {
         time = +time * 1000;
     }
-
     const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}';
     let date;
     if (typeof time === 'object') {
@@ -137,5 +135,6 @@ export function html2Text(val) {
  * @param {Number} num 数字
  */
 export function toThousandslsFilter(num) {
+    if ((!num || isNaN(num)) && num != 0) return;
     return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','));
 }
