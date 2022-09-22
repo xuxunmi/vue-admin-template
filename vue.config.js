@@ -61,6 +61,7 @@ module.exports = {
             .set('@router', resolve('src/router'))
             .set('@store', resolve('src/store'))
             .set('@api', resolve('src/api'));
+        
         // 生产环境配置
         if (process.env.NODE_ENV === 'production') {
             // 生产环境下，删除console和debugger
@@ -77,7 +78,7 @@ module.exports = {
     },
     configureWebpack: config => {
         if (process.env.NODE_ENV === 'production') {
-            // 为生产环境修改配置...
+            // 为生产环境修改配置
             config.plugins.push(
                 new CompressionWebpackPlugin({
                     algorithm: 'gzip',
