@@ -20,7 +20,7 @@ module.exports = {
     filenameHashing: false,
     // 保存时是否使用`eslint-loader`进行检查
     lintOnSave: true,
-    // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建
+    // 生产环境是否要生成 sourceMap
     productionSourceMap: false,
     // webpack-dev-server 相关配置
     devServer: {
@@ -61,6 +61,19 @@ module.exports = {
             .set('@router', resolve('src/router'))
             .set('@store', resolve('src/store'))
             .set('@api', resolve('src/api'));
+        // 生产环境配置
+        if (process.env.NODE_ENV === 'production') {
+            // 生产环境下，删除console和debugger
+            config.optimization
+                .minimize(true)
+                .minimizer('terser')
+                .tap(args => {
+                    let { terserOptions } = args[0];
+                    terserOptions.compress.drop_console = true;
+                    terserOptions.compress.drop_debugger = true;
+                    return args;
+                });
+        }
     },
     configureWebpack: config => {
         if (process.env.NODE_ENV === 'production') {
