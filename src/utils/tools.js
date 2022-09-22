@@ -146,7 +146,8 @@ export function toThousandslsFormat(num) {
  * @param {String} num
  */
 export function delcommafy(num) {
-    if ((!num || isNaN(num)) && num != 0) return '';
+    if (!num) return num;
+    num = num.toString();
     num = num.replace(/,/gi, '');
     return num;
 }
