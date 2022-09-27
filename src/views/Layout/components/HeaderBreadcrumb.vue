@@ -33,6 +33,7 @@ export default {
                 breadcrumbList.unshift({ path: '/', meta: { title: '首页' } });
             }
             this.breadcrumbItems = breadcrumbList;
+            // console.log('this.breadcrumbItems: ', this.breadcrumbItems);
         }
     },
     watch: {

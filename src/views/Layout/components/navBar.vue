@@ -49,7 +49,6 @@ export default {
     ::v-deep .el-submenu__title:hover,
     .el-menu-item i:hover {
         outline: 0 !important;
-        color: #fff !important;
         background-color: #6266a6 !important;
     }
     .iconfont {

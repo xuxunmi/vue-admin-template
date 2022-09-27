@@ -4,6 +4,7 @@ import store from '@/store/index.js';
 import { get as getStorage } from '@/utils/storage.js';
 
 import Layout from '@/views/Layout/index.vue';
+import Index from '@/views/Index/index.vue';
 
 Vue.use(VueRouter);
 
@@ -37,7 +38,7 @@ const constantRoutes = [
             {
                 path: '/user',
                 name: '用户管理',
-                component: { render: e => e('router-view') },
+                component: Index,
                 meta: {
                     title: '用户管理',
                     icon: 'icon-yonghuguanli1'
@@ -58,7 +59,7 @@ const constantRoutes = [
             {
                 path: '/system',
                 name: '系统管理',
-                component: { render: e => e('router-view') },
+                component: Index,
                 meta: {
                     title: '系统管理',
                     icon: 'icon-xitongguanli1'
@@ -89,7 +90,7 @@ const constantRoutes = [
             {
                 path: '/echarts',
                 name: 'Echarts图表',
-                component: { render: e => e('router-view') },
+                component: Index,
                 meta: {
                     title: 'Echarts图表',
                     icon: 'icon-tubiao2'
@@ -110,7 +111,7 @@ const constantRoutes = [
             {
                 path: '/tools',
                 name: '工具管理',
-                component: { render: e => e('router-view') },
+                component: Index,
                 meta: {
                     title: '工具管理',
                     icon: 'icon-gongju1'
