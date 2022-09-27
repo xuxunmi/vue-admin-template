@@ -38,9 +38,9 @@
                 <vxe-column field="content" title="内容" type="html" show-overflow></vxe-column>
                 <vxe-column title="操作" fixed="right">
                     <template v-slot="{ row }">
-                        <div>
-                            <el-button type="primary" size="small" @click="handledeleteBtn(row)">删除</el-button>
-                        </div>
+                        <el-button type="primary" size="small" @click.native.stop="handledeleteBtn(row)"
+                            >删除</el-button
+                        >
                     </template>
                 </vxe-column>
                 <template #empty>
