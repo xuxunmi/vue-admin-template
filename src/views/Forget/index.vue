@@ -4,14 +4,14 @@
             <div class="forget-title">
                 <div>忘记密码</div>
             </div>
-            <el-form class="forget-form" :model="forgerForm" ref="forgerForm" :rules="rules">
+            <el-form class="forget-form" :model="forgetForm" ref="forgetForm" :rules="rules">
                 <el-form-item label="请输入手机号：" prop="phone">
-                    <el-input v-model="forgerForm.phone"></el-input>
+                    <el-input v-model="forgetForm.phone"></el-input>
                 </el-form-item>
                 <el-form-item label="请输入验证码：" prop="code">
-                    <el-input style="position: relative" v-model="forgerForm.code" @blur="codeBlur"></el-input>
+                    <el-input style="position: relative;" v-model="forgetForm.code" @blur="codeBlur"></el-input>
                     <el-button
-                        style="position: absolute; top: 40px; right: 15px"
+                        style="position: absolute; top: 40px; right: 15px;"
                         type="text"
                         @click="sendVcodeHandle"
                         :disabled="!(timeWaitLeft <= 0)"
@@ -20,7 +20,7 @@
                     <div class="error-tips">{{ errorTips }}</div>
                 </el-form-item>
                 <el-form-item label="请输入新密码：" prop="password">
-                    <el-input type="password" v-model="forgerForm.password" autocomplete="new-password" show-password>
+                    <el-input type="password" v-model="forgetForm.password" autocomplete="new-password" show-password>
                     </el-input>
                 </el-form-item>
                 <el-form-item><el-button type="text" @click="jumpLogin">去登录</el-button></el-form-item>
@@ -66,7 +66,7 @@ export default {
         };
         return {
             loading: false,
-            forgerForm: {
+            forgetForm: {
                 // 手机号
                 phone: '',
                 // 验证码
@@ -107,7 +107,7 @@ export default {
         // 处理确认修改按钮
         handleConfirmModifyBtn() {
             console.log('确认修改按钮...');
-            this.$refs.forgerForm.validate(valid => {
+            this.$refs.forgetForm.validate(valid => {
                 if (valid) {
                     this.loading = true;
                     this.$message({
@@ -146,7 +146,7 @@ export default {
         },
         // 校验验证码
         codeBlur() {
-            if (this.forgerForm.code.length != 6) {
+            if (this.forgetForm.code.length != 6) {
                 this.errorTips = '请输入6位数字的验证码';
                 return;
             }

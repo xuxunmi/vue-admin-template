@@ -290,6 +290,11 @@ export function randomString(length, chars) {
 }
 
 /**
+ * 生成随机颜
+ */
+export const generateRandomHexColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`;
+
+/**
  * 动态插入css
  */
 

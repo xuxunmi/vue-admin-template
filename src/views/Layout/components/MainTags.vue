@@ -105,7 +105,7 @@ export default {
         // 关闭全部标签
         closeAll() {
             // 判断当前tags是否唯一且为首页
-            if (this.tagsList.length === 1 && this.$route.name === '首页') return;
+            if (this.tagsList.length === 1 && this.$route.name === 'home') return;
             this.CLEAR_TAGS();
             // 设置tagsList
             this.SET_TAGS({

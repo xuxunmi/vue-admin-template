@@ -11,13 +11,13 @@ Vue.use(VueRouter);
 const constantRoutes = [
     {
         path: '/',
-        name: 'Home',
+        name: 'Layout',
         redirect: '/home',
         component: Layout,
         children: [
             {
                 path: '/home',
-                name: '首页',
+                name: 'home',
                 component: () => import('@/views/Home/index.vue'),
                 meta: {
                     title: '首页',
@@ -27,7 +27,7 @@ const constantRoutes = [
             },
             {
                 path: '/table_plus',
-                name: 'TablePlus',
+                name: 'tablePlus',
                 component: () => import('@/views/TablePlus/index.vue'),
                 meta: {
                     title: '自定义表格',
@@ -37,7 +37,7 @@ const constantRoutes = [
             },
             {
                 path: '/user',
-                name: '用户管理',
+                name: 'userManage',
                 component: Index,
                 meta: {
                     title: '用户管理',
@@ -58,7 +58,7 @@ const constantRoutes = [
             },
             {
                 path: '/system',
-                name: '系统管理',
+                name: 'systemManage',
                 component: Index,
                 meta: {
                     title: '系统管理',
@@ -89,7 +89,7 @@ const constantRoutes = [
             },
             {
                 path: '/echarts',
-                name: 'Echarts图表',
+                name: 'echarts',
                 component: Index,
                 meta: {
                     title: 'Echarts图表',
@@ -110,7 +110,7 @@ const constantRoutes = [
             },
             {
                 path: '/tools',
-                name: '工具管理',
+                name: 'tools',
                 component: Index,
                 meta: {
                     title: '工具管理',
@@ -152,7 +152,7 @@ const constantRoutes = [
     },
     {
         path: '/forget',
-        name: 'Forget',
+        name: 'forget',
         component: () => import('@/views/Forget/index.vue'),
         hidden: true,
         meta: {
@@ -165,8 +165,8 @@ const constantRoutes = [
 // const dynamicRoutes = [
 //     {
 //         path: '/user',
-//         name: '用户管理',
-//         component: { render: e => e('router-view') },
+//         name: 'userManage',
+//         component: Index,
 //         meta: {
 //             title: '用户管理',
 //             icon: 'icon-yonghuguanli1'
@@ -186,8 +186,8 @@ const constantRoutes = [
 //     },
 //     {
 //         path: '/system',
-//         name: '系统管理',
-//         component: { render: e => e('router-view') },
+//         name: 'systemManage',
+//         component: Index,
 //         meta: {
 //             title: '系统管理',
 //             icon: 'icon-xitongguanli1'

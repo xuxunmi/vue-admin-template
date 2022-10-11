@@ -61,7 +61,7 @@ module.exports = {
             .set('@router', resolve('src/router'))
             .set('@store', resolve('src/store'))
             .set('@api', resolve('src/api'));
-        
+
         // 生产环境配置
         if (process.env.NODE_ENV === 'production') {
             // 生产环境下，删除console和debugger
@@ -74,6 +74,25 @@ module.exports = {
                     terserOptions.compress.drop_debugger = true;
                     return args;
                 });
+
+            config.optimization.splitChunks({
+                cacheGroups: {
+                    common: {
+                        name: 'common',
+                        chunks: 'all',
+                        minSize: 1,
+                        minChunks: 2,
+                        priority: 1
+                    },
+                    vendor: {
+                        name: 'chunk-libs',
+                        chunks: 'all',
+                        // eslint-disable-next-line no-useless-escape
+                        test: /[\/]node_modules[\/]/,
+                        priority: 10
+                    }
+                }
+            });
         }
     },
     configureWebpack: config => {
