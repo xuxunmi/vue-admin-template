@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>【每日一练】23-CSS实现发光的渐变圆形文本动画效果</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: consolas;
+            }
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background: #222;
+            }
+            .circle {
+                position: relative;
+                width: 500px;
+                height: 500px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.05);
+                box-shadow: 0 0 0 2px #fff5, 0 0 0 20px #333, 0 0 0 22px #fff, 0 0 50px #fff, 0 0 450px #fff;
+            }
+            .circle::before {
+                content: '';
+                position: absolute;
+                width: 2px;
+                height: 170px;
+                border-radius: 2px;
+                background: linear-gradient(0deg, transparent, #fff);
+                transform-origin: bottom;
+                animation: animateNiddles 20s steps(59) infinite;
+            }
+            .circle::after {
+                content: '';
+                position: absolute;
+                width: 4px;
+                border-radius: 2px;
+                height: 130px;
+                background: linear-gradient(0deg, transparent, #fff);
+                transform-origin: bottom;
+                animation: animateNiddles 120s linear infinite;
+            }
+            @keyframes animateNiddles {
+                0% {
+                    transform: translate(-50%, -50%) rotate(0deg);
+                }
+                100% {
+                    transform: translate(-50%, -50%) rotate(360deg);
+                }
+            }
+            ul li {
+                list-style: none;
+                position: absolute;
+                top: 10px;
+                transform-origin: 0 240px;
+                transform: rotate(calc(21deg * var(--i)));
+                font-size: 2.5em;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+            ul li span {
+                display: inline-block;
+                transform: rotate(calc(-21deg * var(--i)));
+                color: #fff;
+                text-shadow: 0 0 15px #fff, 0 0 35px #fff, 0 0 75px #fff, 0 0 150px #fff;
+            }
+            body::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(#08ff12, #0791ff);
+                z-index: 10;
+                mix-blend-mode: multiply;
+                pointer-events: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="circle">
+            <ul>
+                <li style="--i: -4;"><span>♣</span></li>
+                <li style="--i: -3;"><span>O</span></li>
+                <li style="--i: -2;"><span>n</span></li>
+                <li style="--i: -1;"><span>l</span></li>
+                <li style="--i: 0;"><span>i</span></li>
+                <li style="--i: 1;"><span>n</span></li>
+                <li style="--i: 2;"><span>e</span></li>
+                <li style="--i: 3;"><span>☼</span></li>
+                <li style="--i: 4;"><span>s</span></li>
+                <li style="--i: 5;"><span>l</span></li>
+                <li style="--i: 6;"><span>a</span></li>
+                <li style="--i: 7;"><span>i</span></li>
+                <li style="--i: 8;"><span>r</span></li>
+                <li style="--i: 9;"><span>o</span></li>
+                <li style="--i: 10;"><span>t</span></li>
+                <li style="--i: 11;"><span>u</span></li>
+                <li style="--i: 12;"><span>T</span></li>
+            </ul>
+        </div>
+    </body>
+</html>

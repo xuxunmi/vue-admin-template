@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>【每日一练】22-CSS 实现一款文字Hover效果</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: monospace;
+            }
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background: linear-gradient(45deg, #ff0057, #2196f3);
+            }
+            h2 {
+                position: relative;
+                display: flex;
+                gap: 5px;
+                color: #fff;
+                font-size: 4em;
+                cursor: pointer;
+                text-transform: uppercase;
+            }
+            h2 span {
+                position: relative;
+                filter: blur(5px);
+                padding: 0 5px;
+                transition: 0.5s;
+            }
+            h2 span:hover {
+                filter: blur(0);
+                transition: 0s;
+            }
+            h2 span i {
+                position: absolute;
+                inset: 0;
+            }
+            h2 span:hover i::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 2px;
+                height: 8px;
+                background: #fff;
+                box-shadow: 0 53px #fff, 36px 53px #fff, 36px 0 #fff;
+            }
+            h2 span:hover i::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 8px;
+                height: 2px;
+                background: #fff;
+                box-shadow: 0 60px #fff, 30px 60px #fff, 30px 0 #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>
+            <span><i></i>w</span>
+            <span><i></i>w</span>
+            <span><i></i>w</span>
+            <span><i></i>.</span>
+            <span><i></i>w</span>
+            <span><i></i>e</span>
+            <span><i></i>b</span>
+            <span><i></i>q</span>
+            <span><i></i>d</span>
+            <span><i></i>k</span>
+            <span><i></i>f</span>
+            <span><i></i>.</span>
+            <span><i></i>c</span>
+            <span><i></i>o</span>
+            <span><i></i>m</span>
+        </h2>
+    </body>
+</html>

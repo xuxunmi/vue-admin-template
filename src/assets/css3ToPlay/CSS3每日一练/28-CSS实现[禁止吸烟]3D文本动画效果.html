@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>【每日一练】28-CSS实现[禁止吸烟]3D文本动画效果</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'poppins';
+            }
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background: #222;
+                overflow: hidden;
+            }
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .container .cigarette {
+                font-size: 1em;
+                transform-style: preserve-3d;
+                animation: animate 15s linear infinite;
+            }
+            @keyframes animate {
+                0% {
+                    transform: perspective(1000px) rotateX(0deg) rotate(0deg);
+                }
+                100% {
+                    transform: perspective(1000px) rotateX(360deg) rotate(0deg);
+                }
+            }
+            .container .cigarette span {
+                position: absolute;
+                color: #fff;
+                font-size: 1.35em;
+                white-space: nowrap;
+                text-transform: uppercase;
+                font-weight: 900;
+                background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.5), transparent);
+                line-height: 0.76em;
+                transform-style: preserve-3d;
+                text-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+                transform: translate(-50%, -50%) rotateX(calc(var(--i) * 36deg)) translateZ(25px);
+                /* 360 / 10 = 36 */
+            }
+            .container .cigarette span i {
+                font-style: initial;
+                color: #ec9535;
+            }
+            .container .cigarette span i:first-child:after {
+                content: 'l';
+                text-transform: lowercase;
+                color: #ccc;
+                letter-spacing: -1px;
+            }
+            .container .cigarette span i:last-child {
+                color: #f00;
+                text-shadow: -4px 0 2px #000, 8px 0 20px #f00, 8px 0 24px #f00, 8px 0 #222, 12px 0 #555, 16px 0 #666,
+                    20px 0 #888, 24px 0 #999;
+                filter: blur(2px);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="cigarette">
+                <span style="--i: 1;"><i>Nooooo</i>Smooooooooking<i>|</i></span>
+                <span style="--i: 2;"><i>Nooooo</i>Smooooooooking<i>|</i></span>
+                <span style="--i: 3;"><i>Nooooo</i>Smooooooooking<i>|</i></span>
+                <span style="--i: 4;"><i>Nooooo</i>Smooooooooking<i>|</i></span>
+                <span style="--i: 5;"><i>Nooooo</i>Smooooooooking<i>|</i></span>
+                <span style="--i: 6;"><i>Nooooo</i>Smooooooooking<i>|</i></span>
+                <span style="--i: 7;"><i>Nooooo</i>Smooooooooking<i>|</i></span>
+                <span style="--i: 8;"><i>Nooooo</i>Smooooooooking<i>|</i></span>
+                <span style="--i: 9;"><i>Nooooo</i>Smooooooooking<i>|</i></span>
+                <span style="--i: 10;"><i>Nooooo</i>Smooooooooking<i>|</i></span>
+            </div>
+            <!-- 360/10 = 36deg -->
+        </div>
+    </body>
+</html>
