@@ -69,7 +69,7 @@ module.exports = {
                 .minimize(true)
                 .minimizer('terser')
                 .tap(args => {
-                    let { terserOptions } = args[0];
+                    const { terserOptions } = args[0];
                     terserOptions.compress.drop_console = true;
                     terserOptions.compress.drop_debugger = true;
                     return args;

@@ -9,6 +9,7 @@ import { get as getStorage, remove as removeStorage } from '@/utils/storage.js';
 import router from '@/router/index.js';
 import store from '@/store/index.js';
 import { HTTP_STATUS_CODE } from './httpErrorCode.js';
+// import { statusCodeErrorMessage } from './httpErrorFun.js';
 
 // axios.defaults.baseURL = process.env.NODE_ENV == 'production' ? '/' : '/api';
 // axios.defaults.headers = {
@@ -79,6 +80,7 @@ service.interceptors.response.use(
     },
     error => {
         // console.log('响应错误结果error: ', error.response.data);
+        // 第一种写法：switch遍历
         // if (error && error.response) {
         //     switch (error.response.status) {
         //         case 400:
@@ -124,10 +126,9 @@ service.interceptors.response.use(
         //     error.message = '连接到服务器失败';
         // }
 
+        // 第二种写法：推荐
         // if (error && error.response) {
-        //     error.message = HTTP_STATUS_CODE[error.response.status];
-        // } else {
-        //     error.message = HTTP_STATUS_CODE.default;
+        //     error.message = statusCodeErrorMessage(error.response.status);
         // }
 
         if (error && error.response) {
