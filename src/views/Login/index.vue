@@ -4,7 +4,7 @@
             <div class="login-title">
                 <h1>Vue2-admin</h1>
             </div>
-            <el-form class="login-form" :model="loginForm" ref="loginForm" :rules="rules">
+            <el-form class="login-form" :model="loginForm" ref="loginForm" :rules="rules" :hide-required-asterisk='true'>
                 <el-form-item prop="username">
                     <!-- 自动获取焦点： :autofocus="true" -->
                     <el-input size="small" v-model="loginForm.username" placeholder="用户名"></el-input>
@@ -37,20 +37,20 @@ export default {
     name: 'login',
     data() {
         // 自定义校验
-        const validateUsername = (rule, value, callback) => {
-            if (!value) {
-                callback(new Error('请输入用户名'));
-            } else {
-                callback();
-            }
-        };
-        const validatePassword = (rule, value, callback) => {
-            if (!value) {
-                callback(new Error('请输入用户密码'));
-            } else {
-                callback();
-            }
-        };
+        // const validateUsername = (rule, value, callback) => {
+        //     if (!value) {
+        //         callback(new Error('请输入用户名'));
+        //     } else {
+        //         callback();
+        //     }
+        // };
+        // const validatePassword = (rule, value, callback) => {
+        //     if (!value) {
+        //         callback(new Error('请输入用户密码'));
+        //     } else {
+        //         callback();
+        //     }
+        // };
         return {
             loading: false,
             loginForm: {
@@ -60,8 +60,10 @@ export default {
                 password: '123456'
             },
             rules: {
-                username: [{ validator: validateUsername, trigger: 'blur' }],
-                password: [{ validator: validatePassword, trigger: 'blur' }]
+                // username: [{ validator: validateUsername, trigger: 'blur' }],
+                // password: [{ validator: validatePassword, trigger: 'blur' }]
+                username:[{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                password:[{ required: true, message: '请输入用户密码', trigger: 'blur' }]
             }
         };
     },
@@ -69,7 +71,6 @@ export default {
         ...mapMutations(['SET_TAGS']),
         ...mapActions('user', ['setToken']),
         handleLoginBtn() {
-            this.loading = true;
             this.$refs.loginForm.validate(async valid => {
                 if (valid) {
                     this.loading = true;
@@ -117,7 +118,7 @@ export default {
         top: 50%;
         right: 12%;
         width: 350px;
-        height: 300px;
+        height: 320px;
         background-color: #fff;
         text-align: center;
         border-radius: 10px;
