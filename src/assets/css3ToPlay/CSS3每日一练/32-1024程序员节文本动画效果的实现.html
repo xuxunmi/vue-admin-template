@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>【每日一练】32-1024程序员节文本动画效果的实现</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+            body {
+                overflow: hidden;
+            }
+            section {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background: linear-gradient(135deg, #111, #222, #111);
+            }
+            section:before {
+                content: '';
+                position: absolute;
+                width: 30vw;
+                height: 30vw;
+                border: 5vw solid #eaeaea;
+                border-radius: 50%;
+                box-shadow: 0 0 0 1vw #222, 0 0 0 1.3vw #fff;
+            }
+            h2 {
+                position: absolute;
+                font-size: 8vw;
+                color: #00a6bc;
+                font-weight: initial;
+                text-align: center;
+                line-height: 2em;
+                z-index: 5;
+                transform: skewY(-7deg);
+                text-shadow: 1px 1px 0 #ccc, 2px 2px 0 #ccc, 3px 3px 0 #ccc, 4px 4px 0 #ccc, 5px 5px 0 #ccc,
+                    10px 10px 0px rgba(0, 0, 0, 0.2);
+                animation: floating 5s ease-in-out infinite;
+            }
+            @keyframes floating {
+                0%,
+                100% {
+                    transform: skewY(-7deg) translate(0px, -20px);
+                }
+                50% {
+                    transform: skewY(-7deg) translate(0px, 20px);
+                }
+            }
+            h2 span {
+                font-weight: 700;
+                font-size: 3em;
+                text-shadow: 1px 1px 0 #ccc, 2px 2px 0 #ccc, 3px 3px 0 #ccc, 4px 4px 0 #ccc, 5px 5px 0 #ccc,
+                    6px 6px 0 #ccc, 7px 7px 0 #ccc, 8px 8px 0 #ccc, 9px 9px 0 #ccc, 10px 10px 0 #ccc,
+                    20px 20px 0px rgba(0, 0, 0, 0.2);
+            }
+            section i {
+                position: absolute;
+                background: #000;
+                border-radius: 100%;
+                background: #00a6bc;
+                animation: animate linear infinite;
+                box-shadow: 0 0 10px #00a6bc, 0 0 20px #00a6bc, 0 0 40px #00a6bc, 0 0 80px #00a6bc;
+            }
+            @keyframes animate {
+                0% {
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <section>
+            <h2>程序员快乐！<br /><span>10.24</span></h2>
+        </section>
+
+        <script type="text/javascript">
+            function stars() {
+                var count = 200;
+                var section = document.querySelector('section');
+                var i = 0;
+                while (i < count) {
+                    var star = document.createElement('i');
+                    var x = Math.floor(Math.random() * window.innerWidth);
+                    var y = Math.floor(Math.random() * window.innerHeight);
+                    var duration = Math.random() * 2;
+                    var size = Math.random() * 4;
+                    star.style.left = x + 'px';
+                    star.style.top = y + 'px';
+                    star.style.width = 1 + size + 'px';
+                    star.style.height = 1 + size + 'px';
+                    star.style.animationDelay = duration + 's';
+                    star.style.animationDuration = 2 + duration + 's';
+                    section.appendChild(star);
+                    i++;
+                }
+            }
+            stars();
+        </script>
+    </body>
+</html>
