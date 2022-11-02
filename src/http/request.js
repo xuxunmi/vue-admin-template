@@ -155,6 +155,10 @@ service.interceptors.response.use(
                 error.message = message || HTTP_STATUS_CODE.default;
             }
         }
+        // 处理请求超时问题
+        if (error.message.includes('timeout')) {
+            error.message = '请求超时，请重新操作';
+        }
         Message({
             message: `${error.message}`,
             type: 'error',

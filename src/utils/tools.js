@@ -290,9 +290,17 @@ export function randomString(length, chars) {
 }
 
 /**
- * 生成随机颜
+ * 生成随机颜色
  */
 export const generateRandomHexColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16)}`;
+
+/**
+ * @returns 生成随机十六进制
+ */
+export const randomHexColor = () =>
+    `#${Math.floor(Math.random() * 0xffffff)
+        .toString(16)
+        .padEnd(6, '0')}`;
 
 /**
  * 动态插入css
@@ -454,3 +462,10 @@ export function treeToArray(treeList) {
     expanded(treeList);
     return arr;
 }
+
+/**
+ * 两日期之间相差的天数
+ */
+export const dayDiff = (date1, date2) => Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / 86400000);
+
+// 使用：dayDiff(new Date('2021-10-21'), new Date('2022-02-12'));
