@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>【每日一练】33实现一个搜索框的动画效果</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Ubuntu', sans-serif;
+            }
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background: #6aa7d4;
+                background: linear-gradient(45deg, #4e65ff, #92effd);
+            }
+            .searchBox {
+                position: relative;
+                width: 60px;
+                height: 60px;
+                background: #fff;
+                display: flex;
+                justify-content: space-between;
+                transition: 0.5s;
+                overflow: hidden;
+                box-shadow: 0 25px 35px rgba(0, 0, 0, 0.1);
+                border-radius: 50%;
+            }
+            .searchBox.active {
+                width: 360px;
+                border-radius: 30px;
+            }
+            .search {
+                position: relative;
+                width: 60px;
+                height: 60px;
+                display: flex;
+                color: #333;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.5em;
+                cursor: pointer;
+            }
+            .close {
+                position: absolute;
+                right: 0;
+                width: 50px;
+                height: 60px;
+                display: flex;
+                color: #333;
+                justify-content: center;
+                align-items: center;
+                scale: 0;
+                cursor: pointer;
+                font-size: 1.25em;
+                transition: 0.5s;
+                transition-delay: 0s;
+            }
+            .searchBox.active .close {
+                scale: 1;
+                transition-delay: 0.5s;
+            }
+            .searchInput {
+                position: absolute;
+                left: 60px;
+                width: calc(100% - 120px);
+                height: 100%;
+                line-height: 60px;
+                background: #f00;
+            }
+            .searchInput input {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border: none;
+                outline: none;
+                font-size: 1.25em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="searchBox">
+            <div class="search">
+                <ion-icon name="search-outline"></ion-icon>
+            </div>
+            <div class="searchInput">
+                <input type="text" placeholder="输入你要查找的内容" />
+            </div>
+            <div class="close">
+                <ion-icon name="close-outline"></ion-icon>
+            </div>
+        </div>
+
+        <!--字体图标文件-->
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script>
+            const search = document.querySelector('.search');
+            const close = document.querySelector('.close');
+            const searchBox = document.querySelector('.searchBox');
+            search.onclick = function () {
+                searchBox.classList.add('active');
+            };
+            close.onclick = function () {
+                searchBox.classList.remove('active');
+            };
+        </script>
+    </body>
+</html>
