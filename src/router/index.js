@@ -109,8 +109,8 @@ const constantRoutes = [
                 ]
             },
             {
-                path: '/tools',
-                name: 'tools',
+                path: '/tool',
+                name: 'toolManage',
                 component: Index,
                 meta: {
                     title: '工具管理',
@@ -118,9 +118,9 @@ const constantRoutes = [
                 },
                 children: [
                     {
-                        path: '/tools/process_design',
+                        path: '/tool/process_design',
                         name: 'processDesign',
-                        component: () => import('@/views/Process/Design/index.vue'),
+                        component: () => import('@/views/toolManage/Design/index.vue'),
                         meta: {
                             title: '流程设计',
                             icon: 'icon-liuchengsheji',
@@ -128,12 +128,22 @@ const constantRoutes = [
                         }
                     },
                     {
-                        path: '/tools/formula_editor',
+                        path: '/tool/formula_editor',
                         name: 'formulaEditor',
-                        component: () => import('@/views/Process/FormulaEditor/index.vue'),
+                        component: () => import('@/views/toolManage/FormulaEditor/index.vue'),
                         meta: {
                             title: '公式编辑',
                             icon: 'icon-bianji1',
+                            requireAuth: true
+                        }
+                    },
+                    {
+                        path: '/tool/upload',
+                        name: 'upload',
+                        component: () => import('@/views/toolManage/Upload/index.vue'),
+                        meta: {
+                            title: '文件上传',
+                            icon: 'icon-shangchuan',
                             requireAuth: true
                         }
                     }

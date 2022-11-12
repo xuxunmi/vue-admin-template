@@ -51,7 +51,7 @@ import {
     Switch,
     Scrollbar,
     Autocomplete,
-    Tree,
+    Tree
 } from 'element-ui';
 
 Vue.use(Dialog);
@@ -82,7 +82,6 @@ Vue.use(Option);
 Vue.use(Upload);
 Vue.use(Image);
 Vue.use(DatePicker);
-Vue.use(Loading);
 Vue.use(Checkbox);
 Vue.use(CheckboxButton);
 Vue.use(CheckboxGroup);
@@ -103,6 +102,7 @@ Vue.use(Switch);
 Vue.use(Scrollbar);
 Vue.use(Autocomplete);
 Vue.use(Tree);
+Vue.use(Loading.directive);
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;
