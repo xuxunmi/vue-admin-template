@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>【每日一练】35-CSS实现一个炫酷好玩的3D动画效果</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background: #222;
+            }
+            .cube-big {
+                position: absolute;
+                width: 300px;
+                height: 300px;
+            }
+            .cube-big div {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transform-style: preserve-3d;
+                animation: animate 6s linear infinite;
+            }
+            @keyframes animate {
+                0% {
+                    transform: rotateX(-20deg) rotateY(360deg);
+                }
+                100% {
+                    transform: rotateX(-20deg) rotateY(0deg);
+                }
+            }
+            .cube-big div.big span {
+                position: absolute;
+                top: 80px;
+                width: 300px;
+                height: 300px;
+                background: var(--clr);
+                transform: rotateY(calc(90deg * var(--i))) translateZ(150px);
+                transform-style: preserve-3d;
+                transition: 0.5s;
+            }
+            .cube-big:hover div.big span {
+                background: transparent;
+                border: 10px solid #00a6bc;
+                filter: drop-shadow(0 0 20px #00a6bc);
+            }
+            .cube-big div.big span.top {
+                transform: rotateX(90deg) translateZ(150px);
+            }
+            .cube-big div.big span.top::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                transform: translateZ(-350px);
+                background: rgba(0, 0, 0, 0.5);
+                filter: blur(50px);
+            }
+            .cube-samll {
+                position: absolute;
+                width: 300px;
+                height: 300px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -350px);
+            }
+            .cube-samll div {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transform-style: preserve-3d;
+                animation: animate2 6s linear infinite;
+                scale: 0.5;
+            }
+            @keyframes animate2 {
+                0% {
+                    transform: rotateX(-20deg) rotateY(0deg);
+                }
+                100% {
+                    transform: rotateX(-20deg) rotateY(360deg);
+                }
+            }
+            .cube-samll div.big span {
+                position: absolute;
+                top: 80px;
+                width: 300px;
+                height: 300px;
+                background: var(--clr);
+                transform: rotateY(calc(90deg * var(--i))) translateZ(150px);
+                transform-style: preserve-3d;
+                transition: 0.5s;
+            }
+            .cube-big:hover ~ .cube-samll div.big span {
+                background: transparent;
+                border: 10px solid #fff;
+                filter: drop-shadow(0 0 20px #fff);
+            }
+            .cube-samll div.big span.top {
+                transform: rotateX(90deg) translateZ(150px);
+            }
+            .cube-samll div.big span.top::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                transform: translateZ(-350px);
+                background: rgba(0, 0, 0, 0.35);
+                filter: blur(50px);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="cube-big">
+            <div class="big">
+                <span style="--i: 0; --clr: #e2e2e2;"></span>
+                <span style="--i: 1; --clr: #f0f0f0;"></span>
+                <span style="--i: 2; --clr: #e2e2e2;"></span>
+                <span style="--i: 3; --clr: #f0f0f0;"></span>
+                <span class="top" style="--clr: #fff;"></span>
+            </div>
+        </div>
+        <div class="cube-samll">
+            <div class="big">
+                <span style="--i: 0; --clr: #08c9e2;"></span>
+                <span style="--i: 1; --clr: #00a6bc;"></span>
+                <span style="--i: 2; --clr: #08c9e2;"></span>
+                <span style="--i: 3; --clr: #00a6bc;"></span>
+                <span class="top" style="--clr: #6fdfee;"></span>
+            </div>
+        </div>
+    </body>
+</html>
