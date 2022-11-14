@@ -33,6 +33,11 @@ Vue.prototype.MathJax = MathJax;
 // import './permission'; // 引入动态路由权限
 import './error'; // 日志
 
+// 引入打印插件
+import Print from 'vue-print-nb';
+
+Vue.use(Print);
+
 // 阻止启动生产消息
 Vue.config.productionTip = false;
 

@@ -146,6 +146,16 @@ const constantRoutes = [
                             icon: 'icon-shangchuan',
                             requireAuth: true
                         }
+                    },
+                    {
+                        path: '/tool/tinymce',
+                        name: 'tinymce',
+                        component: () => import('@/views/TinymceEditor/index.vue'),
+                        meta: {
+                            title: '富文本编辑器',
+                            icon: 'icon-fuwenbenbianjiqi_ziti',
+                            requireAuth: true
+                        }
                     }
                 ]
             }
