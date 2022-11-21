@@ -3,9 +3,9 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './plugins/elementui/element.js';
-import './plugins/tailwindcss/tailwindcss.css';
 import '@/styles/global.css';
 import '@/mock/index.js';
+import 'tailwindcss/tailwind.css';
 
 // 引入bpmn-js的css
 import 'bpmn-js/dist/assets/diagram-js.css';
