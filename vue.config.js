@@ -2,6 +2,8 @@
 const path = require('path');
 // 压缩插件
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
+// 复制文件/文件夹插件
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const resolve = dir => {
     return path.join(__dirname, dir);
@@ -95,19 +97,25 @@ module.exports = {
             });
         }
     },
-    configureWebpack: config => {
-        if (process.env.NODE_ENV === 'production') {
-            // 为生产环境修改配置
-            config.plugins.push(
-                new CompressionWebpackPlugin({
-                    algorithm: 'gzip',
-                    test: /\.js$|\.html$|\.json$|\.css$/,
-                    threshold: 10240,
-                    minRatio: 0.8
-                })
-            );
-        } else {
-            // 为开发环境修改配置...
-        }
+    configureWebpack: {
+        // 重定义build后css输出路径
+        plugins: [
+            new CompressionWebpackPlugin({
+                algorithm: 'gzip',
+                test: /\.js$|\.html$|\.json$|\.css$/,
+                threshold: 10240,
+                minRatio: 0.8
+            }),
+            // 复制文件夹
+            // new CopyWebpackPlugin({
+            //     patterns: [
+            //         {
+            //             from: resolve('public/tinymce'),
+            //             to: 'Windchill/netmarkets/javascript/tinymce'
+            //             // ignore: publicCopyIgnore
+            //         }
+            //     ]
+            // })
+        ]
     }
 };
