@@ -9,7 +9,7 @@ import { get as getStorage, remove as removeStorage } from '@/utils/storage.js';
 import router from '@/router/index.js';
 import store from '@/store/index.js';
 import { HTTP_STATUS_CODE } from './httpErrorCode.js';
-// import { statusCodeErrorMessage } from './httpErrorFun.js';
+// import { statusCodeErrorMessage } from './httpErrorCodeFun.js';
 
 // axios.defaults.baseURL = process.env.NODE_ENV == 'production' ? '/' : '/api';
 // axios.defaults.headers = {
@@ -69,12 +69,7 @@ service.interceptors.response.use(
         if (response.data.code === 200) {
             return Promise.resolve(response.data);
         } else {
-            Message({
-                message: response.data.msg,
-                type: 'error',
-                duration: 3 * 1000,
-                center: true
-            });
+            showErrorMsg(response.data.msg);
             return Promise.reject(new Error(response.data || 'Error'));
         }
     },
@@ -139,12 +134,7 @@ service.interceptors.response.use(
                 // 先清空tagsList
                 store.commit('CLEAR_TAGS');
                 error.message = HTTP_STATUS_CODE[code];
-                Message({
-                    message: `${error.message}`,
-                    type: 'error',
-                    duration: 3000,
-                    center: true
-                });
+                showErrorMsg(error.message);
                 router.push({ path: '/login' });
                 return;
             }
@@ -159,15 +149,23 @@ service.interceptors.response.use(
         if (error.message.includes('timeout')) {
             error.message = '请求超时，请重新操作';
         }
-        Message({
-            message: `${error.message}`,
-            type: 'error',
-            duration: 3000,
-            center: true
-        });
+        showErrorMsg(error.message);
         return Promise.reject(error.response || error);
     }
 );
+
+/**
+ * 错误信息处理
+ * @param {String} msg 错误信息
+ */
+function showErrorMsg(msg) {
+    Message({
+        message: msg,
+        type: 'error',
+        duration: 3000,
+        center: true
+    });
+}
 
 export default {
     /**

@@ -1,8 +1,8 @@
 import request from '@/http/request.js';
 
 /**
- * @description:活动管理活动列表/搜索
+ * @description:登录
  */
-export function getReceiptList(param) {
-    return request.get('/project/answer_inform_settings/', param);
+export function login(param) {
+    return request.post('/loginApi', param);
 }
