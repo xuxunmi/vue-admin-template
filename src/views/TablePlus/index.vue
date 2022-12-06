@@ -162,12 +162,11 @@ export default {
         /**
          * 行移除
          */
-        handleRowRemove(selections, handleRemove) {
+        handleRowRemove(selections) {
             const names = selections.filter(item => item.name).map(item => item.name);
             if (names.length) {
                 this.$message.success(`移除了${names.join('、')}`);
             }
-            handleRemove();
         },
         /**
          * 表尾总计: 第一种方式

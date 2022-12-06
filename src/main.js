@@ -31,7 +31,7 @@ import MathJax from '../src/assets/js/MathJax.js';
 Vue.prototype.MathJax = MathJax;
 
 // import './permission'; // 引入动态路由权限
-import './error'; // 日志
+import './error'; // 错误日志
 
 // 引入打印插件
 import Print from 'vue-print-nb';
