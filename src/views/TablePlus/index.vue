@@ -245,7 +245,6 @@ export default {
     height: 100%;
     margin-top: 50px;
     padding: 16px 32px;
-    box-sizing: border-box;
 
     &__container {
         display: flex;

@@ -76,13 +76,15 @@ export default {
                 resize: 'both', // 编辑器宽高是否可变，false-否,true-高可变，'both'-宽高均可，注意引号
                 elementpath: false,
                 paste_data_images: true, //图片是否可粘贴
-                statusbar: true, // 底部的状态栏
+                statusbar: false, // 底部的状态栏
                 menubar: true, // 最上方的菜单
                 file_picker_types: 'image',
                 images_upload_credentials: true,
                 fontsize_formats: '12px 14px 16px 18px 24px 36px 48px 56px 72px',
                 font_formats:
                     '微软雅黑=Microsoft YaHei,Helvetica Neue,PingFang SC,sans-serif;苹果苹方=PingFang SC,Microsoft YaHei,sans-serif;宋体=simsun,serif;仿宋体=FangSong,serif;黑体=SimHei,sans-serif;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino',
+                relative_urls: false,
+                convert_urls: false, // 取消将图片的绝对路径成成相对路径
                 images_upload_handler: function (blobInfo, success, failure) {
                     console.log('blobInfo: ', blobInfo);
                     console.log('success: ', success);

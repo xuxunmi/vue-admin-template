@@ -134,7 +134,6 @@ export default {
     width: calc(100% - 200px) !important;
 }
 .tags-page {
-    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;

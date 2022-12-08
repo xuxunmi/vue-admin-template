@@ -64,7 +64,6 @@ export default {
 // 流程设计器全局样式
 @import url('../../../components/Bpmn/css/vue-bmpn.css');
 .design-page {
-    box-sizing: border-box;
     margin-top: 60px;
     padding: 0 20px;
     .design-table {

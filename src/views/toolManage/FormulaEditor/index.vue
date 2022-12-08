@@ -30,7 +30,6 @@ export default {
 
 <style lang="scss" scoped>
 .formula-editor-page {
-    box-sizing: border-box;
     height: 100%;
     margin-top: 45px;
     padding: 0 20px;

@@ -82,7 +82,6 @@ export default {
 
 <style lang="scss" scoped>
 .echart-page {
-    box-sizing: border-box;
     margin-top: 50px;
     padding: 0 20px;
     display: flex;

@@ -185,7 +185,6 @@ export default {
     margin-top: 30px !important;
 }
 .select-page {
-    box-sizing: border-box;
     width: 100%;
     padding: 20px;
     .el-form {

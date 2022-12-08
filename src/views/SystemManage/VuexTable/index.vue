@@ -178,7 +178,6 @@ export default {
 
 <style lang="scss" scoped>
 .user-manage-page {
-    box-sizing: border-box;
     margin-top: 50px;
     padding: 0 20px;
     .vxe-table {

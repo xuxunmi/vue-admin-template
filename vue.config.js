@@ -2,6 +2,8 @@
 const path = require('path');
 // 压缩插件
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
+// 代码压缩
+const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
 // 复制文件/文件夹插件
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -77,35 +79,73 @@ module.exports = {
                     return args;
                 });
 
+            // 开启js\css压缩
+            config.plugin('compressionPlugin').use(
+                new CompressionWebpackPlugin({
+                    filename: "[path][base].gz", // 压缩后文件名
+                    algorithm: 'gzip', //开启gzip
+                    test: /\.(js|css|less|scss)$/, // 匹配文件名
+                    threshold: 10240, // 对超过10k的数据压缩
+                    minRatio: 0.8, // 只有压缩率比这个值小的资源才会被处理
+                    deleteOriginalAssets: false // 不删除源文件
+                })
+            );
+
+            // 开启图片压缩;
+            config.module
+                .rule('images')
+                .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
+                .use('image-webpack-loader')
+                .loader('image-webpack-loader')
+                .options({
+                    bypassOnDebug: true,
+                    // 此处为ture的时候不会启用压缩处理,目的是为了开发模式下调试速度更快
+                    disable: process.env.NODE_ENV == 'development' ? true : false
+                })
+                .tap(options =>
+                    Object.assign(options, {
+                        limit: 1024
+                    })
+                );
+
             config.optimization.splitChunks({
                 cacheGroups: {
-                    common: {
-                        name: 'common',
-                        chunks: 'all',
-                        minSize: 1,
-                        minChunks: 2,
-                        priority: 1
-                    },
                     vendor: {
                         name: 'chunk-libs',
                         chunks: 'all',
                         // eslint-disable-next-line no-useless-escape
                         test: /[\/]node_modules[\/]/,
                         priority: 10
+                    },
+                    common: {
+                        name: 'common',
+                        chunks: 'all',
+                        minSize: 1,
+                        minChunks: 2,
+                        priority: 1
                     }
                 }
             });
         }
+
+        // 编译vxe-table包里的es6代码，解决IE11兼容问题
+        config.module
+            .rule('vxe')
+            .test(/\.js$/)
+            .include.add(resolve('node_modules/vxe-table'))
+            .add(resolve('node_modules/vxe-table-plugin-antd'))
+            .end()
+            .use()
+            .loader('babel-loader')
+            .end();
     },
     configureWebpack: {
-        // 重定义build后css输出路径
+        // 重定义build后js输出路径
+        // output: {
+        //     filename: 'Windchill/netmarkets/javascript/technologyNotice/[name].js',
+        //     chunkFilename: 'Windchill/netmarkets/javascript/technologyNotice/[name].js'
+        // },
         plugins: [
-            new CompressionWebpackPlugin({
-                algorithm: 'gzip',
-                test: /\.js$|\.html$|\.json$|\.css$/,
-                threshold: 10240,
-                minRatio: 0.8
-            }),
             // 复制文件夹
             // new CopyWebpackPlugin({
             //     patterns: [
@@ -116,6 +156,19 @@ module.exports = {
             //         }
             //     ]
             // })
-        ]
+        ],
+        optimization: {
+            minimizer: [
+                new UglifyJsWebpackPlugin({
+                    uglifyOptions: {
+                        output: {
+                            comments: false // 删除注释
+                        }
+                    },
+                    sourceMap: false,
+                    parallel: true
+                })
+            ]
+        }
     }
 };

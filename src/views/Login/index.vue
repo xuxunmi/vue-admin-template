@@ -1,10 +1,16 @@
 <template>
     <div class="login-page">
         <div class="login-wrap">
-            <div class="login-title">
-                <h1>Vue2-admin</h1>
-            </div>
-            <el-form class="login-form" :model="loginForm" ref="loginForm" :rules="rules" :hide-required-asterisk='true'>
+            <el-form
+                class="login-form"
+                :model="loginForm"
+                ref="loginForm"
+                :rules="rules"
+                :hide-required-asterisk="true"
+            >
+                <div class="login-title">
+                    <h1>Vue2-admin</h1>
+                </div>
                 <el-form-item prop="username">
                     <!-- 自动获取焦点： :autofocus="true" -->
                     <el-input size="small" v-model="loginForm.username" placeholder="用户名"></el-input>
@@ -62,8 +68,8 @@ export default {
             rules: {
                 // username: [{ validator: validateUsername, trigger: 'blur' }],
                 // password: [{ validator: validatePassword, trigger: 'blur' }]
-                username:[{ required: true, message: '请输入用户名', trigger: 'blur' }],
-                password:[{ required: true, message: '请输入用户密码', trigger: 'blur' }]
+                username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                password: [{ required: true, message: '请输入用户密码', trigger: 'blur' }]
             }
         };
     },
@@ -122,46 +128,70 @@ export default {
         background-color: #fff;
         text-align: center;
         border-radius: 10px;
-        transform: translateY(-50%);
+        margin-top: -160px;
+        overflow: hidden;
         &::before {
             content: '';
-            display: table;
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 350px;
+            height: 320px;
+            transform-origin: bottom right;
+            background: linear-gradient(0deg, transparent, #ff1b69, #ff1b69);
+            animation: animate 6s linear infinite;
+            z-index: 1;
         }
-        .login-title {
-            padding-top: 30px;
-            img {
-                width: 50px;
-                height: 50px;
-                vertical-align: middle;
+        &::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 350px;
+            height: 320px;
+            transform-origin: bottom right;
+            background: linear-gradient(0deg, transparent, #ff1b69, #ff1b69);
+            animation: animate 6s linear infinite;
+            animation-delay: -3s;
+            z-index: 1;
+        }
+        @keyframes animate {
+            0% {
+                transform: rotate(0deg);
             }
-            span {
-                position: relative;
-                top: 7px;
-                left: 10px;
-                font-size: 24px;
+            100% {
+                transform: rotate(360deg);
             }
         }
         .login-form {
-            width: 240px;
-            margin: 30px auto 0;
+            position: absolute;
+            padding: 30px 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            inset: 2px;
+            z-index: 2;
+            .login-title {
+                margin-bottom: 20px;
+                letter-spacing: 3px;
+            }
             .el-input {
+                width: 100%;
                 height: 42px;
                 // background-color: transparent;
             }
             .login-btn {
                 width: 200px;
-                height: 42px;
-                margin: 0 auto;
-                line-height: 42px;
+                margin: 20px auto 0;
+                line-height: 36px;
                 background: #2e82ff;
                 color: #ffffff;
                 font-size: 18px;
-                border-radius: 27px;
-                animation: zoomIn 1.5s infinite;
+                border-radius: 18px;
+                animation: zoomLoginBtn 1.5s infinite;
                 text-align: center;
                 cursor: pointer;
             }
-            @keyframes zoomIn {
+            @keyframes zoomLoginBtn {
                 50% {
                     transform: scale(1.1);
                 }
