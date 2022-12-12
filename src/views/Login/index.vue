@@ -166,7 +166,10 @@ export default {
         .login-form {
             position: absolute;
             padding: 30px 20px;
-            background-color: #fff;
+            // 线性渐变
+            background: linear-gradient(red 0%, orange 10%, orange 30%, yellow 50%, yellow 70%, green 90%, green 100%),
+                linear-gradient(red, orange 10% 30%, yellow 50% 70%, green 90%),
+                linear-gradient(red 0%, orange 10% 30%, yellow 50% 70%, green 90% 100%);
             border-radius: 10px;
             inset: 2px;
             z-index: 2;

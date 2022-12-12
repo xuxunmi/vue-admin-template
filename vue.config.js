@@ -82,7 +82,7 @@ module.exports = {
             // 开启js\css压缩
             config.plugin('compressionPlugin').use(
                 new CompressionWebpackPlugin({
-                    filename: "[path][base].gz", // 压缩后文件名
+                    filename: '[path][base].gz', // 压缩后文件名
                     algorithm: 'gzip', //开启gzip
                     test: /\.(js|css|less|scss)$/, // 匹配文件名
                     threshold: 10240, // 对超过10k的数据压缩
@@ -127,6 +127,24 @@ module.exports = {
                 }
             });
         }
+
+        // 解决postcss-px-to-viewport插件无法将行内样式转vw问题
+        config.module
+            .rule('vue')
+            .test(/\.vue$/)
+            .use('style-vw-loader')
+            .loader('style-vw-loader')
+            .options({
+                unitToConvert: 'px', // 要转化的单位
+                viewportWidth: 1920, // 视窗的宽度，对应的是我们设计稿的宽度，一般是750
+                unitPrecision: 5, // 指定px转换为视窗单位指的小数位数
+                viewportUnit: 'vw', // 指定需要转换成的视窗单位
+                fontViewportUnit: 'vw',
+                minPixelValue: 1, // 小于或等于1px不转换为视窗单位，可以设置想要的值
+                mediaQuery: false, // 允许在媒体查询中转化px
+                selectorBlackList: [] // 指定不转换为视窗单位的类，可自定义，可无限添加，建议定一至两个通用类
+            })
+            .end();
 
         // 编译vxe-table包里的es6代码，解决IE11兼容问题
         config.module
