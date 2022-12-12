@@ -9,6 +9,20 @@ import Index from '@/views/Index/index.vue';
 Vue.use(VueRouter);
 
 const constantRoutes = [
+    // {
+    //     path: '/',
+    //     redirect: '/home',
+    //     component: () => import('@/views/Home/index.vue')
+    // },
+    // {
+    //     path: '/home',
+    //     name: 'home',
+    //     component: () => import('@/views/Home/index.vue'),
+    //     meta: {
+    //         title: '首页',
+    //         requireAuth: true
+    //     }
+    // },
     {
         path: '/',
         name: 'Layout',

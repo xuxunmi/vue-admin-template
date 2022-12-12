@@ -141,7 +141,7 @@ export default {
     overflow: hidden;
     height: 40px;
     padding: 0 10px;
-    background-color: #eaedf1;
+    background-color: #fff;
     box-shadow: 0px 5px 3px 0px #ddd;
     z-index: 999;
     white-space: nowrap;
@@ -156,23 +156,20 @@ export default {
         }
         .item-list {
             width: 100%;
-            height: 40px;
+            height: 100%;
             font-size: 13px;
             font-weight: 600;
             line-height: 40px;
         }
         .tags-item {
             display: inline-block;
+            width: auto;
             height: 30px;
-            margin-right: 10px;
-            padding: 0 10px;
-            border: 1px solid #e9eaec;
+            margin-right: 6px;
+            padding: 0 5px;
             line-height: 30px;
             text-align: center;
-            border-radius: 3px;
-            font-size: 13px;
-            line-height: 30px;
-            background: #fff;
+            font-size: 14px;
             vertical-align: middle;
             color: #666;
             -webkit-transition: all 0.3s ease-in;
@@ -181,19 +178,24 @@ export default {
             cursor: pointer;
         }
         .tags-item:not(.active):hover {
-            background: #f8f8f8;
+            background-color: #409eff;
         }
         .tags-item.active {
-            background-color: #409eff;
+            border-bottom: 2px solid #1890ff;
         }
         .tags-item-title {
             max-width: 80px;
-            color: #666;
+            color: black;
             overflow: hidden;
             word-break: keep-all;
             white-space: nowrap;
             text-overflow: ellipsis;
-            margin-right: 5px;
+            // margin-right: 5px;
+        }
+        .tags-item-icon {
+            position: relative;
+            top: 0;
+            left: 6px;
         }
     }
 }

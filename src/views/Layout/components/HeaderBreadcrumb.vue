@@ -21,7 +21,8 @@ export default {
     },
     methods: {
         getBreadcrumbItems(route) {
-            let breadcrumbList = route.matched.filter(item => {
+            let matched = route.matched;
+            let breadcrumbList = matched.filter(item => {
                 if (item.meta && item.meta.title) {
                     if (item.redirect === undefined) {
                         item.path = '';
@@ -30,7 +31,7 @@ export default {
                 }
             });
             if (breadcrumbList[0].meta.title !== '首页') {
-                breadcrumbList.unshift({ path: '/', meta: { title: '首页' } });
+                breadcrumbList.unshift({ path: '/home', meta: { title: '首页' } });
             }
             this.breadcrumbItems = breadcrumbList;
             // console.log('this.breadcrumbItems: ', this.breadcrumbItems);
