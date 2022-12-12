@@ -141,12 +141,11 @@ export default {
     overflow: hidden;
     height: 40px;
     padding: 0 10px;
-    background-color: #fff;
     box-shadow: 0px 5px 3px 0px #ddd;
     z-index: 999;
     white-space: nowrap;
     .el-scrollbar {
-        height: 100%; // 必须设置el-scrollbar的高度
+        height: 40px; // 必须设置el-scrollbar的高度
         ::v-deep .scrollbar-wrapper {
             overflow-x: hidden !important;
             overflow-y: hidden !important;
@@ -155,47 +154,49 @@ export default {
             display: none !important;
         }
         .item-list {
+            display: flex;
+            justify-content: start;
+            align-items: center;
             width: 100%;
             height: 100%;
             font-size: 13px;
+            color: black;
             font-weight: 600;
             line-height: 40px;
         }
         .tags-item {
-            display: inline-block;
-            width: auto;
-            height: 30px;
+            height: 40px;
             margin-right: 6px;
-            padding: 0 5px;
-            line-height: 30px;
+            padding: 0 10px 0 5px;
+            line-height: 40px;
             text-align: center;
             font-size: 14px;
-            vertical-align: middle;
-            color: #666;
+
             -webkit-transition: all 0.3s ease-in;
             -moz-transition: all 0.3s ease-in;
             transition: all 0.3s ease-in;
             cursor: pointer;
+
+            &-title,
+            &-icon {
+                position: relative;
+                top: 1px;
+            }
+            &-title {
+                min-width: 50px;
+                color: black;
+            }
+            &-icon {
+                margin-left: 5px;
+                font-size: 12px;
+            }
         }
         .tags-item:not(.active):hover {
-            background-color: #409eff;
+            background-color: #3091ec;
+            border-radius: 3px;
         }
         .tags-item.active {
-            border-bottom: 2px solid #1890ff;
-        }
-        .tags-item-title {
-            max-width: 80px;
-            color: black;
-            overflow: hidden;
-            word-break: keep-all;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            // margin-right: 5px;
-        }
-        .tags-item-icon {
-            position: relative;
-            top: 0;
-            left: 6px;
+            border-bottom: 2px solid #409eff;
         }
     }
 }
