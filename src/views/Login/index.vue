@@ -23,6 +23,7 @@
                         placeholder="密码"
                         autocomplete="new-password"
                         show-password
+                        @keyup.enter.native="handleLoginBtn"
                     ></el-input>
                 </el-form-item>
                 <el-form-item>

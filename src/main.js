@@ -13,17 +13,20 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css';
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 
-import { dynamicCSS } from '@/utils/tools.js';
-// import * as urls from "@/config/env";
-import { iconfontUrl, iconfontVersion } from '@/config/env';
-
+//注册加载过滤器
 import * as filters from './filters'; // 全局filter
+Object.keys(filters).forEach(key => {
+    Vue.filter(key, filters[key]);
+});
+
+// 全局自定义指令
+import directives from './directives';
+Vue.use(directives);
 
 // 全局引入 vxe-table 表格
 import 'xe-utils';
 import VXETable from 'vxe-table';
 import 'vxe-table/lib/style.css';
-
 Vue.use(VXETable);
 
 // 引入数学公式渲染
@@ -35,7 +38,6 @@ import './error'; // 错误日志
 
 // 引入打印插件
 import Print from 'vue-print-nb';
-
 Vue.use(Print);
 
 // 阻止启动生产消息
@@ -44,6 +46,7 @@ Vue.config.productionTip = false;
 // vue-devtools 浏览器开发调试
 Vue.config.devtools = true;
 
+// import * as urls from "@/config/env";
 // 加载相关url地址
 // Object.keys(urls).forEach(key => {
 //     console.log('urls: ', urls);
@@ -51,14 +54,11 @@ Vue.config.devtools = true;
 // });
 
 // 动态加载阿里云矢量图库
+import { dynamicCSS } from '@/utils/tools.js';
+import { iconfontUrl, iconfontVersion } from '@/config/env';
 iconfontVersion.forEach(ele => {
     // console.log(iconfontUrl.replace("$key", ele));
     dynamicCSS(iconfontUrl.replace('$key', ele));
-});
-
-//注册加载过滤器
-Object.keys(filters).forEach(key => {
-    Vue.filter(key, filters[key]);
 });
 
 new Vue({
