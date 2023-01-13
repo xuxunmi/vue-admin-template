@@ -144,6 +144,7 @@ export default {
     box-shadow: 0px 5px 3px 0px #ddd;
     z-index: 999;
     white-space: nowrap;
+    background-color: #fff;
     .el-scrollbar {
         height: 40px; // 必须设置el-scrollbar的高度
         ::v-deep .scrollbar-wrapper {

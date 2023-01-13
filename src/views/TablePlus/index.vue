@@ -79,19 +79,21 @@ export default {
                 { prop: 'city', label: '城市', editable: true },
                 { prop: 'deposit', label: '存款', editable: true },
                 {
-                    prop: 'status',
+                    // prop: 'status', // 用于 formatter 属性
                     label: '状态',
-                    slotProp: 'status',
+                    slotProp: 'status', // 用template标签
                     editable: true,
                     editProps: {
                         type: 'switch',
                         activeValue: 1,
                         inactiveValue: 0
                     },
-                    formatter: row => {
-                        // return this.statusList.find(item => item.id === row.status)?.name;
-                        return row.status === 1 ? '启用' : row.status === 0 ? '停用' : '未知';
-                    }
+                    showOverflowTooltip: true
+                    // formatter: row => {
+                    //     console.log('row ', row);
+                    //     // return this.statusList.find(item => item.id === row.status)?.name;
+                    //     return row.status === 1 ? '启用' : row.status === 0 ? '停用' : '未知';
+                    // }
                 }
             ],
             dataSource: [
@@ -112,9 +114,6 @@ export default {
                 { id: 3, name: '王五', age: 20, sex: '女', city: '杭州', deposit: 88, status: 1 },
                 { id: 4, name: '赵六', age: 18, sex: '男', city: '南京', deposit: 87, status: 1 }
             ],
-            initialRowModel: {
-                sex: '男'
-            },
             customBtns: [
                 {
                     label: '自定义按钮',
@@ -128,6 +127,18 @@ export default {
                 { label: '导出 Excel', onClick: this.handleExportExcel }
             ]
         };
+    },
+    computed: {
+        initialRowModel() {
+            return {
+                name: undefined,
+                sex: '男',
+                age: undefined,
+                city: undefined,
+                deposit: undefined,
+                status: 0
+            };
+        }
     },
     methods: {
         // 处理导出Excel按钮

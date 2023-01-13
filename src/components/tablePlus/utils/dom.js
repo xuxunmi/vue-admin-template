@@ -4,5 +4,5 @@
  * @return {number}
  */
 export function getLevelFromClassName(className) {
-  return Number((/--level-(\d+)/.exec(className) || [])[1] || 0)
+    return Number((/--level-(\d+)/.exec(className) || [])[1] || 0);
 }

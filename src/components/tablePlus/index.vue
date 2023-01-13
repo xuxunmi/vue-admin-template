@@ -21,6 +21,7 @@
             v-bind="$attrs"
             v-on="$listeners"
             :data="filteredDataSource"
+            :height="height"
             :row-key="getRowKey"
             :row-class-name="generateRowClassName"
             :cell-class-name="generateCellClassName"
@@ -30,10 +31,10 @@
             @selection-change="handleSelectionChange"
             @current-change="handleCurrentChange"
         >
-            <el-table-column v-if="rowSortable" width="90">
+            <el-table-column v-if="rowSortable" width="40">
                 <i class="el-icon-rank cursor-move table-plus__drag-handler" />
             </el-table-column>
-            <el-table-column v-if="showSelection" type="selection" width="60" />
+            <el-table-column v-if="showSelection" type="selection" width="40" />
             <template v-for="(columnItem, columnIndex) in columns">
                 <template v-if="columnItem.type">
                     <el-table-column v-bind="columnItem" :key="columnItem.prop" />
@@ -113,6 +114,7 @@
 import Sortable from 'sortablejs';
 import TablePlusToolbar from './toolbar/index.vue';
 import TablePlusControl from './control/index.vue';
+import { Message } from 'element-ui';
 import { randomString, removeItemsInTree } from './utils';
 import { getLevelFromClassName } from './utils/dom';
 
@@ -188,12 +190,11 @@ export default {
         showSelection: {
             type: Boolean,
             default: true
+        },
+        // 是否设置表格高度,达到固定表头
+        height: {
+            type: String
         }
-        // // 是否设置表格高度,达到固定表头,会导致默认合计行不显示，解决：给table一个固定高度
-        // height: {
-        //     type: String,
-        //     default: '100%'
-        // }
     },
     data() {
         return {
@@ -416,7 +417,7 @@ export default {
         handleRowAddChild() {
             const parentRow = this.currentHighlightRow || this.selectedRows[0];
             if (!parentRow) {
-                this.$message.warning('请先选中一行');
+                Message.warning('请先选中一行');
                 return;
             }
             const newRow = this.initNewRow();
@@ -483,7 +484,7 @@ export default {
          */
         checkSelectedRows() {
             if (!this.selectedRows.length) {
-                this.$message.warning('请先选中一条记录');
+                Message.warning('请先选中一条记录');
                 return false;
             }
             return true;
@@ -526,7 +527,7 @@ export default {
          */
         handleRowRemove() {
             if (!this.selectedRows.length) {
-                this.$message.warning('请先选中一条记录');
+                Message.warning('请先选中一条记录');
                 return;
             }
             if (this.rowLocalRemove) {
