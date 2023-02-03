@@ -19,6 +19,7 @@
                     border
                     @row-remove="handleRowRemove"
                     @row-edit-value-change="handleRowEditValueChange"
+                    @row-select="hanldeRowSelect"
                 >
                     <template v-slot:status="{ row }">
                         <el-tag :type="row.status === 1 ? 'success' : 'info'" size="mini">
@@ -162,11 +163,12 @@ export default {
             toExcel.saveExcel();
         },
         /**
-         * 行编辑变化
+         * 行编辑变化,带出其他列值
          */
         handleRowEditValueChange({ value, prop, rowModel }) {
             if (prop === 'name') {
                 const option = nameOptions.find(item => item.id === value);
+                console.log('option: ', option);
                 Object.assign(rowModel, option);
             }
         },
@@ -178,6 +180,12 @@ export default {
             if (names.length) {
                 this.$message.success(`移除了${names.join('、')}`);
             }
+        },
+        /**
+         *  行选中
+         */
+        hanldeRowSelect(selectedRows) {
+            console.log('selectedRows: ', selectedRows);
         },
         /**
          * 表尾总计: 第一种方式

@@ -612,6 +612,7 @@ export default {
 
 <style lang="scss">
 .popper__table-edit-toolbar {
-    min-width: 120px;
+    min-width: 160px;
+    text-align: center;
 }
 </style>

@@ -32,6 +32,17 @@
         :size="size"
         @input="handleInput"
     />
+    <el-date-picker
+        v-else-if="type === 'datePicker'"
+        v-bind="$attrs"
+        v-on="$listeners"
+        :value="value"
+        :placeholder="$attrs.placeholder || '请选择日期'"
+        :value-format="$attrs.valueFormat"
+        :type="$attrs.pickerType"
+        :size="size"
+        @input="handleInput"
+    />
     <el-input
         v-else
         v-bind="$attrs"

@@ -691,13 +691,22 @@
                 </tr>
                 <tr>
                     <td class="column1 column-pd text-center" colspan="2">变&nbsp;&nbsp;更</td>
-                    <td class="value column-pd" colspan="10">
-                        <el-input
-                            type="textarea"
-                            autosize
-                            :disabled="!orderNoticeForm.isCanEdit"
-                            v-model="orderNoticeForm.alteration"
-                        ></el-input>
+                    <td class="value column-pd" colspan="10" style="padding: 3px;">
+                        <template v-for="(item, index) in orderNoticeForm.alteration">
+                            <el-input
+                                :key="index"
+                                type="textarea"
+                                style="display: block; margin-bottom: 2px; border: 1px solid #000;"
+                                autosize
+                                :disabled="!orderNoticeForm.isCanEdit"
+                                v-model="orderNoticeForm.alteration[index]"
+                            ></el-input>
+                        </template>
+                        <div class="text-center">
+                            <el-button type="text" class="redColor" @click="handleAlterationAdd">
+                                行数新增
+                            </el-button>
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -768,7 +777,7 @@ import finalAssemblyPartPupop from '../components/finalAssemblyPartPupop.vue';
 import chassisPartPupop from '../components/chassisPartPupop.vue';
 import electricalPartsPupop from '../components/electricalPartsPupop.vue';
 import labelPupop from '../components/labelPupop.vue';
-import { orderInformDetail, orderInformSave } from '@/api/order-inform/index.js';
+import { orderInformDetail, saveNoticeInfo } from '@/api/order-inform/index.js';
 export default {
     name: 'orderInform',
     components: {
@@ -870,7 +879,7 @@ export default {
                 electricalParts: undefined, // 电器部分
                 label: undefined, // 标牌
                 other: undefined, // 其他
-                alteration: undefined // 变更
+                alteration: [''] // 变更
             },
             dialogVisible: {
                 overallChar: false, // 是否显示总体特征弹窗
@@ -894,90 +903,84 @@ export default {
         },
         // 获取详情
         async getorderInformDetail() {
-            let { code, data } = await orderInformDetail(this.oid);
-            if (code === 200) {
-                if (data) {
-                    this.orderNoticeForm = {
-                        oid: data.oid,
-                        isCanEdit: data.isCanEdit,
-                        date: data.date,
-                        no: data.no,
-                        version: data.version,
-                        authorizedStrength: data.authorizedStrength,
-                        verify: data.verify,
-                        approve: data.approve,
-                        announcementModel: data.announcementModel,
-                        sapModel: data.sapModel,
-                        salesTerritory: data.salesTerritory,
-                        salesOrderNo: data.salesOrderNo,
-                        customerName: data.customerName,
-                        quantity: data.quantity,
-                        vehicleSerialNo: data.vehicleSerialNo,
-                        overallChar: data.overallChar,
-                        validationProjectData: JSON.parse(data.validationProject),
-                        tryProjectData: JSON.parse(data.testInstallationProject),
-                        materialData: JSON.parse(data.otherItem),
-                        skeletonMetal: data.skeletonMetal,
-                        finalAssemblyPart: data.finalAssemblyPart,
-                        chassisPart: data.chassisPart,
-                        electricalParts: data.electricalParts,
-                        label: data.label,
-                        other: data.other,
-                        alteration: data.alteration
-                    };
-                }
+            let { success, data } = await orderInformDetail(this.oid);
+            if (success === true) {
+                this.orderNoticeForm = {
+                    oid: data.oid,
+                    isCanEdit: data.isCanEdit,
+                    date: data.date,
+                    no: data.no,
+                    version: data.version,
+                    authorizedStrength: data.authorizedStrength,
+                    verify: data.verify,
+                    approve: data.approve,
+                    announcementModel: data.announcementModel,
+                    sapModel: data.sapModel,
+                    salesTerritory: data.salesTerritory,
+                    salesOrderNo: data.salesOrderNo,
+                    customerName: data.customerName,
+                    quantity: data.quantity,
+                    vehicleSerialNo: data.vehicleSerialNo,
+                    overallChar: data.overallChar,
+                    skeletonMetal: data.skeletonMetal,
+                    finalAssemblyPart: data.finalAssemblyPart,
+                    chassisPart: data.chassisPart,
+                    electricalParts: data.electricalParts,
+                    label: data.label,
+                    other: data.other,
+                    alteration: data.alteration,
+                    validationProjectData: data.validationProjectData,
+                    tryProjectData: data.tryProjectData,
+                    materialData: data.materialData
+                };
             }
         },
         // 处理保存
         handleSaveBtn() {
-            let validationProject = JSON.stringify(this.orderNoticeForm.validationProjectData);
-            let testInstallationProject = JSON.stringify(this.orderNoticeForm.tryProjectData);
-            let otherItem = JSON.stringify(this.orderNoticeForm.materialData);
             let params = {
-                oid: Number(this.oid),
                 isCanEdit: this.orderNoticeForm.isCanEdit,
-                date: this.orderNoticeForm.date, // 日期
-                no: Number(this.orderNoticeForm.no), // 文件编号
-                version: Number(this.orderNoticeForm.version), // 版本
-                authorizedStrength: this.orderNoticeForm.authorizedStrength, // 编制
-                verify: this.orderNoticeForm.verify, // 审核
-                approve: Number(this.orderNoticeForm.approve), // 批准
-                announcementModel: this.orderNoticeForm.announcementModel, // 公告车型
-                sapModel: this.orderNoticeForm.sapModel, // SAP车型号
-                salesTerritory: this.orderNoticeForm.salesTerritory, // 销售区域
-                salesOrderNo: this.orderNoticeForm.salesOrderNo, // 销售订单号
-                customerName: this.orderNoticeForm.customerName, // 客户名称
-                quantity: Number(this.orderNoticeForm.quantity), // 数量
-                vehicleSerialNo: Number(this.orderNoticeForm.vehicleSerialNo), // 整车序列号
-                overallChar: this.orderNoticeForm.overallChar, // 总体特征
-                validationProject,
-                testInstallationProject,
-                otherItem,
-                skeletonMetal: this.orderNoticeForm.skeletonMetal, // 骨架钣金
-                finalAssemblyPart: this.orderNoticeForm.finalAssemblyPart, // 总装部分
-                chassisPart: this.orderNoticeForm.chassisPart, // 底盘部分
-                electricalParts: this.orderNoticeForm.electricalParts, // 电器部分
-                label: this.orderNoticeForm.label, // 标牌
-                other: this.orderNoticeForm.other, // 其他
-                alteration: this.orderNoticeForm.alteration // 变更
+                date: this.orderNoticeForm.date,
+                no: this.orderNoticeForm.no,
+                version: this.orderNoticeForm.version,
+                authorizedStrength: this.orderNoticeForm.authorizedStrength,
+                verify: this.orderNoticeForm.verify,
+                approve: this.orderNoticeForm.approve,
+                announcementModel: this.orderNoticeForm.announcementModel,
+                sapModel: this.orderNoticeForm.sapModel,
+                salesTerritory: this.orderNoticeForm.salesTerritory,
+                salesOrderNo: this.orderNoticeForm.salesOrderNo,
+                customerName: this.orderNoticeForm.customerName,
+                quantity: this.orderNoticeForm.quantity,
+                vehicleSerialNo: this.orderNoticeForm.vehicleSerialNo,
+                overallChar: this.orderNoticeForm.overallChar,
+                skeletonMetal: this.orderNoticeForm.skeletonMetal,
+                finalAssemblyPart: this.orderNoticeForm.finalAssemblyPart,
+                chassisPart: this.orderNoticeForm.chassisPart,
+                electricalParts: this.orderNoticeForm.electricalParts,
+                label: this.orderNoticeForm.label,
+                other: this.orderNoticeForm.other,
+                alteration: this.orderNoticeForm.alteration,
+                validationProjectData: this.orderNoticeForm.validationProjectData,
+                tryProjectData: this.orderNoticeForm.tryProjectData,
+                materialData: this.orderNoticeForm.materialData
             };
-            for (const key in params) {
-                // console.log('key ', key, params[key], typeof params[key]);
-                if (params[key] === 0 || params[key] === undefined) {
-                    params[key] = null;
-                }
-            }
-            // console.log('params ', params);
-            orderInformSave(params)
+            // for (const key in params) {
+            //     console.log('key: ', key, params[key], typeof params[key]);
+            //     if (params[key] === 0 || params[key] === undefined) {
+            //         params[key] = null;
+            //     }
+            // }
+            console.log('params ', params);
+            saveNoticeInfo(params, this.oid)
                 .then(res => {
-                    let { code, result } = res;
-                    if (code === 200) {
-                        this.getorderInformDetail();
+                    let { success, message } = res;
+                    if (success === true) {
                         this.$message({
                             type: 'success',
-                            message: result,
+                            message: message,
                             center: true
                         });
+                        this.closePage();
                     }
                 })
                 .catch(err => {
@@ -1024,6 +1027,10 @@ export default {
                 note: ''
             };
             this.orderNoticeForm.materialData.push(newRow);
+        },
+        // 处理变更栏新增
+        handleAlterationAdd() {
+            this.orderNoticeForm.alteration.push('');
         },
         // 总体特征相关处理事件
         handleOverallCharTEditor() {
@@ -1108,6 +1115,17 @@ export default {
                 label: value
             };
             this.dialogVisible.label = false;
+        },
+        // 关闭浏览器房钱窗口
+        closePage() {
+            if (navigator.userAgent.indexOf('Firefox') != -1 || navigator.userAgent.indexOf('Chrome') != -1) {
+                window.location.href = 'about:blank';
+                window.close();
+            } else {
+                window.opener = null;
+                window.open('', '_self');
+                window.close();
+            }
         }
     }
 };
