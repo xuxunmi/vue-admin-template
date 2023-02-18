@@ -134,7 +134,7 @@ const constantRoutes = [
                     {
                         path: '/tool/process_design',
                         name: 'processDesign',
-                        component: () => import('@/views/toolManage/Design/index.vue'),
+                        component: () => import('@/views/ToolManage/Design/index.vue'),
                         meta: {
                             title: '流程设计',
                             icon: 'icon-liuchengsheji',
@@ -144,7 +144,7 @@ const constantRoutes = [
                     {
                         path: '/tool/formula_editor',
                         name: 'formulaEditor',
-                        component: () => import('@/views/toolManage/FormulaEditor/index.vue'),
+                        component: () => import('@/views/ToolManage/FormulaEditor/index.vue'),
                         meta: {
                             title: '公式编辑',
                             icon: 'icon-bianji1',
@@ -154,7 +154,7 @@ const constantRoutes = [
                     {
                         path: '/tool/upload',
                         name: 'upload',
-                        component: () => import('@/views/toolManage/Upload/index.vue'),
+                        component: () => import('@/views/ToolManage/Upload/index.vue'),
                         meta: {
                             title: '文件上传',
                             icon: 'icon-shangchuan',
@@ -164,7 +164,7 @@ const constantRoutes = [
                     {
                         path: '/tool/tinymce',
                         name: 'tinymce',
-                        component: () => import('@/views/TinymceEditor/index.vue'),
+                        component: () => import('@/views/ToolManage/TinymceEditor/index.vue'),
                         meta: {
                             title: '富文本编辑器',
                             icon: 'icon-fuwenbenbianjiqi_ziti',
