@@ -120,10 +120,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .el-input__inner {
-    padding: 1px 4px;
-}
-::v-deep .el-textarea__inner {
-    padding: 1px 4px;
-}
+// ::v-deep .el-input__inner {
+//     padding: 1px 4px;
+// }
+// ::v-deep .el-textarea__inner {
+//     padding: 1px 4px;
+// }
 </style>

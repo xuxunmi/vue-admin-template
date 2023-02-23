@@ -162,6 +162,16 @@ const constantRoutes = [
                         }
                     },
                     {
+                        path: '/tool/import_export',
+                        name: 'importExport',
+                        component: () => import('@/views/toolManage/importExport/index.vue'),
+                        meta: {
+                            title: '导入导出',
+                            icon: 'icon-daorudaochuguanli',
+                            requireAuth: true
+                        }
+                    },
+                    {
                         path: '/tool/tinymce',
                         name: 'tinymce',
                         component: () => import('@/views/TinymceEditor/index.vue'),

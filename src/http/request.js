@@ -278,8 +278,10 @@ export default {
                         const body = document.getElementsByTagName('body')[0];
                         body.appendChild(elink);
                         elink.click();
-                        URL.revokeObjectURL(url);
-                        body.removeChild(elink);
+                        window.setTimeout(function () {
+                            URL.revokeObjectURL(url);
+                            body.removeChild(elink);
+                        }, 0);
                     } else {
                         // IE10+下载
                         navigator.msSaveBlob(blob, fileName);

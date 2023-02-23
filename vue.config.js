@@ -7,6 +7,9 @@ const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
 // 复制文件/文件夹插件
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+// 开启中间缓存
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+
 const resolve = dir => {
     return path.join(__dirname, dir);
 };
@@ -155,6 +158,9 @@ module.exports = {
             .end()
             .use()
             .loader('babel-loader')
+            .options({
+                cacheDirectory: true // 开启缓存
+            })
             .end();
     },
     configureWebpack: {
@@ -174,6 +180,7 @@ module.exports = {
             //         }
             //     ]
             // })
+            new HardSourceWebpackPlugin()
         ],
         optimization: {
             minimizer: [
