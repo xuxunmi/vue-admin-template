@@ -29,10 +29,6 @@ import VXETable from 'vxe-table';
 import 'vxe-table/lib/style.css';
 Vue.use(VXETable);
 
-// 引入数学公式渲染
-import MathJax from '../src/assets/js/MathJax.js';
-Vue.prototype.MathJax = MathJax;
-
 // import './permission'; // 引入动态路由权限
 import './error'; // 错误日志
 

@@ -142,16 +142,6 @@ const constantRoutes = [
                         }
                     },
                     {
-                        path: '/tool/formula_editor',
-                        name: 'formulaEditor',
-                        component: () => import('@/views/ToolManage/FormulaEditor/index.vue'),
-                        meta: {
-                            title: '公式编辑',
-                            icon: 'icon-bianji1',
-                            requireAuth: true
-                        }
-                    },
-                    {
                         path: '/tool/upload',
                         name: 'upload',
                         component: () => import('@/views/ToolManage/Upload/index.vue'),
@@ -164,7 +154,7 @@ const constantRoutes = [
                     {
                         path: '/tool/import_export',
                         name: 'importExport',
-                        component: () => import('@/views/toolManage/importExport/index.vue'),
+                        component: () => import('@/views/ToolManage/importExport/index.vue'),
                         meta: {
                             title: '导入导出',
                             icon: 'icon-daorudaochuguanli',
@@ -269,6 +259,12 @@ const createRouter = () =>
     });
 
 const router = createRouter();
+
+// 解决重复点击当前页面，控制台路由报错问题
+const VueRouterPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(to) {
+    return VueRouterPush.call(this, to).catch(err => err);
+};
 
 //解决重复登录时重复添加路由 或者 高级权限改低级权限时 某些路由已经注入的问题
 export function resetRouter() {
