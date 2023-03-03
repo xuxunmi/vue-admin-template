@@ -82,6 +82,17 @@ module.exports = {
                     return args;
                 });
 
+            config.module
+                .rule('images')
+                .test(/\.(png|jpe?g|gif)(\?.*)?$/)
+                .use('image-webpack-loader')
+                .loader('image-webpack-loader')
+                .options({
+                    // 此处为ture的时候不会启用压缩处理,目的是为了开发模式下调试速度更快
+                    disable: process.env.NODE_ENV == 'development' ? true : false
+                })
+                .end();
+
             // 开启js\css压缩
             config.plugin('compressionPlugin').use(
                 new CompressionWebpackPlugin({
@@ -94,31 +105,13 @@ module.exports = {
                 })
             );
 
-            // 开启图片压缩;
-            config.module
-                .rule('images')
-                .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
-                .use('image-webpack-loader')
-                .loader('image-webpack-loader')
-                .options({
-                    bypassOnDebug: true,
-                    // 此处为ture的时候不会启用压缩处理,目的是为了开发模式下调试速度更快
-                    disable: process.env.NODE_ENV == 'development' ? true : false
-                })
-                .tap(options =>
-                    Object.assign(options, {
-                        limit: 1024
-                    })
-                );
-
             config.optimization.splitChunks({
                 cacheGroups: {
                     vendor: {
                         name: 'chunk-libs',
                         chunks: 'all',
-                        // eslint-disable-next-line no-useless-escape
-                        test: /[\/]node_modules[\/]/,
-                        priority: 10
+                        test: /[\\/]node_modules[\\/]/,
+                        priority: 100
                     },
                     common: {
                         name: 'common',
@@ -126,6 +119,12 @@ module.exports = {
                         minSize: 1,
                         minChunks: 2,
                         priority: 1
+                    },
+                    styles: {
+                        name: 'styles',
+                        test: /\.(sa|sc|c|le)ss$/,
+                        chunks: 'all',
+                        enforce: true
                     }
                 }
             });
