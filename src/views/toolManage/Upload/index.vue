@@ -1,6 +1,6 @@
 <template>
-    <div class="uplaod-page">
-        <div class="upload-container">
+    <div class="uplaod-page w-full h-full mt-8">
+        <div class="grid justify-center content-center h-full">
             <el-upload
                 class="upload-file"
                 action="#"
@@ -130,16 +130,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.uplaod-page {
-    width: 100%;
-    height: 100%;
-    margin-top: 45px;
-    .upload-container {
-        display: grid;
-        justify-content: center;
-        align-content: center;
-        height: 100%;
-    }
-}
-</style>
+<style lang="scss" scoped></style>

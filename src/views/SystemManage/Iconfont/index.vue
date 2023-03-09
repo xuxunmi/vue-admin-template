@@ -1,5 +1,5 @@
 <template>
-    <div class="iconfont-page">
+    <div class="iconfont-page w-full h-full" :class="{ 'pt-18': tagsList.length }">
         <el-tabs type="border-card">
             <el-tab-pane>
                 <span slot="label"><i class="el-icon-picture-outline-round"></i> elementUI-icons</span>
@@ -7,7 +7,7 @@
                     直接通过设置类名为
                     <code>el-icon-iconName</code> 来使用即可，例如：<code>{{ exampleText1 }}</code
                     >，官网地址：<a
-                        style="color: blue;"
+                        style="color: blue"
                         target="_blank"
                         href="https://element.eleme.cn/#/zh-CN/component/installation"
                         >Element-UI</a
@@ -26,7 +26,7 @@
                 <p class="pTitle">
                     这里是通过使用阿里iconfont在项目中生成字体图标，直接通过设置 <strong>i</strong> 标签类名为
                     <code> class="iconfont el-icon-iconName" </code>， 例如：<code>{{ exampleText2 }}</code>
-                    来使用即可，官网地址：<a style="color: blue;" target="_blank" href="https://www.iconfont.cn/"
+                    来使用即可，官网地址：<a style="color: blue" target="_blank" href="https://www.iconfont.cn/"
                         >iconfont矢量图标库</a
                     >
                 </p>
@@ -43,8 +43,10 @@
 </template>
 
 <script>
-import { elementIconsList } from './element-icons';
-import { iconfontList } from './iconfont';
+import { elementIconsList } from './js/element-icons';
+import { iconfontList } from './js/iconfont';
+import { mapState } from 'vuex';
+
 export default {
     name: 'iconfont',
     data() {
@@ -54,6 +56,9 @@ export default {
             exampleText1: '<i class="el-icon-s-promotion"></i>',
             exampleText2: '<i class="iconfont el-icon-weixin"></i>'
         };
+    },
+    computed: {
+        ...mapState(['tagsList'])
     }
 };
 </script>

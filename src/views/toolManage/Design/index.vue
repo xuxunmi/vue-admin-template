@@ -1,10 +1,10 @@
 <template>
-    <div class="design-page">
+    <div class="design-page w-full h-full overflow-hidden px-8" :class="{ 'pt-16': tagsList.length }">
         <div class="toolbar">
             <el-button type="primary" size="small" @click="handleAddProcess">添加新流程</el-button>
         </div>
-        <div class="design-table">
-            <el-table border :data="processData" style="width: 100%;" header-align="center">
+        <div class="mt-4">
+            <el-table border :data="processData" style="width: 100%" header-align="center">
                 <el-table-column type="index" label="序号" width="60" align="center"> </el-table-column>
                 <el-table-column prop="processId" label="流程定义ID" align="center"> </el-table-column>
                 <el-table-column prop="name" label="流程名称" align="center"> </el-table-column>
@@ -14,7 +14,7 @@
         <!-- 流程设计弹窗 -->
         <dialog-frame :title="'流程图'" :show.sync="dialogProcessDesignVisible" width="90%" :footer="false">
             <vue-bpmn
-                style="overflow: hidden; width: 100%; height: 750px;"
+                style="overflow: hidden; width: 100%; height: 750px"
                 :show.sync="dialogProcessDesignVisible"
                 product="flowable"
                 @processSaveData="processSaveData(arguments)"
@@ -26,6 +26,8 @@
 <script>
 import dialogFrame from '@/components/DialogFrame/index.vue';
 import VueBpmn from '@/components/Bpmn/vue-bpmn.vue';
+import { mapState } from 'vuex';
+
 export default {
     name: 'design',
     components: {
@@ -38,6 +40,9 @@ export default {
             // 流程数据
             processData: []
         };
+    },
+    computed: {
+        ...mapState(['tagsList'])
     },
     methods: {
         handleAddProcess() {
@@ -63,11 +68,4 @@ export default {
 <style lang="scss" scoped>
 // 流程设计器全局样式
 @import url('../../../components/Bpmn/css/vue-bmpn.css');
-.design-page {
-    margin-top: 60px;
-    padding: 0 20px;
-    .design-table {
-        margin-top: 20px;
-    }
-}
 </style>

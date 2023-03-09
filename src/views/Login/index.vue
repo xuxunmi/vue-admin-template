@@ -1,5 +1,5 @@
 <template>
-    <div class="login-page">
+    <div class="login-page relative h-screen">
         <div class="login-wrap">
             <el-form
                 class="login-form"
@@ -40,6 +40,7 @@
 import axios from 'axios';
 import { set as setStorage, get as getStorage } from '@/utils/storage.js';
 import { mapMutations, mapActions } from 'vuex';
+
 export default {
     name: 'login',
     data() {
@@ -116,8 +117,6 @@ export default {
 
 <style lang="scss" scoped>
 .login-page {
-    position: relative;
-    height: 100vh;
     background: url('~@/assets/images/login/login_bg.png') no-repeat;
     background-size: cover;
     .login-wrap {

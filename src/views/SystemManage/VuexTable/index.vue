@@ -1,5 +1,5 @@
 <template>
-    <div class="user-manage-page">
+    <div class="user-manage-page w-full h-full overflow-hidden px-8" :class="{ 'pt-16': tagsList.length }">
         <div class="vxe-table">
             <h1 class="text-2xl font-bold">vxe-table表格使用示例：</h1>
             <vxe-toolbar export print zoom custom>
@@ -44,7 +44,7 @@
                     </template>
                 </vxe-column>
                 <template #empty>
-                    <span style="color: red;">
+                    <span style="color: red">
                         <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif" />
                         <p>没有更多数据了！</p>
                     </span>
@@ -57,6 +57,7 @@
 <script>
 import '@assets/css/vxe-table/vxe-reset.scss';
 import XEUtils from 'xe-utils';
+import { mapState } from 'vuex';
 
 export default {
     name: 'VuexTable',
@@ -113,6 +114,9 @@ export default {
                 }
             ]
         };
+    },
+    computed: {
+        ...mapState(['tagsList'])
     },
     methods: {
         // 新增数据
@@ -178,10 +182,7 @@ export default {
 
 <style lang="scss" scoped>
 .user-manage-page {
-    margin-top: 50px;
-    padding: 0 20px;
     .vxe-table {
-        margin-top: 20px;
         h1 {
             margin-bottom: 20px;
         }

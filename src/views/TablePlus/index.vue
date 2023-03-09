@@ -1,5 +1,5 @@
 <template>
-    <div class="app-layout">
+    <div class="app-layout w-full h-full overflow-hidden px-10" :class="{ 'pt-16': tagsList.length }">
         <h1 class="mb-8">TablePlus表格：</h1>
         <div class="app-layout__container">
             <div class="app-layout__left">
@@ -48,6 +48,7 @@
 import TablePlus from '@/components/tablePlus/index.vue';
 import ExportExcel from 'js-export-excel';
 import { formatFloat } from '@/utils/tools';
+import { mapState } from 'vuex';
 
 const nameOptions = [
     { id: 100, name: '可选项1', age: 1, sex: '男', city: '无锡' },
@@ -130,6 +131,7 @@ export default {
         };
     },
     computed: {
+        ...mapState(['tagsList']),
         initialRowModel() {
             return {
                 name: undefined,
@@ -261,10 +263,6 @@ export default {
 
 <style lang="scss" scoped>
 .app-layout {
-    height: 100%;
-    margin-top: 50px;
-    padding: 16px 32px;
-
     &__container {
         display: flex;
     }

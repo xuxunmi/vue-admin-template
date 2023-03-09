@@ -17,6 +17,7 @@
 import headerBreadcrumb from './HeaderBreadcrumb.vue';
 import { remove as removeStorage } from '@/utils/storage.js';
 import { mapState, mapMutations, mapActions } from 'vuex';
+
 export default {
     name: 'layoutHeader',
     components: {

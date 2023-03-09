@@ -42,6 +42,7 @@
 <script>
 import navBar from './navBar.vue';
 import { mapState } from 'vuex';
+
 export default {
     name: 'layoutNavMenu',
     components: {

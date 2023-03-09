@@ -1,5 +1,5 @@
 <template>
-    <div class="maintain-apply-form">
+    <div class="maintain-apply-form w-10/12 mx-auto mt-20">
         <div class="title-wrap">
             <div>分类维护申请单</div>
             <i class="el-icon-question"></i>
@@ -467,8 +467,8 @@ export default {
     left: 0;
 }
 .maintain-apply-form {
-    width: 1100px;
-    margin: 50px auto;
+    // width: 1100px;
+    // margin: 50px auto;
     background: #f1f1f1;
     .title-wrap {
         box-sizing: border-box;

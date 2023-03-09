@@ -1,5 +1,8 @@
 <template>
-    <div class="echart-page">
+    <div
+        class="echart-page w-full h-full flex items-center justify-between px-8 bg-white"
+        :class="{ 'pt-8': tagsList.length }"
+    >
         <div class="line-chart-wrap">
             <div id="lineChart"></div>
         </div>
@@ -13,8 +16,13 @@
 import * as echarts from 'echarts';
 import lineChartOption from '@/common/js/echartsOption/linechartOption.js';
 import piechartOption from '@/common/js/echartsOption/piechartOption.js';
+import { mapState } from 'vuex';
+
 export default {
     name: 'linePieChart',
+    computed: {
+        ...mapState(['tagsList'])
+    },
     mounted() {
         this.handleEchartsInstance();
     },
@@ -82,12 +90,12 @@ export default {
 
 <style lang="scss" scoped>
 .echart-page {
-    margin-top: 50px;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
+    // margin-top: 50px;
+    // padding: 0 20px;
+    // display: flex;
+    // justify-content: space-between;
+    // align-items: center;
+    // background-color: #fff;
     .line-chart-wrap {
         width: 48%;
         height: 800px;

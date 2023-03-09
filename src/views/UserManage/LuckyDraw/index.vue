@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container text-center mx-auto overflow-hidden">
         <ul class="box">
             <li
                 v-for="item in data"
@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     name: 'luckyDraw',
     data() {
@@ -59,6 +61,9 @@ export default {
             isStart: false,
             data: []
         };
+    },
+    computed: {
+        ...mapState(['tagsList'])
     },
     mounted() {
         setTimeout(() => {
@@ -136,7 +141,6 @@ export default {
 <style lang="scss" scoped>
 .container {
     margin: 100px auto;
-    text-align: center;
     width: 400px;
     height: 400px;
     border-radius: 20px;
