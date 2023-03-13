@@ -18,13 +18,13 @@
         <div class="tags-close-box">
             <el-dropdown @command="handleTags">
                 <el-button size="mini" type="primary">
-                    标签选项
+                    {{ $t('tags.tagOptions') }}
                     <i class="el-icon-arrow-down el-icon--right"></i>
                 </el-button>
                 <template #dropdown>
                     <el-dropdown-menu size="small">
-                        <el-dropdown-item command="other">关闭其他</el-dropdown-item>
-                        <el-dropdown-item command="all">关闭所有</el-dropdown-item>
+                        <el-dropdown-item command="other">{{ $t('tags.closeOther') }}</el-dropdown-item>
+                        <el-dropdown-item command="all">{{ $t('tags.closeAll') }}</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>

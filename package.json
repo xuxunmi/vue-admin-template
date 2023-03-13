@@ -24,6 +24,7 @@
     "sortablejs": "^1.15.0",
     "tinymce": "^5.10.6",
     "vue": "^2.6.11",
+    "vue-i18n": "^8.28.2",
     "vue-persistedstate": "^1.2.5",
     "vue-print-nb": "^1.7.5",
     "vue-router": "^3.2.0",

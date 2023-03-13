@@ -91,6 +91,11 @@ export default {
                             // 设置sessionStorage
                             setStorage('token', token, true);
                             console.log('getStorage: ', getStorage('token', true));
+
+                            // 设置登录默认为中文
+                            this.$i18n.locale = 'zh_CN';
+                            setStorage('lang', 'zh_CN', false);
+
                             this.setToken(token);
                             // 设置tagsList
                             this.SET_TAGS({

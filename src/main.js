@@ -36,18 +36,19 @@ import './error'; // 错误日志
 import Print from 'vue-print-nb';
 Vue.use(Print);
 
-// 阻止启动生产消息
-Vue.config.productionTip = false;
+// 引入语言国际化
+import i18n from '@/config/i18n';
+VXETable.setup({
+    // 对组件内置的提示语进行国际化翻译
+    i18n: (key, args) => i18n.t(key, args)
+});
 
-// vue-devtools 浏览器开发调试
-Vue.config.devtools = true;
-
-// import * as urls from "@/config/env";
 // 加载相关url地址
-// Object.keys(urls).forEach(key => {
-//     console.log('urls: ', urls);
-//     Vue.prototype[key] = urls[key];
-// });
+import * as urls from '@/config/env';
+Object.keys(urls).forEach(key => {
+    console.log('urls: ', urls);
+    Vue.prototype[key] = urls[key];
+});
 
 // 动态加载阿里云矢量图库
 import { dynamicCSS } from '@/utils/tools.js';
@@ -57,7 +58,14 @@ iconfontVersion.forEach(ele => {
     dynamicCSS(iconfontUrl.replace('$key', ele));
 });
 
+// 阻止启动生产消息
+Vue.config.productionTip = false;
+
+// vue-devtools 浏览器开发调试
+Vue.config.devtools = true;
+
 new Vue({
+    i18n,
     router,
     store,
     render: h => h(App)
