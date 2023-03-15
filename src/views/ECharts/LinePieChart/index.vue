@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="echart-page w-full h-full flex items-center justify-between px-8 bg-white"
-        :class="{ 'pt-8': tagsList.length }"
-    >
+    <div class="echart-page flex justify-between items-center bg-white" :class="{ 'pt-8': tagsList.length }">
         <div class="line-chart-wrap">
             <div id="lineChart"></div>
         </div>
@@ -90,12 +87,11 @@ export default {
 
 <style lang="scss" scoped>
 .echart-page {
-    // margin-top: 50px;
-    // padding: 0 20px;
-    // display: flex;
-    // justify-content: space-between;
-    // align-items: center;
-    // background-color: #fff;
+    margin-top: 50px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     .line-chart-wrap {
         width: 48%;
         height: 800px;

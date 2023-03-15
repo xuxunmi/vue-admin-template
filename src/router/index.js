@@ -67,6 +67,16 @@ const constantRoutes = [
                             icon: 'icon-choujiang1',
                             requireAuth: true
                         }
+                    },
+                    {
+                        path: '/user/codeRain',
+                        name: 'CodeRain',
+                        component: () => import('@/views/UserManage/CodeRain/index.vue'),
+                        meta: {
+                            title: '代码雨',
+                            icon: 'icon-zhongyu',
+                            requireAuth: true
+                        }
                     }
                 ]
             },

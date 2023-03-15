@@ -52,7 +52,10 @@ export default {
         background-color: #6266a6 !important;
     }
     .iconfont {
+        position: relative;
+        top: 0px;
         margin-right: 5px;
+        vertical-align: baseline;
     }
 }
 </style>
