@@ -46,7 +46,7 @@ VXETable.setup({
 // 加载相关url地址
 import * as urls from '@/config/env';
 Object.keys(urls).forEach(key => {
-    console.log('urls: ', urls);
+    // console.log('urls: ', urls);
     Vue.prototype[key] = urls[key];
 });
 

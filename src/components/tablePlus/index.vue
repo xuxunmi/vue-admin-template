@@ -114,7 +114,6 @@
 import Sortable from 'sortablejs';
 import TablePlusToolbar from './toolbar/index.vue';
 import TablePlusControl from './control/index.vue';
-import { Message } from 'element-ui';
 import { randomString, removeItemsInTree } from './utils';
 import { getLevelFromClassName } from './utils/dom';
 
@@ -417,7 +416,11 @@ export default {
         handleRowAddChild() {
             const parentRow = this.currentHighlightRow || this.selectedRows[0];
             if (!parentRow) {
-                Message.warning('请先选中一行');
+                this.$message({
+                    type: 'warning',
+                    message: '请先选中一行',
+                    center: true
+                });
                 return;
             }
             const newRow = this.initNewRow();
@@ -484,7 +487,11 @@ export default {
          */
         checkSelectedRows() {
             if (!this.selectedRows.length) {
-                Message.warning('请先选中一条记录');
+                this.$message({
+                    type: 'warning',
+                    message: '请先选中一条记录',
+                    center: true
+                });
                 return false;
             }
             return true;
@@ -527,7 +534,11 @@ export default {
          */
         handleRowRemove() {
             if (!this.selectedRows.length) {
-                Message.warning('请先选中一条记录');
+                this.$message({
+                    type: 'warning',
+                    message: '请先选中一条记录',
+                    center: true
+                });
                 return;
             }
             if (this.rowLocalRemove) {

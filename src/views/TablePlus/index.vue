@@ -5,27 +5,30 @@
             <div class="app-layout__left">
                 <table-plus
                     ref="tablePlus"
+                    :loading="loading"
                     :columns="columns"
                     :data-source="dataSource"
-                    :loading="loading"
                     :custom-btns="customBtns"
                     :initial-row-model="initialRowModel"
                     :summary-method="getSummaries"
                     show-summary
                     row-key="id"
+                    row-sort-sequence-field="sequence"
+                    size="mini"
                     row-sortable
                     row-editable
+                    row-local-remove
                     stripe
                     border
                     @row-remove="handleRowRemove"
                     @row-edit-value-change="handleRowEditValueChange"
                     @row-select="hanldeRowSelect"
                 >
-                    <template v-slot:status="{ row }">
+                    <!-- <template v-slot:status="{ row }">
                         <el-tag :type="row.status === 1 ? 'success' : 'info'" size="mini">
                             {{ row.status === 1 ? '启用' : row.status === 0 ? '停用' : '未知' }}
                         </el-tag>
-                    </template>
+                    </template> -->
                 </table-plus>
             </div>
             <div class="app-layout__right">
@@ -63,11 +66,24 @@ export default {
     data() {
         return {
             loading: false,
+            statusList: [
+                {
+                    id: 0,
+                    name: '停用'
+                },
+                {
+                    id: 1,
+                    name: '启用'
+                },
+            ],
             columns: [
+                { prop: 'sequence', width: '40', fixed: 'left' },
                 {
                     prop: 'name',
                     label: '姓名',
                     width: '180',
+                    align: 'center',
+                    showOverflowTooltip: true,
                     editable: true,
                     editProps: {
                         type: 'select',
@@ -76,45 +92,80 @@ export default {
                         optionValue: 'id'
                     }
                 },
-                { prop: 'sex', label: '性别', editable: false, width: '180' },
-                { prop: 'age', label: '年龄', width: '180', editable: true, sortable: true },
-                { prop: 'city', label: '城市', editable: true },
-                { prop: 'deposit', label: '存款', editable: true },
                 {
-                    // prop: 'status', // 用于 formatter 属性
+                    prop: 'sex',
+                    label: '性别',
+                    align: 'center',
+                    showOverflowTooltip: true,
+                    editable: false,
+                    width: '180'
+                },
+                {
+                    prop: 'age',
+                    label: '年龄',
+                    align: 'center',
+                    showOverflowTooltip: true,
+                    editable: true,
+                    sortable: true,
+                    width: '180'
+                },
+                { prop: 'city', label: '城市', align: 'center', showOverflowTooltip: true, editable: true },
+                { prop: 'deposit', label: '存款', align: 'center', showOverflowTooltip: true, editable: true },
+                {
+                    prop: 'status', // 用于 formatter 属性
                     label: '状态',
-                    slotProp: 'status', // 用template标签
+                    // slotProp: 'status', // 用template具名插槽属性
+                    align: 'center',
+                    showOverflowTooltip: true,
                     editable: true,
                     editProps: {
                         type: 'switch',
                         activeValue: 1,
                         inactiveValue: 0
                     },
-                    showOverflowTooltip: true
-                    // formatter: row => {
-                    //     console.log('row ', row);
-                    //     // return this.statusList.find(item => item.id === row.status)?.name;
-                    //     return row.status === 1 ? '启用' : row.status === 0 ? '停用' : '未知';
-                    // }
+                    formatter: row => {
+                        // return this.statusList.find(item => item.id === row.status)?.name;
+                        return row.status === 1 ? '启用' : row.status === 0 ? '停用' : '未知';
+                    }
                 }
             ],
             dataSource: [
                 {
                     id: 1,
-                    name: '张三',
+                    sequence: 1,
+                    name: '三上悠亚',
                     age: 22,
                     sex: '男',
                     city: '上海',
                     deposit: 99,
                     status: 1,
                     children: [
-                        { id: 11, name: '张三1', age: 1, sex: '男', city: '徐汇', deposit: 98, status: 1 },
-                        { id: 12, name: '张三2', age: 2, sex: '男', city: '浦东', deposit: 97, status: 1 }
+                        {
+                            id: 11,
+                            sequence: 1,
+                            name: '河北彩花',
+                            age: 18,
+                            sex: '女',
+                            city: '徐汇',
+                            deposit: 98,
+                            status: 1
+                        },
+                        {
+                            id: 12,
+                            sequence: 2,
+                            name: '深田咏美',
+                            age: 28,
+                            sex: '女',
+                            city: '浦东',
+                            deposit: 97,
+                            status: 1
+                        }
                     ]
                 },
-                { id: 2, name: '李四', age: 28, sex: '女', city: '苏州', deposit: 99, status: 0 },
-                { id: 3, name: '王五', age: 20, sex: '女', city: '杭州', deposit: 88, status: 1 },
-                { id: 4, name: '赵六', age: 18, sex: '男', city: '南京', deposit: 87, status: 1 }
+                { id: 2, sequence: 2, name: '明日花绮罗', age: 28, sex: '女', city: '苏州', deposit: 99, status: 0 },
+                { id: 3, sequence: 3, name: '桃乃木香奈', age: 20, sex: '女', city: '杭州', deposit: 88, status: 1 },
+                { id: 4, sequence: 4, name: '葵伊吹', age: 18, sex: '男', city: '南京', deposit: 87, status: 1 },
+                { id: 4, sequence: 4, name: '楪可怜', age: 18, sex: '男', city: '南京', deposit: 87, status: 1 },
             ],
             customBtns: [
                 {
@@ -122,7 +173,11 @@ export default {
                     onClick: selections => {
                         const names = selections.filter(item => item.name).map(item => item.name);
                         if (names.length) {
-                            this.$message.info(`选中了${names.join('、')}`);
+                            this.$message({
+                                type: 'info',
+                                message: `选中了${names.join('、')}`,
+                                center: true
+                            });
                         }
                     }
                 },
@@ -144,13 +199,17 @@ export default {
         }
     },
     methods: {
-        // 处理导出Excel按钮
+        /**
+         * 处理导出Excel按钮
+         */
         handleExportExcel() {
             const columns = this.columns.filter(item => item.label);
+            console.log('columns: ', columns);
             // TODO：待处理处理树形结构表格，目无法导出children中的数据的问题
             const sheetData = this.dataSource.map(item =>
                 columns.map(columnItem => (columnItem.formatter ? columnItem.formatter(item) : item[columnItem.prop]))
             );
+            console.log('sheetData: ', sheetData);
             const option = {
                 fileName: '导出插件使用',
                 datas: [
@@ -165,7 +224,7 @@ export default {
             toExcel.saveExcel();
         },
         /**
-         * 行编辑变化,带出其他列值
+         * 行编辑变化,带出当前行其他值
          */
         handleRowEditValueChange({ value, prop, rowModel }) {
             if (prop === 'name') {
@@ -175,88 +234,96 @@ export default {
             }
         },
         /**
-         * 行移除
+         * 行移除(可用于操作接口)
          */
         handleRowRemove(selections) {
             const names = selections.filter(item => item.name).map(item => item.name);
             if (names.length) {
-                this.$message.success(`移除了${names.join('、')}`);
+                this.$message({
+                    type: 'success',
+                    message: `移除了${names.join('、')}`,
+                    center: true
+                });
             }
         },
         /**
          *  行选中
          */
         hanldeRowSelect(selectedRows) {
-            console.log('selectedRows: ', selectedRows);
+            console.log('行选中selectedRows: ', selectedRows);
         },
         /**
          * 表尾总计: 第一种方式
          */
-        getSummaries({ columns, data }) {
-            return columns.reduce((acc, _, index) => {
-                if (index === 0) {
-                    acc[index] = '';
-                } else if (index === 1) {
-                    acc[index] = '';
-                } else if (index === 2) {
-                    acc[index] = '合计';
-                } else if (index === 3) {
-                    acc[index] = '/';
-                } else if (index === 4) {
-                    acc[index] =
-                        formatFloat(
-                            data.reduce((acc, cur) => {
-                                return acc + (cur.age || 0);
-                            }, 0),
-                            4
-                        ) + ' 岁';
-                } else if (index === 5) {
-                    acc[index] = '/';
-                } else if (index === 6) {
-                    acc[index] =
-                        formatFloat(
-                            data.reduce((acc, cur) => {
-                                return acc + (cur.deposit || 0);
-                            }, 0),
-                            4
-                        ) + ' 百万';
-                }
-                return acc;
-            }, {});
-        }
+        // getSummaries({ columns, data }) {
+        //     return columns.reduce((acc, _, index) => {
+        //         if (index === 0) {
+        //             acc[index] = '';
+        //         } else if (index === 1) {
+        //             acc[index] = '';
+        //         }  else if (index === 2) {
+        //             acc[index] = '';
+        //         } else if (index === 3) {
+        //             acc[index] = '合计';
+        //         } else if (index === 4) {
+        //             acc[index] = '/';
+        //         } else if (index === 5) {
+        //             acc[index] =
+        //                 formatFloat(
+        //                     data.reduce((acc, cur) => {
+        //                         return acc + (cur.age || 0);
+        //                     }, 0),
+        //                     4
+        //                 ) + ' 岁';
+        //         } else if (index === 6) {
+        //             acc[index] = '/';
+        //         } else if (index === 7) {
+        //             acc[index] =
+        //                 formatFloat(
+        //                     data.reduce((acc, cur) => {
+        //                         return acc + (cur.deposit || 0);
+        //                     }, 0),
+        //                     4
+        //                 ) + ' 万';
+        //         }
+        //         return acc;
+        //     }, {});
+        // }
         /**
          * 表尾总计: 第二种方式
          */
-        // getSummaries(param) {
-        //     const { columns, data } = param;
-        //     const sums = [];
-        //     columns.forEach((column, index) => {
-        //         if (index === 0) {
-        //             sums[index] = '';
-        //         } else if (index === 1) {
-        //             sums[index] = '';
-        //         } else if (index === 2) {
-        //             sums[index] = '合计';
-        //         } else if (index === 3) {
-        //             sums[index] = 'N/A';
-        //         } else if (index === 5) {
-        //             sums[index] = 'N/A';
-        //         }
-        //         const values = data.map(item => Number(item[column.property]));
-        //         if (column.property === 'age' || column.property === 'deposit') {
-        //             sums[index] = values.reduce((prev, curr) => {
-        //                 const value = Number(curr);
-        //                 if (!isNaN(value)) {
-        //                     return prev + curr;
-        //                 } else {
-        //                     return prev;
-        //                 }
-        //             }, 0);
-        //             sums[index] = formatFloat(sums[index], 4);
-        //         }
-        //     });
-        //     return sums;
-        // }
+        getSummaries(param) {
+            const { columns, data } = param;
+            const sums = [];
+            columns.forEach((column, index) => {
+                if (index === 0) {
+                    sums[index] = '';
+                } else if (index === 1) {
+                    sums[index] = '';
+                } else if (index === 2) {
+                    sums[index] = '';
+                } else if (index === 3) {
+                    sums[index] = '合计';
+                } else if (index === 4) {
+                    sums[index] = 'N/A';
+                } else if (index === 6) {
+                    sums[index] = 'N/A';
+                }
+                const values = data.map(item => Number(item[column.property]));
+                if (column.property === 'age' || column.property === 'deposit') {
+                    sums[index] = values.reduce((prev, curr) => {
+                        const value = Number(curr);
+                        if (!isNaN(value)) {
+                            return prev + curr;
+                        } else {
+                            return prev;
+                        }
+                    }, 0);
+                    sums[index] = formatFloat(sums[index], 4) + ' 万';
+                }
+            });
+            return sums;
+        }
     }
 };
 </script>
