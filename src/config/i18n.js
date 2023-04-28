@@ -15,7 +15,6 @@ import enLocale from '@/lang/en_US.js';
 
 import { get as getStorage } from '@/utils/storage.js';
 
-ElementLocale.i18n((key, value) => i18n.t(key, value));
 Vue.use(VueI18n);
 
 // 配置国际化语言包
@@ -36,4 +35,7 @@ const i18n = new VueI18n({
     locale: getStorage('lang', false) || 'zh_CN',
     messages
 });
+
+ElementLocale.i18n((key, value) => i18n.t(key, value));
+
 export default i18n;

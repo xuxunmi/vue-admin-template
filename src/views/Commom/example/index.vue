@@ -1,6 +1,6 @@
 <template>
     <div class="user-manage-page h-full w-full px-4 box-border overflow-hidden" :class="{ 'pt-14': tagsList.length }">
-        <el-form style="width: 100%;" :inline="true" :model="searchForm" ref="searchForm">
+        <el-form style="width: 100%" :inline="true" :model="searchForm" ref="searchForm">
             <el-form-item>
                 <el-input size="mini" v-model.trim="searchForm.account" clearable placeholder="请输入账号"></el-input>
             </el-form-item>
@@ -14,7 +14,9 @@
                 <el-button type="primary" size="mini" plain @click="handleAddAndModifyBtn('add')">新增</el-button>
             </el-form-item>
         </el-form>
-        <el-table :data="tableData" border style="width: 100%;" header-align="center">
+        <el-table :data="tableData" border style="width: 100%" header-align="center">
+            <el-table-column type="index" label="序号" width="60" :index="indexMethod" align="center">
+            </el-table-column>
             <el-table-column prop="account" label="账号" align="center"> </el-table-column>
             <el-table-column prop="realName" label="姓名" align="center"> </el-table-column>
             <el-table-column prop="phone" label="手机" align="center"> </el-table-column>
@@ -39,7 +41,7 @@
                         >修改</el-button
                     >
                     <el-button type="danger" size="mini" plain @click="handleDeleteBtn(scope.row)">删除</el-button>
-                    <el-dropdown trigger="click" style="margin-left: 10px;">
+                    <el-dropdown trigger="click" style="margin-left: 10px">
                         <el-button size="mini" type="primary">
                             更多 <i class="el-icon-arrow-down el-icon--right"></i>
                         </el-button>
@@ -61,7 +63,7 @@
             </el-table-column>
         </el-table>
         <el-pagination
-            style="margin-top: 20px; text-align: right;"
+            style="margin-top: 20px; text-align: right"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page.sync="page.page"
@@ -324,6 +326,10 @@ export default {
             console.log('row: ', row);
             let dialogType = 'menu';
             this.dialogVisible[dialogType] = true;
+        },
+        // 处理序号
+        indexMethod(index) {
+            return (this.page.page - 1) * this.page.pageSize + index + 1;
         },
         // 处理分页
         handleSizeChange() {

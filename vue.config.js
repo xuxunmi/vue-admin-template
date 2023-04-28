@@ -117,7 +117,7 @@ module.exports = {
                         name: 'common',
                         chunks: 'all',
                         minSize: 1,
-                        minChunks: 2,
+                        minChunks: 2, // 表示会把使用2次及以上的包抽离出来，放进公共依赖文件
                         priority: 1
                     },
                     styles: {

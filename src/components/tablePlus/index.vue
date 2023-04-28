@@ -34,7 +34,7 @@
             <el-table-column v-if="rowSortable" width="40">
                 <i class="el-icon-rank cursor-move table-plus__drag-handler" />
             </el-table-column>
-            <el-table-column v-if="showSelection" type="selection" width="40" />
+            <el-table-column v-if="showSelection" type="selection" reserve-selection width="40" />
             <template v-for="(columnItem, columnIndex) in columns">
                 <template v-if="columnItem.type">
                     <el-table-column v-bind="columnItem" :key="columnItem.prop" />

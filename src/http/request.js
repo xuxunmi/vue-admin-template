@@ -51,9 +51,14 @@ service.interceptors.request.use(
         }
         //只针对get方式进行序列化
         if (config.method === 'get') {
-            config.paramsSerializer = function (params) {
+            // 这种只适合0.x版本的axios
+            config.paramsSerializer = params => {
                 return qs.stringify(params, { arrayFormat: 'repeat' });
             };
+            // 这种只适合1.x以上版本的axios
+            // config.paramsSerializer = {
+            //     serialize: params => qs.stringify(params, { arrayFormat: 'repeat' })
+            // };
         }
         return config;
     },
@@ -66,12 +71,11 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     response => {
         // console.log('响应成功结果response: ', response.data);
-        if (response.data.code === 200) {
-            return Promise.resolve(response.data);
-        } else {
+        if (response.status !== 200 || response.data.code !== 200) {
             showErrorMsg(response.data.msg);
             return Promise.reject(new Error(response.data || 'Error'));
         }
+        return Promise.resolve(response.data);
     },
     error => {
         // console.log('响应错误结果error: ', error.response.data);
@@ -293,36 +297,4 @@ export default {
                 });
         });
     }
-
-    // /**
-    //  *
-    //  * @param url 目标下载接口
-    //  * @param query 查询参数
-    //  * @param fileName 文件名称
-    //  * @returns {*}
-    //  */
-    // downBlobFile(url, query, fileName) {
-    //     return service({
-    //         url: url,
-    //         method: 'get',
-    //         responseType: 'blob',
-    //         params: query
-    //     }).then(response => {
-    //         // 处理返回的文件流
-    //         const blob = response.data;
-    //         if (blob && blob.size === 0) {
-    //             this.$notify.error('内容为空，无法下载');
-    //             return;
-    //         }
-    //         const link = document.createElement('a');
-    //         link.href = URL.createObjectURL(blob);
-    //         link.download = fileName;
-    //         document.body.appendChild(link);
-    //         link.click();
-    //         window.setTimeout(function () {
-    //             URL.revokeObjectURL(blob);
-    //             document.body.removeChild(link);
-    //         }, 0);
-    //     });
-    // }
 };
