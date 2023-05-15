@@ -2,11 +2,13 @@ import { getRouterName, filterRouters } from '@/router/recursionRouter.js';
 import dynamicRoutes from '@/router/index.js';
 import { getDynamicMenuList } from '@/api/permission/index.js';
 import router, { resetRouter } from '@/router/index';
+import { set as setStrorage } from '@/utils/storage.js';
 
 const permission = {
     namespaced: true,
     state: {
-        menuList: [] // 左侧菜单列表
+        menuList: [], // 左侧菜单列表
+        permissionsBtnList: [] // 按钮权限
     },
     mutations: {
         SET_MENU_LIST(state, menu) {
@@ -29,6 +31,10 @@ const permission = {
             } else {
                 state.menuList = [...home, ...menu];
             }
+        },
+        SET_PERMISSIONS_BTN_LIST(state, data) {
+            state.permissionsBtnList = data;
+            setStrorage('permissionsBtnList', data, false);
         }
     },
     actions: {

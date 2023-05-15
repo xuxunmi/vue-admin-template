@@ -77,6 +77,7 @@ export default {
     },
     methods: {
         ...mapMutations(['SET_TAGS']),
+        ...mapMutations('permission', ['SET_PERMISSIONS_BTN_LIST']),
         ...mapActions('user', ['setToken']),
         handleLoginBtn() {
             this.$refs.loginForm.validate(async valid => {
@@ -88,9 +89,11 @@ export default {
                         let { code, token, msg } = result.data;
                         if (code === 200) {
                             // console.log('process.env: ', process.env);
-                            // 设置sessionStorage
+                            // 设置token
                             setStorage('token', token, true);
                             console.log('getStorage: ', getStorage('token', true));
+                            // 设置按钮权限
+                            // this.SET_PERMISSIONS_BTN_LIST(data.loginUser.authKey);
 
                             // 设置登录默认为中文
                             this.$i18n.locale = 'zh_CN';

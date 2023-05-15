@@ -1,3 +1,5 @@
+import store from '@/store';
+
 /**
  * 自动获取焦点指令
  */
@@ -7,8 +9,25 @@ const focus = {
     }
 };
 
+/**
+ * 按钮权限
+ * 源数据： ["home.sysManage", "car.editDetail", "car.SubmitForReview", "car.PublishAlbum", "home.index", "car.DownloadVehicleCatalog"]
+ * 使用：v-permission="'home.index'"
+ */
+const permission = {
+    inserted(el, binding) {
+        let btnPermission = store.getters.permissionsBtnList;
+        if (binding.value) {
+            if (!btnPermission.includes(binding.value)) {
+                el.parentNode.removeChild(el);
+            }
+        }
+    }
+};
+
 const directives = {
-    focus
+    focus,
+    permission
 };
 
 export default {
