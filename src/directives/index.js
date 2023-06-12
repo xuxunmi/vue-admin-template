@@ -12,7 +12,7 @@ const focus = {
 /**
  * 按钮权限
  * 源数据： ["home.sysManage", "car.editDetail", "car.SubmitForReview", "car.PublishAlbum", "home.index", "car.DownloadVehicleCatalog"]
- * 使用：v-permission="'home.index'"
+ * 使用：v-permission="'home.index'", 不能用于<template>标签上
  */
 const permission = {
     inserted(el, binding) {

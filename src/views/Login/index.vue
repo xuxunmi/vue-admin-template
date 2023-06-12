@@ -7,19 +7,20 @@
                 ref="loginForm"
                 :rules="rules"
                 :hide-required-asterisk="true"
+                autocomplete="off"
             >
                 <div class="login-title">
                     <h1>Vue2-admin</h1>
                 </div>
                 <el-form-item prop="username">
                     <!-- 自动获取焦点： :autofocus="true" -->
-                    <el-input size="small" v-model="loginForm.username" placeholder="用户名"></el-input>
+                    <el-input size="small" v-model.trim="loginForm.username" placeholder="用户名"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input
                         size="small"
                         type="password"
-                        v-model="loginForm.password"
+                        v-model.trim="loginForm.password"
                         placeholder="密码"
                         autocomplete="new-password"
                         show-password

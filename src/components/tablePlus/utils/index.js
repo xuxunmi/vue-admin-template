@@ -4,22 +4,22 @@
  * @returns 随机字符串
  */
 export function randomString(length = 10) {
-  const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz'.split('')
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz'.split('');
 
-  let str = ''
-  for (let i = 0; i < length; i++) {
-    str += chars[Math.floor(Math.random() * chars.length)]
-  }
-  return str
+    let str = '';
+    for (let i = 0; i < length; i++) {
+        str += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return str;
 }
 
 /**
- * 移除树中的指定节点集合
- * @param {*} tree 树
- * @param {*} items 节点集合
+ * 移除el-table树中的指定节点集合,用于前端假删除
+ * @param {Array} tree 源数据
+ * @param {Array} items 勾选的节点集合
  */
 export function removeItemsInTree(tree, items) {
-  items.forEach((item) => removeItemInTree(tree, item))
+    items.forEach(item => removeItemInTree(tree, item));
 }
 
 /**
@@ -28,16 +28,16 @@ export function removeItemsInTree(tree, items) {
  * @param {*} item 节点
  */
 export function removeItemInTree(tree, item) {
-  const index = tree.indexOf(item)
-  if (index !== -1) {
-    tree.splice(index, 1)
-    return true
-  }
-  for (const treeItem of tree) {
-    if (treeItem.children?.length) {
-      if (removeItemInTree(treeItem.children, item)) {
-        break
-      }
+    const index = tree.indexOf(item);
+    if (index !== -1) {
+        tree.splice(index, 1);
+        return true;
     }
-  }
+    for (const treeItem of tree) {
+        if (treeItem.children?.length) {
+            if (removeItemInTree(treeItem.children, item)) {
+                break;
+            }
+        }
+    }
 }

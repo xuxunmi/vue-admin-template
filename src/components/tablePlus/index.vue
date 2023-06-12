@@ -84,7 +84,7 @@
                                 :visible-arrow="false"
                             >
                                 <div slot="reference" />
-                                <el-button type="primary" size="mini" @click="confirmEdit">保存</el-button>
+                                <el-button type="primary" size="mini" @click="confirmEdit">确认</el-button>
                                 <el-button size="mini" @click="cancelEdit">取消</el-button>
                             </el-popover>
                         </template>

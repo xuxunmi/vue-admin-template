@@ -84,7 +84,7 @@ module.exports = {
 
             config.module
                 .rule('images')
-                .test(/\.(png|jpe?g|gif)(\?.*)?$/)
+                .test(/\.(png|jpe?g|jpg|gif)(\?.*)?$/)
                 .use('image-webpack-loader')
                 .loader('image-webpack-loader')
                 .options({

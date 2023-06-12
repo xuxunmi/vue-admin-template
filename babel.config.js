@@ -1,3 +1,9 @@
+const enhanceLogOption = {
+    preTip: '🐖🐖🐖🐖🐖🐖🐖🐖🐖🐖', // 打印的前缀提示，方便快速找到log，默认为🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
+    splitBy: '', // 每个参数分隔符，默认空字符串，可以使用换行符\n
+    endLine: false // 是否需要endLine
+};
+
 let config = {
     presets: ['@vue/cli-plugin-babel/preset'],
     plugins: [
@@ -7,7 +13,8 @@ let config = {
                 libraryName: 'element-ui',
                 styleLibraryName: 'theme-chalk'
             }
-        ]
+        ],
+        ['enhance-log', enhanceLogOption] // 配置babel-plugin-enhance-log插件，用于console.log
     ]
 };
 

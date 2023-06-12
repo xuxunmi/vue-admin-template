@@ -58,6 +58,10 @@ iconfontVersion.forEach(ele => {
     dynamicCSS(iconfontUrl.replace('$key', ele));
 });
 
+// vue-panzoom是一个基于Vue的平移和缩放组件，且支持鼠标滚轮操作，可针对DOM元素，图片元素，SVG元素，gitHub：https://github.com/thecodealer/vue-panzoom
+import panZoom from 'vue-panzoom';
+Vue.use(panZoom);
+
 // 阻止启动生产消息
 Vue.config.productionTip = false;
 
