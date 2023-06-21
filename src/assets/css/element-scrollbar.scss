@@ -1,4 +1,6 @@
-::v-deep .el-table__body-wrapper {
+::v-deep .el-table__body-wrapper,
+::v-deep .el-drawer__body,
+::v-deep .el-table {
     &::-webkit-scrollbar {
         width: 16px;
         background-color: #fff;

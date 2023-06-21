@@ -56,8 +56,13 @@ export default {
         }
     },
     watch: {
-        $route(to) {
-            this.setTags(to);
+        $route: {
+            handler(to) {
+                if (!to.meta) return;
+                this.setTags(to);
+            },
+            immediate: true,
+            deep: true
         }
     },
     // created() {

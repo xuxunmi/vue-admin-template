@@ -1,8 +1,8 @@
 <template>
-    <div class="app-layout w-full h-full overflow-hidden px-10" :class="{ 'pt-16': tagsList.length }">
+    <div class="app-layout w-full h-full overflow-hidden p-10" :class="{ 'pt-16': tagsList.length }">
         <h1 class="mb-8">TablePlus表格：</h1>
-        <div class="app-layout__container">
-            <div class="app-layout__left">
+        <div class="app-layout__container h-full">
+            <div ref="tableWrapper" class="app-layout__left">
                 <table-plus
                     ref="tablePlus"
                     :loading="loading"
@@ -20,6 +20,7 @@
                     row-local-remove
                     stripe
                     border
+                    :maxHeight="tableHeight"
                     @row-remove="handleRowRemove"
                     @row-edit-value-change="handleRowEditValueChange"
                     @row-select="hanldeRowSelect"
@@ -74,10 +75,10 @@ export default {
                 {
                     id: 1,
                     name: '启用'
-                },
+                }
             ],
             columns: [
-                { prop: 'sequence', width: '40', fixed: 'left' },
+                { prop: 'sequence', width: '60', fixed: 'left' },
                 {
                     prop: 'name',
                     label: '姓名',
@@ -165,7 +166,7 @@ export default {
                 { id: 2, sequence: 2, name: '明日花绮罗', age: 28, sex: '女', city: '苏州', deposit: 99, status: 0 },
                 { id: 3, sequence: 3, name: '桃乃木香奈', age: 20, sex: '女', city: '杭州', deposit: 88, status: 1 },
                 { id: 4, sequence: 4, name: '葵伊吹', age: 18, sex: '男', city: '南京', deposit: 87, status: 1 },
-                { id: 4, sequence: 4, name: '楪可怜', age: 18, sex: '男', city: '南京', deposit: 87, status: 1 },
+                { id: 5, sequence: 5, name: '楪可怜', age: 18, sex: '男', city: '南京', deposit: 87, status: 1 }
             ],
             customBtns: [
                 {
@@ -182,7 +183,8 @@ export default {
                     }
                 },
                 { label: '导出 Excel', onClick: this.handleExportExcel }
-            ]
+            ],
+            tableHeight: undefined // 自适应表格高度
         };
     },
     computed: {
@@ -198,7 +200,29 @@ export default {
             };
         }
     },
+    mounted() {
+        // v2写法
+        // console.log('this.$refs.tableWrapper.clientHeight: ', this.$refs.tableWrapper.clientHeight);
+        this.setTableHeight();
+        window.addEventListener('resize', this.setTableHeight);
+
+        // v3+ts写法
+        // const tableWrapper = ref(); // 获取父级refs
+        // const tableHeight = ref(0);
+        // tableHeight.value = tableWrapper.value.clientHeight;
+    },
+    beforeDestroy() {
+        // 组件销毁前，移除窗口大小变化事件监听器
+        window.removeEventListener('resize', this.setTableHeight);
+    },
     methods: {
+        /**
+         * 动态计算表格高度
+         */
+        setTableHeight() {
+            const tableWrapperHeight = this.$refs.tableWrapper.clientHeight;
+            this.tableHeight = tableWrapperHeight;
+        },
         /**
          * 处理导出Excel按钮
          */

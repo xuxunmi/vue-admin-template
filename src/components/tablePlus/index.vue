@@ -21,12 +21,11 @@
             v-bind="$attrs"
             v-on="$listeners"
             :data="filteredDataSource"
-            :height="height"
+            :max-height="maxHeight"
             :row-key="getRowKey"
             :row-class-name="generateRowClassName"
             :cell-class-name="generateCellClassName"
             highlight-current-row
-            default-expand-all
             @row-click="handleRowClick"
             @selection-change="handleSelectionChange"
             @current-change="handleCurrentChange"
@@ -191,8 +190,8 @@ export default {
             default: true
         },
         // 是否设置表格高度,达到固定表头
-        height: {
-            type: String
+        maxHeight: {
+            type: [String, Number]
         }
     },
     data() {
@@ -616,6 +615,7 @@ export default {
     height: 100%;
     ::v-deep &__cell .cell {
         display: flex;
+        justify-content: center;
         align-items: center;
     }
 }

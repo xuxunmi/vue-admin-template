@@ -8,6 +8,7 @@
                 :rules="rules"
                 :hide-required-asterisk="true"
                 autocomplete="off"
+                :status-icon="true"
             >
                 <div class="login-title">
                     <h1>Vue2-admin</h1>
