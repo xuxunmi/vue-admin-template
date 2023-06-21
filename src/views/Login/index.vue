@@ -97,7 +97,14 @@ export default {
                             // 设置按钮权限
                             // this.SET_PERMISSIONS_BTN_LIST(data.loginUser.authKey);
 
-                            // 设置登录默认为中文
+                            // 获取中英文国际化
+                            // this.setInternationalFields();
+                            // 获取中英文数据合并进i18语言环境中
+                            // let { zh, en } = await this.$store.dispatch('international/setInternationalFields');
+                            // this.$i18n.mergeLocaleMessage('zh_CN', zh);
+                            // this.$i18n.mergeLocaleMessage('en_US', en);
+                            // console.log('i18n： ', this.$i18n.messages);
+                            // 设置登陆后的默认语言;
                             this.$i18n.locale = 'zh_CN';
                             setStorage('lang', 'zh_CN', false);
 
