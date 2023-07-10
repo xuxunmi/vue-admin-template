@@ -73,7 +73,7 @@ service.interceptors.response.use(
         // console.log('响应成功结果response: ', response.data);
         if (response.status !== 200 || response.data.code !== 200) {
             showErrorMsg(response.data.msg);
-            return Promise.reject(new Error(response.data || 'Error'));
+            return Promise.reject(response.data || 'Error');
         }
         return Promise.resolve(response.data);
     },

@@ -27,7 +27,8 @@ const permission = {
 
 /**
  * 拖拽线指令
- * 使用：v-dropLine
+ * 接收左右容器的最小宽度
+ * 使用：v-dropLine="[400,400]"
  *
  * html结构：
  * prev元素定宽
@@ -35,18 +36,19 @@ const permission = {
  *
  * <div class="flex">
  *      <div class="prev"></div>
- *      <div v-dropLine class="drag-line"></div>
+ *      <div v-dropLine="[400, 400]" class="drag-line" />
  *      <div class="next"></div>
  * </div>
  *
  *拖拽线css:
  *        .drag-line {
- *            width: 5px;
+ *            width: 1px;
  *            height: 100%;
- *            background-color: #fff;
+ *            background-color: #ddd;
  *            cursor: col-resize;
  *            &:hover {
- *                background-color: #409eff;
+ *                box-shadow: 0 0 0 1px #409EFF;
+ *                background-color: #409EFF;
  *            }
  *        }
  *
