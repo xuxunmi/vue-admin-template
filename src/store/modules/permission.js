@@ -57,8 +57,8 @@ const permission = {
                             resetRouter();
                             // 添加路由
                             addRoutersList.forEach(item => router.addRoute('layout', item));
-                            // // 添加404页面
-                            // router.addRoute({ path: '*', redirect: '/404', hidden: true });
+                            // 添加404页面
+                            router.addRoute({ path: '*', redirect: '/404', hidden: true });
                             // 将动态路由存入vuex中
                             commit('SET_MENU_LIST', addRoutersList);
                             resolve(addRoutersList);
