@@ -10,7 +10,7 @@
                 >
                     <router-link :to="item.path" class="tags-item-title">{{ item.title }}</router-link>
                     <span class="tags-item-icon" @click="closeTags(index)">
-                        <i v-show="tagsList.lenght !== 1 && item.title !== '首页'" class="el-icon-close"></i>
+                        <i v-show="tagsList.length !== 1 && item.title !== '首页'" class="el-icon-close"></i>
                     </span>
                 </li>
             </ul>

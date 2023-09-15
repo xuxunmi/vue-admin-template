@@ -143,7 +143,7 @@ export default {
                     children: [
                         {
                             id: 11,
-                            sequence: 1,
+                            sequence: '1-1',
                             name: '河北彩花',
                             age: 18,
                             sex: '女',
@@ -153,7 +153,7 @@ export default {
                         },
                         {
                             id: 12,
-                            sequence: 2,
+                            sequence: '1-2',
                             name: '深田咏美',
                             age: 28,
                             sex: '女',
