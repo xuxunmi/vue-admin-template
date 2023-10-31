@@ -469,3 +469,12 @@ export function treeToArray(treeList) {
 export const dayDiff = (date1, date2) => Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / 86400000);
 
 // 使用：dayDiff(new Date('2021-10-21'), new Date('2022-02-12'));
+
+/**
+ * 检查对象是否为空
+ * @param {*} obj
+ * @returns
+ */
+export const isEmptyObject = obj => {
+    return Reflect.ownKeys(obj).length === 0 && obj.constructor === Object;
+};

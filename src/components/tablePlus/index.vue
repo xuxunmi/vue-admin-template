@@ -246,6 +246,7 @@ export default {
         }
     },
     mounted() {
+        console.log('$attrs:', this.$attrs, this.$listeners);
         if (this.rowSortable) {
             this.initTableSortable();
         }
@@ -518,6 +519,9 @@ export default {
          * rowModel: 当前编辑的行实体
          */
         handleEditValueChange({ value, prop, rowModel }) {
+            console.log('value: ', value);
+            console.log('prop: ', prop);
+            console.log('rowModel: ', rowModel);
             this.$emit('row-edit-value-change', { value, prop, rowModel });
         },
 
@@ -578,6 +582,8 @@ export default {
          * 是否是同一行
          */
         isSameRow(row1, row2) {
+            // console.log(' row1:', row1);
+            // console.log(' row2:', row2);
             if (!row1 || !row2) {
                 return false;
             }
@@ -589,6 +595,7 @@ export default {
             if (!(row1Key || row1Key === 0) || !(row2Key || row2Key === 0)) {
                 return false;
             }
+            console.log(row1Key === row2Key);
             return row1Key === row2Key;
         },
 

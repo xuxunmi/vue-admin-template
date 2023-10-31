@@ -10,6 +10,7 @@
   "dependencies": {
     "@tinymce/tinymce-vue": "^2.1.0",
     "axios": "^0.24.0",
+    "big.js": "^6.2.1",
     "bpmn-js": "^9.0.3",
     "core-js": "^3.6.5",
     "crypto-js": "^4.1.1",

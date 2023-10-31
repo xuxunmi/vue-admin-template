@@ -204,7 +204,10 @@ export default {
         // v2写法
         // console.log('this.$refs.tableWrapper.clientHeight: ', this.$refs.tableWrapper.clientHeight);
         this.setTableHeight();
-        window.addEventListener('resize', this.setTableHeight);
+        // window.addEventListener('resize', this.setTableHeight);
+        window.onresize = () => {
+            this.setTableHeight();
+        };
 
         // v3+ts写法
         // const tableWrapper = ref(); // 获取父级refs
@@ -251,6 +254,9 @@ export default {
          * 行编辑变化,带出当前行其他值
          */
         handleRowEditValueChange({ value, prop, rowModel }) {
+            // console.log('value: ', value);
+            // console.log('prop: ', prop);
+            // console.log('rowModel: ', rowModel);
             if (prop === 'name') {
                 const option = nameOptions.find(item => item.id === value);
                 console.log('option: ', option);

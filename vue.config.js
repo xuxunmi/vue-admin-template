@@ -1,4 +1,4 @@
-// const webpack = require('webpack')
+const webpack = require('webpack');
 const path = require('path');
 // 压缩插件
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
@@ -128,6 +128,19 @@ module.exports = {
                     }
                 }
             });
+
+            config
+                .plugin('webpackOptimize')
+                .use(
+                    webpack.optimize.LimitChunkCountPlugin,
+                    // 限制生成的代码块(chunks)的数量
+                    [{ maxChunks: 10 }]
+                )
+                .use(
+                    webpack.optimize.MinChunkSizePlugin,
+                    // 指定代码块的最小字节数
+                    [{ minChunkSize: 50000 }]
+                );
         }
 
         // 解决postcss-px-to-viewport插件无法将行内样式转vw问题
@@ -161,6 +174,10 @@ module.exports = {
                 cacheDirectory: true // 开启缓存
             })
             .end();
+        // 删除需要预先加载(当前页面)的资源，当需要这些资源的时候，页面会自动加载
+        config.plugins.delete('preload');
+        // 删除需要预先获取(将来的页面)的资源
+        config.plugins.delete('prefetch');
     },
     configureWebpack: {
         // 重定义build后js输出路径
