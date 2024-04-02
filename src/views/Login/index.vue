@@ -42,6 +42,7 @@
 import axios from 'axios';
 import { set as setStorage, get as getStorage } from '@/utils/storage.js';
 import { mapMutations, mapActions } from 'vuex';
+import { encryptionAccount, encryptionPwd, decryptAccount, decryptPwd } from '@/config/rsa.js';
 
 export default {
     name: 'login',
@@ -65,9 +66,9 @@ export default {
             loading: false,
             loginForm: {
                 // 用户名
-                username: 'admin',
+                username: 'admin' || this.getDecryptUsername(),
                 // 用户密码
-                password: '123456'
+                password: '123456' || this.getDecryptPassword()
             },
             rules: {
                 // username: [{ validator: validateUsername, trigger: 'blur' }],
@@ -81,10 +82,31 @@ export default {
         ...mapMutations(['SET_TAGS']),
         ...mapMutations('permission', ['SET_PERMISSIONS_BTN_LIST']),
         ...mapActions('user', ['setToken']),
+        // 获取解密账号
+        getDecryptUsername() {
+            let username = getStorage('username', false);
+            if (!username) return;
+            let user = decryptAccount(username);
+            return user;
+        },
+        // 获取解密密码
+        getDecryptPassword() {
+            let password = getStorage('password', false);
+            if (!password) return;
+            let pwd = decryptPwd(password);
+            return pwd;
+        },
         handleLoginBtn() {
             this.$refs.loginForm.validate(async valid => {
                 if (valid) {
                     this.loading = true;
+                    // 账号/密码加密
+                    // let user = encryptionAccount(this.loginForm.username);
+                    // let pwd = encryptionPwd(this.loginForm.password);
+                    // let params = {
+                    //     code: user,
+                    //     password: pwd
+                    // };
                     // mockjs使用
                     let result = await axios.post('/api/login');
                     try {
@@ -98,15 +120,20 @@ export default {
                             // this.SET_PERMISSIONS_BTN_LIST(data.loginUser.authKey);
 
                             // 获取中英文国际化
-                            // this.setInternationalFields();
                             // 获取中英文数据合并进i18语言环境中
-                            // let { zh, en } = await this.$store.dispatch('international/setInternationalFields');
+                            // let { zh, en } = await this.setInternationalFields();
                             // this.$i18n.mergeLocaleMessage('zh_CN', zh);
                             // this.$i18n.mergeLocaleMessage('en_US', en);
                             // console.log('i18n： ', this.$i18n.messages);
                             // 设置登陆后的默认语言;
                             this.$i18n.locale = 'zh_CN';
                             setStorage('lang', 'zh_CN', false);
+                            // 修改浏览器页签title
+                            // if (data.loginUser.language === 'zh_CN') {
+                            //     document.title = '睿蓝EPC系统';
+                            // } else {
+                            //     document.title = 'LIVAN EPC System';
+                            // }
 
                             this.setToken(token);
                             // 设置tagsList

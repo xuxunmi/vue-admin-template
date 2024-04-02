@@ -4,6 +4,8 @@ import Vuex from 'vuex';
 import user from './modules/user.js';
 // 权限模块
 import permission from './modules/permission.js';
+// 国际化模块
+import international from './modules/international.js';
 
 import getters from './getters';
 
@@ -59,7 +61,8 @@ const persistedState = createVuexPersistedState({
 export default new Vuex.Store({
     modules: {
         user,
-        permission
+        permission,
+        international
     },
     state,
     getters,

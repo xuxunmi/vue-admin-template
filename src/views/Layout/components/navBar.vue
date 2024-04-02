@@ -7,6 +7,7 @@
                 <template slot="title">
                     <i :class="'iconfont ' + routes.meta.icon"></i>
                     <span>{{ routes.meta.title }}</span>
+                    <!-- <span>{{ routeTitle(childItems.meta?.title) }}</span> -->
                 </template>
                 <!-- 二级导航 -->
                 <nav-bar v-for="subMenu in routes.children" :key="subMenu.id" :routes="subMenu"></nav-bar>
@@ -17,12 +18,15 @@
             <el-menu-item v-show="!routes.hidden" :index="routes.path + ''" :key="routes.id">
                 <i v-if="routes.meta.icon" :class="'iconfont ' + routes.meta.icon"></i>
                 <template slot="title">{{ routes.meta.title }}</template>
+                <!-- <template slot="title">{{ routeTitle(childItems.meta?.title) }}</template> -->
             </el-menu-item>
         </template>
     </div>
 </template>
 
 <script>
+import { routeTitle } from '@/utils';
+
 export default {
     name: 'navBar',
     props: {
@@ -30,6 +34,9 @@ export default {
             type: Object,
             default: () => {}
         }
+    },
+    methods: {
+        routeTitle
     }
 };
 </script>

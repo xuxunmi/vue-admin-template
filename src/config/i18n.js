@@ -14,6 +14,9 @@ import zhLocale from '@/lang/zh_CN.js';
 import enLocale from '@/lang/en_US.js';
 
 import { get as getStorage } from '@/utils/storage.js';
+import store from '@/store';
+
+const { zh, en } = store.getters.internationalFields || getStorage('internationalFields', false);
 
 Vue.use(VueI18n);
 
@@ -22,18 +25,21 @@ const messages = {
     zh_CN: {
         ...zhLocale,
         ...elementZh,
-        ...zhCNTable
+        ...zhCNTable,
+        ...zh
     },
     'en-US': {
         ...enLocale, // 本地文本语言包
         ...elementEn, // element-ui语言包
-        ...enUSTable // 引入vuexTable语言
+        ...enUSTable, // 引入vuexTable语言
+        ...en
     }
 };
 // 配置i18n
 const i18n = new VueI18n({
     locale: getStorage('lang', false) || 'zh_CN',
-    messages
+    messages,
+    silentTranslationWarn: true
 });
 
 ElementLocale.i18n((key, value) => i18n.t(key, value));

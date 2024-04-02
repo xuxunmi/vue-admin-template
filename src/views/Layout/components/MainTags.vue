@@ -9,6 +9,7 @@
                     :key="index"
                 >
                     <router-link :to="item.path" class="tags-item-title">{{ item.title }}</router-link>
+                    <!-- <router-link :to="item.path" class="tags-item-title">{{ routeTitle(item.title) }}</router-link> -->
                     <span class="tags-item-icon" @click="closeTags(index)">
                         <i v-show="tagsList.length !== 1 && item.title !== '首页'" class="el-icon-close"></i>
                     </span>
@@ -46,6 +47,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+import { routeTitle } from '@/utils';
 
 export default {
     name: 'mainTags',
@@ -70,6 +72,9 @@ export default {
     // },
     methods: {
         ...mapMutations(['DEL_TAGS', 'SET_TAGS', 'CLEAR_TAGS', 'CLOSE_TAGSOther']),
+
+        routeTitle,
+
         // handleClose(tag) {
         //     this.tagsList.splice(this.tagsList.indexOf(tag), 1);
         // },
